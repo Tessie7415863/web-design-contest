@@ -39,12 +39,14 @@ return new class extends Migration {
         // 4. sinh_viens (Students)
         Schema::create('sinh_viens', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->unique()->nullable()->constrained('users')->onDelete('set null')->onUpdate('cascade');
+            // $table->foreignId('user_id')->unique()->nullable()->constrained('users')->onDelete('set null')->onUpdate('cascade');
             $table->string('ho_ten');
             $table->date('ngay_sinh')->nullable();
             $table->enum('gioi_tinh', ['Nam', 'Nu', 'Khac'])->default('Nam');
             $table->string('lop')->nullable();
             $table->string('email')->unique()->nullable();
+            $table->string('tai_khoan');
+            $table->string('password');
             $table->string('sdt', 15)->nullable();
             $table->string('dia_chi')->nullable();
             $table->timestamps();
@@ -71,8 +73,8 @@ return new class extends Migration {
             $table->timestamps();
         });
 
-        // 7. loai_tai_lieux (Resource Types)
-        Schema::create('loai_tai_lieux', function (Blueprint $table) {
+        // 7. loai_tai_lieu (Resource Types)
+        Schema::create('loai_tai_lieus', function (Blueprint $table) {
             $table->id();
             $table->string('ten_loai');
             $table->text('mo_ta')->nullable();
@@ -125,7 +127,7 @@ return new class extends Migration {
         Schema::create('tai_lieu_mos', function (Blueprint $table) {
             $table->id();
             $table->string('ten_tai_lieu');
-            $table->foreignId('loai_tai_lieu_id')->nullable()->constrained('loai_tai_lieux')->onDelete('set null')->onUpdate('cascade');
+            $table->foreignId('loai_tai_lieu_id')->nullable()->constrained('loai_tai_lieus')->onDelete('set null')->onUpdate('cascade');
             $table->foreignId('tac_gia_id')->nullable()->constrained('tac_gias')->onDelete('set null')->onUpdate('cascade');
             $table->foreignId('nha_xuat_ban_id')->nullable()->constrained('nha_xuat_bans')->onDelete('set null')->onUpdate('cascade');
             $table->year('nam_phat_hanh')->nullable();

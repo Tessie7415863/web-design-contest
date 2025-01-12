@@ -5,11 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class BoPhan extends Model
+class MonHoc extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'ten_bo_phan',
-        'mo_ta',
+        'ten_mon',
+        'nganh_id',
     ];
+
+    public function nganh()
+    {
+        return $this->belongsTo(Nganh::class);
+    }
 }
