@@ -20,6 +20,7 @@ class BoPhanFactory extends Factory
         $faker = \Faker\Factory::create('vi_VN');
 
         return [
+            // 'ten_bo_phan' => $faker->name(),
             'ten_bo_phan' => $faker->company(),
             'mo_ta' => $faker->text(10),
         ];
