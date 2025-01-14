@@ -1,5 +1,8 @@
 <?php
 
+use App\Livewire\Admin\AdminLayout;
+use App\Livewire\Admin\User\ManageUser;
+use App\Livewire\Client\HomePage;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +16,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', HomePage::class);
+Route::get('/admin', AdminLayout::class);
+Route::get('/admin/manage-user', ManageUser::class)->name('admin.manage-user');
