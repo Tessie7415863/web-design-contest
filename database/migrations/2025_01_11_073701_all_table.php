@@ -39,7 +39,7 @@ return new class extends Migration {
         // 4. sinh_viens (Students)
         Schema::create('sinh_viens', function (Blueprint $table) {
             $table->id();
-            // $table->foreignId('user_id')->unique()->nullable()->constrained('users')->onDelete('set null')->onUpdate('cascade');
+            $table->foreignId('user_id')->unique()->nullable()->constrained('users')->onDelete('cascade')->onUpdate('cascade');
             $table->string('ho_ten');
             $table->date('ngay_sinh')->nullable();
             $table->enum('gioi_tinh', ['Nam', 'Nu', 'Khac'])->default('Nam');
