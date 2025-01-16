@@ -65,6 +65,13 @@ class RolesAndPermissionsSeeder extends Seeder
         $user->assignRole('admin');
         $permission = Permission::findOrCreate('access-admin');
 
+        $user = User::create([
+            'name' => 'Hoàng',
+            'email' => 'nguyenvanhoang130820@gmail.com',
+            'password' => bcrypt('vanhoang123')
+        ]);
+        $user->assignRole('admin');
+        $permission = Permission::findOrCreate('access-admin');
         // Gán quyền cho user
         $user->givePermissionTo($permission);
     }
