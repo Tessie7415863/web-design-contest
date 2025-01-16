@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\Admin\AdminLayout;
+use App\Livewire\Admin\Khoa\ManageKhoa;
 use App\Livewire\Admin\Permissions\ManagePermissions;
 use App\Livewire\Admin\Rolehaspermission\ManageRolehaspermission;
 use App\Livewire\Admin\Roles\ManageRoles;
@@ -24,4 +25,5 @@ Route::middleware(['auth', 'can:access-admin'])->group(function () {
     Route::get('/admin/manage-permissions', ManagePermissions::class)->name('admin.manage-permisstions');
     Route::get('/admin/manage-roles', ManageRoles::class)->name('admin.manage-roles');
     Route::get('/admin/manage-rolehaspermission', ManageRolehaspermission::class)->name('admin.manage-rolehaspermission');
+    Route::get('/admin/manage-khoa', ManageKhoa::class)->name('admin.manage-khoa');
 });

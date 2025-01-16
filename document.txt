@@ -45,3 +45,21 @@ php artisan view:clear
 php artisan cache:clear
 php artisan session:clear
 composer clear-cache
+
+//trong app/ là những file để quản lý function, render.
+//trong resources/views/livewire là những file render ra màn hình
+
+//bắt đầu tạo bảng ở layout admin dashboard
+b1 : tạo component livewire :
+    php artisan livewire:make admin/{roles}/main
+    php artisan livewire:make admin/{roles}/{manage-roles}
+b2 : copy từ file đã tạo
+
+b3 : khai báo routes ở routes/web.php
+
+b4 : Chỉnh sửa sidebar resource/views/layout
+-> sau khi tạo xong npm run build->npm run dev
+
+b5 : Bắt đầu code table
+
+sau khi code xong template table thì chuyển sang file app/livewire/admin/{roles}/main

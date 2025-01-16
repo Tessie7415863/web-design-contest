@@ -80,13 +80,12 @@ class Main extends Component
             'ngay_sinh' => 'required',
             'gioi_tinh' => 'required',
             'lop' => 'required',
-            'email' => 'required|email|unique:users,email',
+            'email' => 'required|email',
             'tai_khoan' => 'required',
             'password' => 'required|min:6',
             'sdt' => 'required|min:6|max:10',
             'dia_chi' => 'required',
         ]);
-        dd($this->password);
         SinhVien::create([
             'user_id' => $this->user_id,
             'ho_ten' => $this->ho_ten,
@@ -137,7 +136,7 @@ class Main extends Component
             'ngay_sinh' => 'required',
             'gioi_tinh' => 'required',
             'lop' => 'required',
-            'email' => 'required|email|unique:users,email',
+            'email' => 'required|email',
             'tai_khoan' => 'required',
             'password' => 'required|min:6',
             'sdt' => 'required|min:6|max:10',
@@ -161,7 +160,7 @@ class Main extends Component
             'updated_at' => null
         ]);
         $user->update([
-            'name' => $this->name,
+            'name' => $this->ho_ten,
             'email' => $this->email,
             'password' => Hash::make($this->password),
         ]);

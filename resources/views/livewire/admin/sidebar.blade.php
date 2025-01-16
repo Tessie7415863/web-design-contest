@@ -15,5 +15,7 @@
             class="block text-gray-300 hover:text-white px-2 py-1 rounded-md">Roles</a>
         <a href="/admin/manage-rolehaspermission" wire:navigate
             class="block text-gray-300 hover:text-white px-2 py-1 rounded-md">Role has Permission</a>
+        <a href="/admin/manage-khoa" wire:navigate
+            class="block text-gray-300 hover:text-white px-2 py-1 rounded-md">Khoa</a>
     </nav>
 </aside>
