@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Khoa;
+use App\Models\Nganh;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**

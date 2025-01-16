@@ -7,5 +7,13 @@
         <a href="/admin" wire:navigate class="block text-gray-300 hover:text-white px-2 py-1 rounded-md">Dashboard</a>
         <a href="/admin/manage-user" wire:navigate
             class="block text-gray-300 hover:text-white px-2 py-1 rounded-md">Users</a>
+        <a href="/admin/manage-sinhvien" wire:navigate
+            class="block text-gray-300 hover:text-white px-2 py-1 rounded-md">Sinh Vien</a>
+        <a href="/admin/manage-permissions" wire:navigate
+            class="block text-gray-300 hover:text-white px-2 py-1 rounded-md">Permissions</a>
+        <a href="/admin/manage-roles" wire:navigate
+            class="block text-gray-300 hover:text-white px-2 py-1 rounded-md">Roles</a>
+        <a href="/admin/manage-rolehaspermission" wire:navigate
+            class="block text-gray-300 hover:text-white px-2 py-1 rounded-md">Role has Permission</a>
     </nav>
 </aside>

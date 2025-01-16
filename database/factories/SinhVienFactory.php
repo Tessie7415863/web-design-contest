@@ -26,6 +26,8 @@ class SinhVienFactory extends Factory
             'gioi_tinh' => $faker->randomElement(['Nam', 'Nữ']),
             'lop' => $faker->regexify('[A-Z]{1}[0-9]{2}'),
             'email' => $faker->unique()->safeEmail(),
+            'tai_khoan' => $faker->userName(),
+            'password' => bcrypt('123456'),  // password('123456') for default password '123456'
             'sdt' => $faker->phoneNumber(),
             'dia_chi' => $faker->address(),
         ];

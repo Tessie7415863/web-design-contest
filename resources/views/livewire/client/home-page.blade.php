@@ -1,3 +1,3 @@
 <div>
-    {{-- Be like water. --}}
+    homepage client
 </div>

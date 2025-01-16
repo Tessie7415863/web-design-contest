@@ -15,10 +15,9 @@ class Main extends Component
     public $isEditMode = false;
     public $isModalOpen = false;
     public $isConfirmModalOpen = false;
-    public $deleteUserId = null; // ID người dùng cần xóa
-    public $successMessage;
+    public $deleteUserId = null;
 
-    public function mount(FlasherInterface $flasher)
+    public function mount()
     {
         $this->loadUsers();
     }

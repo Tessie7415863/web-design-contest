@@ -23,7 +23,7 @@ return new class extends Migration {
             $table->id();
             $table->string('ten_khoa');
             $table->string('dia_chi')->nullable();
-            $table->string('sdt', 15)->nullable();
+            $table->string('sdt', 20)->nullable();
             $table->string('email')->unique()->nullable();
             $table->timestamps();
         });
@@ -45,9 +45,9 @@ return new class extends Migration {
             $table->enum('gioi_tinh', ['Nam', 'Nu', 'Khac'])->default('Nam');
             $table->string('lop')->nullable();
             $table->string('email')->unique()->nullable();
-            $table->string('tai_khoan');
+            $table->string('tai_khoan')->nullable();
             $table->string('password');
-            $table->string('sdt', 15)->nullable();
+            $table->string('sdt', 20)->nullable();
             $table->string('dia_chi')->nullable();
             $table->timestamps();
         });

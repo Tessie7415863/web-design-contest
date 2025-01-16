@@ -1,0 +1,47 @@
+Admin (Quản trị viên):
+
+Quyền tạo, chỉnh sửa, xóa người dùng.
+Quyền quản lý tất cả các tài liệu trong thư viện.
+Quyền quản lý danh mục, thể loại tài liệu.
+Quyền xem và quản lý các thống kê, báo cáo.
+Thủ thư (Librarian):
+
+Quyền xem và quản lý tài liệu trong thư viện (thêm, chỉnh sửa, xóa tài liệu).
+Quyền kiểm tra tình trạng mượn/trả tài liệu.
+Quyền tạo và quản lý các đơn mượn tài liệu.
+Quyền tạo, chỉnh sửa các thông tin về sách và tài liệu.
+Giáo viên (Teacher):
+
+Quyền mượn tài liệu từ thư viện.
+Quyền đề xuất tài liệu mới.
+Quyền xem các tài liệu có sẵn trong thư viện.
+Sinh viên (Student):
+
+Quyền mượn tài liệu từ thư viện.
+Quyền tìm kiếm và xem thông tin tài liệu.
+Quyền đề xuất tài liệu mới (nếu cần thiết).
+
+// chạy role db:seed
+php artisan db:seed
+php artisan db:seed --class=RolesAndPermissionsSeeder
+
+protected function create(array $data)
+{
+    // Tạo người dùng mới
+    $user = User::create([
+        'name' => $data['name'],
+        'email' => $data['email'],
+        'password' => bcrypt($data['password']),
+    ]);
+
+    // Gán vai trò mặc định cho người dùng mới
+    $user->assignRole('user');
+
+    return $user;
+}
+php artisan config:clear
+php artisan route:clear
+php artisan view:clear
+php artisan cache:clear
+php artisan session:clear
+composer clear-cache
