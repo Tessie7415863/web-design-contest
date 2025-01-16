@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Auth;
 
+use App\Models\SinhVien;
 use Livewire\Component;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
@@ -32,9 +33,14 @@ class Register extends Component
             'email' => $this->email,
             'password' => Hash::make($this->password),
         ]);
+        $sinhvien = SinhVien::create([
+            'name' => $this->name,
+            'email' => $this->email,
+            'password' => Hash::make($this->password),
+        ]);
         // Gán vai trò cho người dùng
         $user->assignRole('student');
-
+        $sinhvien->assignRole('student');
         // Đăng ký người dùng và chuyển hướng
         if (auth()->attempt(['name' => $this->name, 'email' => $this->email, 'password' => $this->password])) {
             $flasher->addSuccess('Đăng ký thành công!');

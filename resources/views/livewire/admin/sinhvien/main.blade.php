@@ -55,7 +55,7 @@
                     <td class="border border-gray-300 px-4 py-2">{{ $sinhvien->ngay_sinh }}</td>
                     <td class="border border-gray-300 px-4 py-2">{{ $sinhvien->lop }}</td>
                     <td class="border border-gray-300 px-4 py-2">{{ $sinhvien->email }}</td>
-                    <td class="border border-gray-300 px-4 py-2 text-center">...</td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $sinhvien->password }}</td>
                     <td class="border border-gray-300 px-4 py-2">{{ $sinhvien->sdt }}</td>
                     <td class="border border-gray-300 px-4 py-2">{{ $sinhvien->dia_chi }}</td>
                     <td class="border border-gray-300 px-4 py-2 flex justify-center space-x-2">
@@ -88,8 +88,6 @@
                 </button>
 
             </div>
-
-
             <!-- Form -->
             <form wire:submit.prevent="{{ $isEditMode ? 'updateSinhVien' : 'createSinhVien' }}"
                 class=" h-[700px] overflow-auto">

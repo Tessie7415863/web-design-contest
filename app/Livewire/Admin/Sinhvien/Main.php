@@ -86,7 +86,7 @@ class Main extends Component
             'sdt' => 'required|min:6|max:10',
             'dia_chi' => 'required',
         ]);
-
+        dd($this->password);
         SinhVien::create([
             'user_id' => $this->user_id,
             'ho_ten' => $this->ho_ten,
@@ -101,8 +101,12 @@ class Main extends Component
             'created_at' => now(),
             'updated_at' => null
         ]);
+        User::create([
+            'name' => $this->ho_ten,
+            'email' => $this->email,
+            'password' => Hash::make($this->password),
+        ]);
         $flasher->addSuccess('Sinh viên đã được thêm thành công!');
-
         $this->closeModal();
         $this->loadSinhViens();
     }
