@@ -145,6 +145,7 @@ class Main extends Component
         ]);
 
         $sinhvien = SinhVien::findOrFail($this->id);
+        $user = User::findOrFail($this->user_id);
         $sinhvien->update([
             'user_id' => $this->user_id,
             'ho_ten' => $this->ho_ten,
@@ -158,6 +159,11 @@ class Main extends Component
             'dia_chi' => $this->dia_chi,
             'created_at' => now(),
             'updated_at' => null
+        ]);
+        $user->update([
+            'name' => $this->name,
+            'email' => $this->email,
+            'password' => Hash::make($this->password),
         ]);
         $flasher->addSuccess('Sinh viên đã được cập nhật thành công!');
 
