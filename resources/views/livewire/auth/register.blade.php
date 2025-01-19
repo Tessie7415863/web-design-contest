@@ -9,7 +9,7 @@
                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
                     placeholder="Nhập name của bạn" />
                 @error('name')
-                <span class="text-red-500 text-xs">{{ $message }}</span>
+                    <span class="text-red-500 text-xs">{{ $message }}</span>
                 @enderror
             </div>
             <div>
@@ -18,7 +18,7 @@
                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
                     placeholder="Nhập email của bạn" />
                 @error('email')
-                <span class="text-red-500 text-xs">{{ $message }}</span>
+                    <span class="text-red-500 text-xs">{{ $message }}</span>
                 @enderror
             </div>
 
@@ -28,7 +28,7 @@
                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
                     placeholder="Nhập mật khẩu của bạn" />
                 @error('password')
-                <span class="text-red-500 text-xs">{{ $message }}</span>
+                    <span class="text-red-500 text-xs">{{ $message }}</span>
                 @enderror
             </div>
 
@@ -38,16 +38,13 @@
                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
                     placeholder="Nhập lại mật khẩu của bạn" />
                 @error('password_confirmation')
-                <span class="text-red-500 text-xs">{{ $message }}</span>
+                    <span class="text-red-500 text-xs">{{ $message }}</span>
                 @enderror
             </div>
 
             <div class="flex items-center justify-between">
-                <label class="flex items-center">
-                    <input type="checkbox" class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
-                    <span class="ml-2 text-sm text-gray-600">Ghi Nhớ</span>
-                </label>
-                <a href="#" class="text-sm text-indigo-600 hover:text-indigo-500">Quên mật khẩu?</a>
+                <div></div>
+                <a href="/forgot" class="text-sm text-indigo-600 hover:text-indigo-500">Quên mật khẩu?</a>
             </div>
 
             <button type="submit"
