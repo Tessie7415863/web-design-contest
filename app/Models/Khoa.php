@@ -14,4 +14,9 @@ class Khoa extends Model
         'sdt',
         'email'
     ];
+
+    public function nganh()
+    {
+        return $this->hasMany(Nganh::class, 'khoa_id');
+    }
 }

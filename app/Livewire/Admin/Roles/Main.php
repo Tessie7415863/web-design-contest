@@ -10,7 +10,7 @@ use Livewire\WithPagination;
 class Main extends Component
 {
     use WithPagination;
-    public $name, $guard_name;
+    public $id, $name, $guard_name;
     public $searchName = '';
     public $deleteRoleId;
     public $isEditMode = false;
@@ -47,6 +47,7 @@ class Main extends Component
     {
         $this->name = null;
         $this->guard_name = null;
+        $this->isEditMode = false;
     }
     public function createRole(FlasherInterface $flasher)
     {
@@ -66,8 +67,10 @@ class Main extends Component
     public function editRole($id)
     {
         $role = Role::findOrFail($id);
+        $this->id = $role->id;
         $this->name = $role->name;
         $this->guard_name = $role->guard_name;
+        $this->isEditMode = true;
         $this->openModal();
     }
     public function updateRole(FlasherInterface $flasher)

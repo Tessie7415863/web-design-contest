@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Auth;
 
+use App\Models\SinhVien;
 use Livewire\Component;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
@@ -34,7 +35,6 @@ class Register extends Component
         ]);
         // Gán vai trò cho người dùng
         $user->assignRole('student');
-
         // Đăng ký người dùng và chuyển hướng
         if (auth()->attempt(['name' => $this->name, 'email' => $this->email, 'password' => $this->password])) {
             $flasher->addSuccess('Đăng ký thành công!');

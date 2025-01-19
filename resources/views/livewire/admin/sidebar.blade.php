@@ -15,5 +15,25 @@
             class="block text-gray-300 hover:text-white px-2 py-1 rounded-md">Roles</a>
         <a href="/admin/manage-rolehaspermission" wire:navigate
             class="block text-gray-300 hover:text-white px-2 py-1 rounded-md">Role has Permission</a>
+        <a href="/admin/manage-khoa" wire:navigate
+            class="block text-gray-300 hover:text-white px-2 py-1 rounded-md">Khoa</a>
+        <a href="/admin/manage-nganh" wire:navigate
+            class="block text-gray-300 hover:text-white px-2 py-1 rounded-md">Nganh</a>
+        <a href="/admin/manage-loaitailieu" wire:navigate
+            class="block text-gray-300 hover:text-white px-2 py-1 rounded-md">Loai Tai Lieu</a>
+        <a href="/admin/manage-nhaxuatban" wire:navigate
+            class="block text-gray-300 hover:text-white px-2 py-1 rounded-md">Nha Xuat Ban</a>
+        <a href="/admin/manage-bophan" wire:navigate
+            class="block text-gray-300 hover:text-white px-2 py-1 rounded-md">Bo Phan</a>
+        <a href="/admin/manage-nhanvien" wire:navigate
+            class="block text-gray-300 hover:text-white px-2 py-1 rounded-md">Nhan Vien</a>
+        <a href="/admin/manage-tacgia" wire:navigate
+            class="block text-gray-300 hover:text-white px-2 py-1 rounded-md">Tac Gia</a>
+        <a href="/admin/manage-theloai" wire:navigate
+            class="block text-gray-300 hover:text-white px-2 py-1 rounded-md">The Loai</a>
+        <a href="/admin/manage-monhoc" wire:navigate
+            class="block text-gray-300 hover:text-white px-2 py-1 rounded-md">Mon Hoc</a>
+        <a href="/admin/manage-sach" wire:navigate
+            class="block text-gray-300 hover:text-white px-2 py-1 rounded-md">Sach</a>
     </nav>
 </aside>

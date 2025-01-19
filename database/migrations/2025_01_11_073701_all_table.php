@@ -107,8 +107,8 @@ return new class extends Migration {
             $table->timestamps();
         });
 
-        // 11. saches (Books)
-        Schema::create('saches', function (Blueprint $table) {
+        // 11. sachs (Books)
+        Schema::create('sachs', function (Blueprint $table) {
             $table->id();
             $table->string('ten_sach');
             $table->foreignId('tac_gia_id')->nullable()->constrained('tac_gias')->onDelete('set null')->onUpdate('cascade');
@@ -140,8 +140,8 @@ return new class extends Migration {
             $table->timestamps();
         });
 
-        // 13. vi_tri_saches (Book Locations)
-        Schema::create('vi_tri_saches', function (Blueprint $table) {
+        // 13. vi_tri_sachs (Book Locations)
+        Schema::create('vi_tri_sachs', function (Blueprint $table) {
             $table->id();
             $table->string('khu_vuc')->nullable();
             $table->string('tuong')->nullable();
@@ -149,11 +149,11 @@ return new class extends Migration {
             $table->timestamps();
         });
 
-        // 14. cuon_saches (Book Copies)
-        Schema::create('cuon_saches', function (Blueprint $table) {
+        // 14. cuon_sachs (Book Copies)
+        Schema::create('cuon_sachs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('sach_id')->constrained('saches')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('vi_tri_sach_id')->nullable()->constrained('vi_tri_saches')->onDelete('set null')->onUpdate('cascade');
+            $table->foreignId('sach_id')->constrained('sachs')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('vi_tri_sach_id')->nullable()->constrained('vi_tri_sachs')->onDelete('set null')->onUpdate('cascade');
             $table->enum('tinh_trang', ['Con', 'Muon', 'Bao_Tri', 'Mat'])->default('Con');
             $table->timestamps();
         });
@@ -179,11 +179,11 @@ return new class extends Migration {
             $table->timestamps();
         });
 
-        // 17. dat_saches (Reservations)
-        Schema::create('dat_saches', function (Blueprint $table) {
+        // 17. dat_sachs (Reservations)
+        Schema::create('dat_sachs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('sinh_vien_id')->constrained('sinh_viens')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('cuon_sach_id')->constrained('cuon_saches')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('cuon_sach_id')->constrained('cuon_sachs')->onDelete('cascade')->onUpdate('cascade');
             $table->date('ngay_dat');
             $table->enum('tinh_trang', ['DangDat', 'DaNhan', 'Huy'])->default('DangDat');
             $table->timestamps();
@@ -215,7 +215,7 @@ return new class extends Migration {
 
         // 21.1 book_subject (Books and Subjects)
         Schema::create('book_subject', function (Blueprint $table) {
-            $table->foreignId('sach_id')->constrained('saches')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('sach_id')->constrained('sachs')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('mon_hoc_id')->constrained('mon_hocs')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
 
@@ -233,7 +233,7 @@ return new class extends Migration {
 
         // 21.3 lien_ket_sach_nganhs (Books and Majors)
         Schema::create('lien_ket_sach_nganhs', function (Blueprint $table) {
-            $table->foreignId('sach_id')->constrained('saches')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('sach_id')->constrained('sachs')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('nganh_id')->constrained('nganhs')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
 
@@ -266,13 +266,13 @@ return new class extends Migration {
         // Drop main tables in reverse order
         Schema::dropIfExists('hoa_don_phats');
         Schema::dropIfExists('phats');
-        Schema::dropIfExists('dat_saches');
+        Schema::dropIfExists('dat_sachs');
         Schema::dropIfExists('phieu_tras');
         Schema::dropIfExists('phieu_muons');
-        Schema::dropIfExists('cuon_saches');
-        Schema::dropIfExists('vi_tri_saches');
+        Schema::dropIfExists('cuon_sachs');
+        Schema::dropIfExists('vi_tri_sachs');
         Schema::dropIfExists('tai_lieu_mos');
-        Schema::dropIfExists('saches');
+        Schema::dropIfExists('sachs');
         Schema::dropIfExists('mon_hocs');
         Schema::dropIfExists('nha_xuat_bans');
         Schema::dropIfExists('tac_gias');

@@ -55,7 +55,7 @@
                     <td class="border border-gray-300 px-4 py-2">{{ $sinhvien->ngay_sinh }}</td>
                     <td class="border border-gray-300 px-4 py-2">{{ $sinhvien->lop }}</td>
                     <td class="border border-gray-300 px-4 py-2">{{ $sinhvien->email }}</td>
-                    <td class="border border-gray-300 px-4 py-2 text-center">...</td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $sinhvien->password }}</td>
                     <td class="border border-gray-300 px-4 py-2">{{ $sinhvien->sdt }}</td>
                     <td class="border border-gray-300 px-4 py-2">{{ $sinhvien->dia_chi }}</td>
                     <td class="border border-gray-300 px-4 py-2 flex justify-center space-x-2">
@@ -88,8 +88,6 @@
                 </button>
 
             </div>
-
-
             <!-- Form -->
             <form wire:submit.prevent="{{ $isEditMode ? 'updateSinhVien' : 'createSinhVien' }}"
                 class=" h-[700px] overflow-auto">
@@ -177,7 +175,10 @@
         class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
         <div class="bg-white rounded-lg shadow-lg p-6 w-1/3">
             <h2 class="text-xl font-bold mb-4 text-center">Xác nhận xóa</h2>
-            <p class="text-center mb-6">Bạn có chắc chắn muốn xóa Sinh Viên này không? Thao tác này không thể hoàn tác.
+            <p class="text-center mb-6">Bạn có chắc chắn muốn xóa sinh viên này không?
+            </p>
+            <p class="text-center mb-6">Thao tác này không thể hoàn
+                tác.
             </p>
             <div class="flex justify-center space-x-4">
                 <button type="button" wire:click="closeConfirmModal"

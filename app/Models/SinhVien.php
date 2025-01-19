@@ -16,7 +16,8 @@ class SinhVien extends Model
         'lop',
         'email',
         'sdt',
-        'dia_chi'
+        'dia_chi',
+        'password',
     ];
     public function user()
     {
