@@ -59,14 +59,23 @@ class Main extends Component
             'sdt' => 'required',
             'email' => 'required',
         ]);
+
+        // Kiểm tra trùng lặp tên khoa
+        $exists = Khoa::where('ten_khoa', $this->ten_khoa)->exists();
+        if ($exists) {
+            // Thêm thông báo lỗi
+            $flasher->addError('Khoa đã tồn tại.');
+            return;
+        }
+
         Khoa::create([
             'ten_khoa' => $this->ten_khoa,
             'dia_chi' => $this->dia_chi,
             'email' => $this->email,
             'sdt' => $this->sdt,
         ]);
-        $flasher->addSuccess('Tạo Khoa thành công!');
 
+        $flasher->addSuccess('Tạo khoa thành công!');
         $this->closeModal();
         $this->resetForm();
     }

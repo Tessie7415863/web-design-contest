@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // import 'bootstrap';
 
 /**
@@ -32,3 +33,5 @@
 //     forceTLS: (import.meta.env.VITE_PUSHER_SCHEME ?? 'https') === 'https',
 //     enabledTransports: ['ws', 'wss'],
 // });
+=======
+>>>>>>> cbcfe23dcb2262f136a03f47043aef537e77c530

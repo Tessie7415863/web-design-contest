@@ -5,7 +5,7 @@
     <!-- Button Tạo Khoa Mới -->
     <div class="mb-4 text-left">
         <button wire:click="openModal" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
-            Tạo Khoa mới
+            Tạo khoa mới
         </button>
     </div>
 
@@ -30,7 +30,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($khoas as $khoa)
+                @forelse ($khoas as $khoa)
                     <tr class="hover:bg-gray-100">
                         <td class="border border-gray-300 px-4 py-2 text-center">{{ $khoa->id }}</td>
                         <td class="border border-gray-300 px-4 py-2 text-center">{{ $khoa->ten_khoa }}</td>
@@ -48,7 +48,11 @@
                             </button>
                         </td>
                     </tr>
-                @endforeach
+                @empty
+                    <tr>
+                        <td colspan="6" class="border border-gray-300 px-4 py-2 text-center">Không có dữ liệu khoa.</td>
+                    </tr>
+                @endforelse
             </tbody>
         </table>
     </div>
@@ -59,7 +63,7 @@
         <div class="bg-white rounded-lg shadow-lg p-6 w-1/3">
             <div class="flex justify-between">
                 <h2 class="text-xl font-bold mb-4">
-                    {{ $isEditMode ? 'Cập nhật Khoa' : 'Tạo Khoa mới' }}
+                    {{ $isEditMode ? 'Cập nhật khoa' : 'Tạo khoa mới' }}
                 </h2>
                 <button type="button" wire:click="closeModal"
                     class="w-10 h-10 bg-gray-500 text-white text-xl rounded-full flex items-center justify-center hover:bg-gray-600 focus:outline-none transition-transform transform hover:scale-110">
@@ -109,7 +113,10 @@
         class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
         <div class="bg-white rounded-lg shadow-lg p-6 w-1/3">
             <h2 class="text-xl font-bold mb-4 text-center">Xác nhận xóa</h2>
-            <p class="text-center mb-6">Bạn có chắc chắn muốn xóa Khoa này không? Thao tác này không thể hoàn tác.
+            <p class="text-center mb-6">Bạn có chắc chắn muốn xóa khoa này không?
+            </p>
+            <p class="text-center mb-6">Thao tác này không thể hoàn
+                tác.
             </p>
             <div class="flex justify-center space-x-4">
                 <button type="button" wire:click="closeConfirmModal"

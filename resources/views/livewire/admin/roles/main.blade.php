@@ -29,21 +29,21 @@
             </thead>
             <tbody>
                 @foreach ($roles as $role)
-                <tr class="hover:bg-gray-100">
-                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $role->id }}</td>
-                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $role->name }}</td>
-                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $role->guard_name }}</td>
-                    <td class="border border-gray-300 px-4 py-2 flex justify-center space-x-2">
-                        <button wire:click="editRole({{ $role->id }})"
-                            class="bg-yellow-500 text-white px-3 py-1 rounded-md hover:bg-yellow-600">
-                            Sửa
-                        </button>
-                        <button wire:click="openConfirmModal({{ $role->id }})"
-                            class="bg-red-600 text-white px-3 py-1 rounded-md hover:bg-red-700">
-                            Xoá
-                        </button>
-                    </td>
-                </tr>
+                    <tr class="hover:bg-gray-100">
+                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $role->id }}</td>
+                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $role->name }}</td>
+                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $role->guard_name }}</td>
+                        <td class="border border-gray-300 px-4 py-2 flex justify-center space-x-2">
+                            <button wire:click="editRole({{ $role->id }})"
+                                class="bg-yellow-500 text-white px-3 py-1 rounded-md hover:bg-yellow-600">
+                                Sửa
+                            </button>
+                            <button wire:click="openConfirmModal({{ $role->id }})"
+                                class="bg-red-600 text-white px-3 py-1 rounded-md hover:bg-red-700">
+                                Xoá
+                            </button>
+                        </td>
+                    </tr>
                 @endforeach
             </tbody>
         </table>
@@ -92,7 +92,10 @@
         class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
         <div class="bg-white rounded-lg shadow-lg p-6 w-1/3">
             <h2 class="text-xl font-bold mb-4 text-center">Xác nhận xóa</h2>
-            <p class="text-center mb-6">Bạn có chắc chắn muốn xóa Roles này không? Thao tác này không thể hoàn tác.
+            <p class="text-center mb-6">Bạn có chắc chắn muốn xóa roles này không?
+            </p>
+            <p class="text-center mb-6">Thao tác này không thể hoàn
+                tác.
             </p>
             <div class="flex justify-center space-x-4">
                 <button type="button" wire:click="closeConfirmModal"
@@ -106,28 +109,28 @@
         <div class="inline-flex items-center space-x-2">
             <!-- Previous Page Button -->
             @if($roles->onFirstPage())
-            <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Previous</span>
+                <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Previous</span>
             @else
-            <a href="{{ $roles->previousPageUrl() }}"
-                class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">Previous</a>
+                <a href="{{ $roles->previousPageUrl() }}"
+                    class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">Previous</a>
             @endif
 
             <!-- Page Numbers -->
             @foreach ($roles->getUrlRange(1, $roles->lastPage()) as $page => $url)
-            @if ($page == $roles->currentPage())
-            <span class="px-4 py-2 text-white bg-blue-600 rounded-md">{{ $page }}</span>
-            @else
-            <a href="{{ $url }}"
-                class="px-4 py-2 text-blue-600 border border-gray-300 rounded-md hover:bg-gray-100">{{ $page }}</a>
-            @endif
+                @if ($page == $roles->currentPage())
+                    <span class="px-4 py-2 text-white bg-blue-600 rounded-md">{{ $page }}</span>
+                @else
+                    <a href="{{ $url }}"
+                        class="px-4 py-2 text-blue-600 border border-gray-300 rounded-md hover:bg-gray-100">{{ $page }}</a>
+                @endif
             @endforeach
 
             <!-- Next Page Button -->
             @if($roles->hasMorePages())
-            <a href="{{ $roles->nextPageUrl() }}"
-                class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">Next</a>
+                <a href="{{ $roles->nextPageUrl() }}"
+                    class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">Next</a>
             @else
-            <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Next</span>
+                <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Next</span>
             @endif
         </div>
     </div>
