@@ -14,15 +14,23 @@ class BoPhanFactory extends Factory
      *
      * @return array<string, mixed>
      */
-
     public function definition(): array
     {
         $faker = \Faker\Factory::create('vi_VN');
 
+        $boPhans = [
+            'Phòng Quản Lý Sách',
+            'Phòng Thủ Thư',
+            'Phòng Quản Lý Độc Giả',
+            'Phòng Quản Lý Sự Kiện',
+            'Phòng Công Nghệ Thông Tin',
+            'Phòng Bảo Trì và Hậu Cần',
+            'Phòng Quản Lý Tài Chính'
+        ];
+
         return [
-            // 'ten_bo_phan' => $faker->name(),
-            'ten_bo_phan' => $faker->company(),
-            'mo_ta' => $faker->text(10),
+            'ten_bo_phan' => $faker->randomElement($boPhans),
+            'mo_ta' => $faker->sentence(6), // Mô tả ngắn gọn cho từng bộ phận
         ];
     }
 }

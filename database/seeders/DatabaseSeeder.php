@@ -11,19 +11,35 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
-        $this->call(BoPhanSeeder::class);
-        $this->call(UserSeeder::class);
         $this->call([
+            UserSeeder::class,
+            RolesAndPermissionsSeeder::class,
             BoPhanSeeder::class,
             KhoaSeeder::class,
             NganhSeeder::class,
+        ]);
+        $this->call([
             SinhVienSeeder::class,
+            NhanVienSeeder::class,
+            TheLoaiSeeder::class,
+
+            LoaiTaiLieuSeeder::class,
+            TacGiaSeeder::class,
+            NhaXuatBanSeeder::class,
+            MonHocSeeder::class,
+            SachSeeder::class,
+            TaiLieuMoSeeder::class,
+            ViTriSachSeeder::class,
+            CuonSachSeeder::class,
+            PhieuMuonSeeder::class,
+            PhieuTraSeeder::class,
+            DatSachSeeder::class,
+            PhatSeeder::class,
+            HoaDonPhatSeeder::class,
+            // BookSubjectSeeder::class,
+            // DigitalResourceSubjectSeeder::class,
+            // LienKetSachNganhSeeder::class,
+            // DigitalResourceMajorSeeder::class,
         ]);
     }
 }

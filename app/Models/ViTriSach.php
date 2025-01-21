@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ViTriSach extends Model
 {
+    protected $table = 'vi_tri_sachs';
     use HasFactory;
     protected $fillable = [
         'khu_vuc',

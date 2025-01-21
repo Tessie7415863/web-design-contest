@@ -12,6 +12,6 @@ class BoPhanSeeder extends Seeder
      */
     public function run(): void
     {
-        Bophan::factory()->count(50)->create();
+        Bophan::factory()->count(20)->create();
     }
 }

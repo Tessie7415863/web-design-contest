@@ -12,6 +12,6 @@ class NganhSeeder extends Seeder
      */
     public function run(): void
     {
-        Nganh::factory()->count(10)->create();
+        Nganh::factory()->count(20)->create();
     }
 }

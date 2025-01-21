@@ -64,19 +64,6 @@ class RolesAndPermissionsSeeder extends Seeder
             'password' => bcrypt('vanquan2509')
         ]);
         $user->assignRole('admin');
-        // $sinhvien = SinhVien::create([
-        //     'ho_ten' => 'QUÂN',
-        //     'user_id' => '1',
-        //     'ngay_sinh' => '2000-01-01',
-        //     'gioi_tinh' => 'Nam',
-        //     'lop' => 'CNTT10',
-        //     'email' => 'vquan.dev@gmail.com',
-        //     'password' => bcrypt('vanquan2509'),
-        //     'tai_khoan' => 'vquan',
-        //     'dia_chi' => 'test'
-        // ]);
-        // $sinhvien->assignRole('admin');
-        // $user->assignRole('admin');
         $permission = Permission::findOrCreate('access-admin');
 
         $user = User::create([
@@ -89,6 +76,4 @@ class RolesAndPermissionsSeeder extends Seeder
         // Gán quyền cho user
         $user->givePermissionTo($permission);
     }
-
-
 }

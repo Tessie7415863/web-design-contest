@@ -19,9 +19,24 @@ class NganhFactory extends Factory
      */
     public function definition(): array
     {
+        $nganhs = [
+            'Công Nghệ Thông Tin',
+            'Khoa Học Máy Tính',
+            'Kỹ Thuật Phần Mềm',
+            'Hệ Thống Thông Tin',
+            'An Toàn Thông Tin',
+            'Mạng Máy Tính và Truyền Thông',
+            'Điện Tử Viễn Thông',
+            'Thiết Kế Đồ Họa',
+            'Thương Mại Điện Tử',
+            'Trí Tuệ Nhân Tạo',
+            'Khoa Học Dữ Liệu',
+            'Công Nghệ Đa Phương Tiện',
+        ];
+
         return [
-            'ten_nganh' => $this->faker->jobTitle(),
-            'khoa_id' => Khoa::factory()
+            'ten_nganh' => $this->faker->randomElement($nganhs),
+            'khoa_id' => Khoa::factory(),
         ];
     }
 }

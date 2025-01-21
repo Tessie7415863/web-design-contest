@@ -2,16 +2,17 @@
 
 namespace Database\Seeders;
 
-use App\Models\SinhVien;
+use App\Models\TacGia;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class SinhVienSeeder extends Seeder
+class TacGiaSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        SinhVien::factory()->count(20)->create();
+        TacGia::factory()->count(20)->create();
     }
 }
