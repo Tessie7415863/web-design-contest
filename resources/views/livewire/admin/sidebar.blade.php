@@ -35,5 +35,7 @@
             class="block text-gray-300 hover:text-white px-2 py-1 rounded-md">Mon Hoc</a>
         <a href="/admin/manage-sach" wire:navigate
             class="block text-gray-300 hover:text-white px-2 py-1 rounded-md">Sach</a>
+        <a href="/admin/manage-vitrisach" wire:navigate
+            class="block text-gray-300 hover:text-white px-2 py-1 rounded-md">Vi Tri Sach</a>
     </nav>
 </aside>
