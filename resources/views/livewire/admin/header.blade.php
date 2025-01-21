@@ -3,6 +3,6 @@
     <h1 class="text-lg font-bold">Admin Dashboard</h1>
     <div class="flex items-center space-x-4">
         <input type="text" placeholder="Search..." class="px-4 py-2 border rounded-md">
-        <button class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Logout</button>
+        <a href="/logout" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Logout</a>
     </div>
 </header>

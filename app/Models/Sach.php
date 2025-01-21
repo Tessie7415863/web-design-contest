@@ -25,7 +25,20 @@ class Sach extends Model
     {
         return $this->belongsTo(TacGia::class, 'tac_gia_id');
     }
+    public function tacGia()
+    {
+        return $this->belongsTo(TacGia::class, 'tac_gia_id');
+    }
 
+    // Quan hệ với nhà xuất bản
+    public function nhaXuatBan()
+    {
+        return $this->belongsTo(NhaXuatBan::class, 'nha_xuat_ban_id');
+    }
+    public function theLoai()
+    {
+        return $this->belongsTo(TheLoai::class, 'the_loai_id');
+    }
     public function nha_xuat_ban_id()
     {
         return $this->belongsTo(NhaXuatBan::class, 'nha_xuat_ban_id');

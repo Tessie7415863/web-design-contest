@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class CuonSach extends Model
 {
+    protected $table = 'cuon_sachs';
     use HasFactory;
     protected $fillable = [
         'sach_id',

@@ -12,6 +12,6 @@ class SinhVienSeeder extends Seeder
      */
     public function run(): void
     {
-        SinhVien::factory()->count(50)->create();
+        SinhVien::factory()->count(20)->create();
     }
 }

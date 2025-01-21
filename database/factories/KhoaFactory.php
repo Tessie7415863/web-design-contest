@@ -16,11 +16,21 @@ class KhoaFactory extends Factory
      */
     public function definition(): array
     {
+        $khoas = [
+            'Khoa Công Nghệ Thông Tin',
+            'Khoa Khoa Học Máy Tính',
+            'Khoa Điện Tử - Viễn Thông',
+            'Khoa An Toàn Thông Tin',
+            'Khoa Đồ Họa và Thiết Kế',
+            'Khoa Kỹ Thuật Phần Mềm',
+            'Khoa Thương Mại Điện Tử',
+            'Khoa Hệ Thống Thông Tin',
+        ];
         $faker = \Faker\Factory::create('vi_VN');
         return [
-            'ten_khoa' => $faker->company(),
+            'ten_khoa' => $faker->unique()->randomElement($khoas),
             'dia_chi' => $faker->address(),
-            'sdt' => $faker->phoneNumber(),
+            'sdt' => $faker->numerify('0#########'),
             'email' => $faker->unique->safeEmail(),
         ];
     }

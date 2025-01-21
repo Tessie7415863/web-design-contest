@@ -276,7 +276,7 @@ return new class extends Migration {
         Schema::dropIfExists('mon_hocs');
         Schema::dropIfExists('nha_xuat_bans');
         Schema::dropIfExists('tac_gias');
-        Schema::dropIfExists('loai_tai_lieux');
+        Schema::dropIfExists('loai_tai_lieus');
         Schema::dropIfExists('the_loais');
         Schema::dropIfExists('nhan_viens');
         Schema::dropIfExists('sinh_viens');
