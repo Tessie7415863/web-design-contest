@@ -16,6 +16,7 @@ use App\Livewire\Admin\Sinhvien\ManageSinhvien;
 use App\Livewire\Admin\Tacgia\ManageTacgia;
 use App\Livewire\Admin\Theloai\ManageTheloai;
 use App\Livewire\Admin\User\ManageUser;
+use App\Livewire\Admin\Vitrisach\ManageViTriSach;
 use App\Livewire\Auth\Forgot;
 use App\Livewire\Auth\Login;
 use App\Livewire\Auth\Register;
@@ -57,4 +58,5 @@ Route::middleware(['auth', 'can:access-admin'])->group(function () {
     Route::get('/admin/manage-theloai', ManageTheloai::class)->name('admin.manage-theloai');
     Route::get('/admin/manage-monhoc', ManageMonhoc::class)->name('admin.manage-monhoc');
     Route::get('/admin/manage-sach', ManageSach::class)->name('admin.manage-sach');
+    Route::get('/admin/manage-vitrisach', ManageViTriSach::class)->name('admin.manage-vitrisach');
 });
