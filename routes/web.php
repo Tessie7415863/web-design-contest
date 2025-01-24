@@ -20,6 +20,7 @@ use App\Livewire\Auth\Forgot;
 use App\Livewire\Auth\Login;
 use App\Livewire\Auth\Register;
 use App\Livewire\Auth\ResetPassword;
+use App\Livewire\Client\Components\Sach;
 use App\Livewire\Client\HomePage;
 use Illuminate\Support\Facades\Route;
 
@@ -27,6 +28,7 @@ use Illuminate\Support\Facades\Route;
 // Trang chính
 Route::middleware('web')->group(function () {
     Route::get('/', HomePage::class);
+    Route::get('sach', Sach::class)->name('sach');
     Route::get('/register', Register::class)->name('register');
     Route::get('/login', Login::class)->name('login');
     Route::get('/forgot', action: Forgot::class)->name('password.request');

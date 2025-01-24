@@ -37,34 +37,34 @@
             </thead>
             <tbody>
                 @forelse ($sachs as $sach)
-                    <tr class="hover:bg-gray-100">
-                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $sach->id }}</td>
-                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $sach->ten_sach }}</td>
-                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $sach->tac_gia_id }}</td>
-                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $sach->nha_xuat_ban_id }}</td>
-                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $sach->the_loai_id }}</td>
-                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $sach->nam_xuat_ban }}</td>
-                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $sach->so_trang }}</td>
-                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $sach->isbn }}</td>
-                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $sach->mon_hoc_id }}</td>
-                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $sach->nganh_id }}</td>
-                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $sach->khoa_id }}</td>
-                        <td class="border border-gray-300 px-4 py-2 flex justify-center space-x-2">
-                            <button wire:click="editNhanVien({{ $sach->id }})"
-                                class="bg-yellow-500 text-white px-3 py-1 rounded-md hover:bg-yellow-600">
-                                Sửa
-                            </button>
-                            <button wire:click="openConfirmModal({{ $sach->id }})"
-                                class="bg-red-600 text-white px-3 py-1 rounded-md hover:bg-red-700">
-                                Xoá
-                            </button>
-                        </td>
-                    </tr>
+                <tr class="hover:bg-gray-100">
+                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $sach->id }}</td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $sach->ten_sach }}</td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $sach->tac_gia_id }}</td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $sach->nha_xuat_ban_id }}</td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $sach->the_loai_id }}</td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $sach->nam_xuat_ban }}</td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $sach->so_trang }}</td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $sach->isbn }}</td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $sach->mon_hoc_id }}</td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $sach->nganh_id }}</td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $sach->khoa_id }}</td>
+                    <td class="border border-gray-300 px-4 py-2 flex justify-center space-x-2">
+                        <button wire:click="editNhanVien({{ $sach->id }})"
+                            class="bg-yellow-500 text-white px-3 py-1 rounded-md hover:bg-yellow-600">
+                            Sửa
+                        </button>
+                        <button wire:click="openConfirmModal({{ $sach->id }})"
+                            class="bg-red-600 text-white px-3 py-1 rounded-md hover:bg-red-700">
+                            Xoá
+                        </button>
+                    </td>
+                </tr>
                 @empty
-                    <tr>
-                        <td colspan="10" class="border border-gray-300 px-4 py-2 text-center">Không có dữ liệu sách.
-                        </td>
-                    </tr>
+                <tr>
+                    <td colspan="10" class="border border-gray-300 px-4 py-2 text-center">Không có dữ liệu sách.
+                    </td>
+                </tr>
                 @endforelse
             </tbody>
         </table>
@@ -82,9 +82,7 @@
                     class="w-10 h-10 bg-gray-500 text-white text-xl rounded-full flex items-center justify-center hover:bg-gray-600 focus:outline-none transition-transform transform hover:scale-110">
                     X
                 </button>
-
             </div>
-
             <!-- Form -->
             <form wire:submit.prevent="{{ $isEditMode ? 'updateSach' : 'createSach' }}" class=" h-auto overflow-auto">
                 <div class="mb-4">
@@ -100,7 +98,7 @@
                         class="w-full border border-gray-300 rounded-md px-3 py-2">
                         <option value="">-- Chọn ID --</option>
                         @foreach($tacgias as $tacgia)
-                            <option value="{{ $tacgia->id }}">{{ $tacgia->id }}</option>
+                        <option value="{{ $tacgia->id }}">{{ $tacgia->id }}</option>
                         @endforeach
                     </select>
                     @error('tac_gia_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
@@ -112,7 +110,7 @@
                         class="w-full border border-gray-300 rounded-md px-3 py-2">
                         <option value="">-- Chọn ID --</option>
                         @foreach($nhaxuatbans as $snhaxuatban)
-                            <option value="{{ $snhaxuatban->id }}">{{ $snhaxuatban->id }}</option>
+                        <option value="{{ $snhaxuatban->id }}">{{ $snhaxuatban->id }}</option>
                         @endforeach
                     </select>
                     @error('nha_xuat_ban_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
@@ -124,7 +122,7 @@
                         class="w-full border border-gray-300 rounded-md px-3 py-2">
                         <option value="">-- Chọn ID --</option>
                         @foreach($theloais as $theloai)
-                            <option value="{{ $theloai->id }}">{{ $theloai->id }}</option>
+                        <option value="{{ $theloai->id }}">{{ $theloai->id }}</option>
                         @endforeach
                     </select>
                     @error('the_loai_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
@@ -150,7 +148,7 @@
                         class="w-full border border-gray-300 rounded-md px-3 py-2">
                         <option value="">-- Chọn ID --</option>
                         @foreach($monhocs as $monhoc)
-                            <option value="{{ $monhoc->id }}">{{ $monhoc->ten_bo_phan }}</option>
+                        <option value="{{ $monhoc->id }}">{{ $monhoc->ten_bo_phan }}</option>
                         @endforeach
                     </select>
                     @error('mon_hoc_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
@@ -162,7 +160,7 @@
                         class="w-full border border-gray-300 rounded-md px-3 py-2">
                         <option value="">-- Chọn ID --</option>
                         @foreach($nganhs as $nganh)
-                            <option value="{{ $nganh->id }}">{{ $nganh->ten_bo_phan }}</option>
+                        <option value="{{ $nganh->id }}">{{ $nganh->ten_bo_phan }}</option>
                         @endforeach
                     </select>
                     @error('nganh_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
@@ -174,7 +172,7 @@
                         class="w-full border border-gray-300 rounded-md px-3 py-2">
                         <option value="">-- Chọn ID --</option>
                         @foreach($khoas as $khoa)
-                            <option value="{{ $khoa->id }}">{{ $khoa->ten_bo_phan }}</option>
+                        <option value="{{ $khoa->id }}">{{ $khoa->ten_bo_phan }}</option>
                         @endforeach
                     </select>
                     @error('khoa_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
@@ -211,27 +209,27 @@
         <div class="inline-flex items-center space-x-2">
             <!-- Previous Page Button -->
             @if($sachs->onFirstPage())
-                <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Previous</span>
+            <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Previous</span>
             @else
-                <a href="{{ $sachs->previousPageUrl() }}"
-                    class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">Previous</a>
+            <a href="{{ $sachs->previousPageUrl() }}"
+                class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">Previous</a>
             @endif
 
             <!-- Page Numbers -->
             @foreach ($sachs->getUrlRange(1, $sachs->lastPage()) as $page => $url)
 
-                <a wire:click.prevent="gotoPage({{ $page }})" href="#"
-                    class="{{ $page == $sachs->currentPage() ? 'bg-blue-600 text-white' : 'text-blue-600 border border-gray-300 hover:bg-gray-100' }} px-4 py-2 rounded-md">
-                    {{ $page }}
-                </a>
+            <a wire:click.prevent="gotoPage({{ $page }})" href="#"
+                class="{{ $page == $sachs->currentPage() ? 'bg-blue-600 text-white' : 'text-blue-600 border border-gray-300 hover:bg-gray-100' }} px-4 py-2 rounded-md">
+                {{ $page }}
+            </a>
             @endforeach
 
             <!-- Next Page Button -->
             @if($sachs->hasMorePages())
-                <a href="{{ $sachs->nextPageUrl() }}"
-                    class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">Next</a>
+            <a href="{{ $sachs->nextPageUrl() }}"
+                class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">Next</a>
             @else
-                <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Next</span>
+            <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Next</span>
             @endif
         </div>
     </div>
