@@ -101,20 +101,11 @@ class Main extends Component
         ]);
         $vitrisach = ViTriSach::findOrFail($this->id);
         $vitrisach->update([
-            'khu_buc' => $this->khu_buc,
+            'khu_vuc' => $this->khu_vuc,
             'tuong' => $this->tuong,
             'ke' => $this->ke,
         ]);
 
-        // Kiểm tra trùng lặp vị trí
-        $exists = ViTriSach::where('khu_vuc', $this->khu_vuc)->exists();
-        if ($exists) {
-            if ($exists) {
-                // Thêm thông báo lỗi
-                $flasher->addError('Khu vực đã tồn tại.');
-                return;
-            }
-        }
 
         $flasher->addSuccess('Cập nhật vị trí thành công!');
         $this->closeModal();

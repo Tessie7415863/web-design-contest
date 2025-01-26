@@ -1,22 +1,33 @@
 <?php
 
 use App\Livewire\Admin\AdminLayout;
+use App\Livewire\Admin\Booksubject\ManageBooksubject;
 use App\Livewire\Admin\Bophan\ManageBophan;
+use App\Livewire\Admin\Cuonsach\ManageCuonsach;
+use App\Livewire\Admin\Datsach\ManageDatsach;
 use App\Livewire\Admin\Khoa\ManageKhoa;
+use App\Livewire\Admin\Lienketsachnganh\ManageLienketsachnganh;
 use App\Livewire\Admin\Loaitailieu\ManageLoaitailieu;
 use App\Livewire\Admin\Monhoc\ManageMonhoc;
 use App\Livewire\Admin\Nganh\ManageNganh;
 use App\Livewire\Admin\Nhanvien\ManageNhanvien;
 use App\Livewire\Admin\Nhaxuatban\ManageNhaxuatban;
 use App\Livewire\Admin\Permissions\ManagePermissions;
+use App\Livewire\Admin\Phieumuon\ManagePhieumuon;
+use App\Livewire\Admin\Phieutra\ManagePhieutra;
 use App\Livewire\Admin\Rolehaspermission\ManageRolehaspermission;
 use App\Livewire\Admin\Roles\ManageRoles;
 use App\Livewire\Admin\Sach\ManageSach;
 use App\Livewire\Admin\Sinhvien\ManageSinhvien;
 use App\Livewire\Admin\Tacgia\ManageTacgia;
+use App\Livewire\Admin\Tailieumo\ManageTailieumo;
 use App\Livewire\Admin\Theloai\ManageTheloai;
 use App\Livewire\Admin\User\ManageUser;
+<<<<<<< HEAD
+use App\Livewire\Admin\Vitrisach\ManageVitrisach;
+=======
 use App\Livewire\Admin\Vitrisach\ManageViTriSach;
+>>>>>>> 277c6c7b4c64e517cd23ecc11ab3f6f3d728e50a
 use App\Livewire\Auth\Forgot;
 use App\Livewire\Auth\Login;
 use App\Livewire\Auth\Register;
@@ -59,5 +70,18 @@ Route::middleware(['auth', 'can:access-admin'])->group(function () {
     Route::get('/admin/manage-theloai', ManageTheloai::class)->name('admin.manage-theloai');
     Route::get('/admin/manage-monhoc', ManageMonhoc::class)->name('admin.manage-monhoc');
     Route::get('/admin/manage-sach', ManageSach::class)->name('admin.manage-sach');
+<<<<<<< HEAD
+    Route::get('/admin/manage-vitrisach', ManageVitrisach::class)->name('admin.manage-vitrisach');
+    Route::get('/admin/manage-cuonsach', ManageCuonsach::class)->name('admin.manage-cuonsach');
+    Route::get('/admin/manage-datsach', ManageDatsach::class)->name('admin.manage-datsach');
+    Route::get('/admin/manage-lienketsachnganh', ManageLienketsachnganh::class)->name('admin.manage-lienketsachnganh');
+    Route::get('/admin/manage-tailieumo', ManageTailieumo::class)->name('admin.manage-tailieumo');
+    Route::get('/admin/manage-booksubject', ManageBooksubject::class)->name('admin.manage-booksubject');
+    Route::get('/admin/manage-phieumuon', ManagePhieumuon::class)->name('admin.manage-phieumuon');
+    Route::get('/admin/manage-phieutra', ManagePhieutra::class)->name('admin.manage-phieutra');
+
+});
+=======
     Route::get('/admin/manage-vitrisach', ManageViTriSach::class)->name('admin.manage-vitrisach');
 });
+>>>>>>> 277c6c7b4c64e517cd23ecc11ab3f6f3d728e50a

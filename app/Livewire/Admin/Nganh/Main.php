@@ -73,7 +73,6 @@ class Main extends Component
             'khoa_id' => $this->khoa_id,
         ]);
         $flasher->addSuccess('Tạo ngành thành công!');
-
         $this->closeModal();
         $this->resetForm();
     }

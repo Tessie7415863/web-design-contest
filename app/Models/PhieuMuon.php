@@ -17,12 +17,12 @@ class PhieuMuon extends Model
         'tinh_trang'
     ];
 
-    public function sinh_vien_id()
+    public function sinhvien()
     {
-        return $this->belongsTo(SinhVien::class);
+        return $this->belongsTo(SinhVien::class, 'sinh_vien_id');
     }
-    public function nhan_vien_id()
+    public function nhanvien()
     {
-        return $this->belongsTo(NhanVien::class);
+        return $this->belongsTo(NhanVien::class, 'nhan_vien_id');
     }
 }

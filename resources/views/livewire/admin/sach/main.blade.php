@@ -37,6 +37,37 @@
             </thead>
             <tbody>
                 @forelse ($sachs as $sach)
+<<<<<<< HEAD
+                    <tr class="hover:bg-gray-100">
+                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $sach->id }}</td>
+                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $sach->ten_sach }}</td>
+                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $sach->tac_gia_id }}</td>
+                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $sach->nha_xuat_ban_id }}</td>
+                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $sach->the_loai_id }}</td>
+                        <td class="border border-gray-300 px-4 py-2 text-center">
+                            {!! $sach->nam_xuat_ban ? $sach->nam_xuat_ban : '<span class="text-gray-400">Chưa có</span>' !!}
+                        </td>
+                        <td class="border border-gray-300 px-4 py-2 text-center">
+                            {!! $sach->so_trang ? $sach->thong_tin : '<span class="text-gray-400">Chưa có</span>' !!}
+                        </td>
+                        <td class="border border-gray-300 px-4 py-2 text-center">
+                            {!! $sach->isbn ? $sach->isbn : '<span class="text-gray-400">Chưa có</span>' !!}
+                        </td>
+                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $sach->mon_hoc_id }}</td>
+                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $sach->nganh_id }}</td>
+                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $sach->khoa_id }}</td>
+                        <td class="border border-gray-300 px-4 py-2 flex justify-center space-x-2">
+                            <button wire:click="editSach({{ $sach->id }})"
+                                class="bg-yellow-500 text-white px-3 py-1 rounded-md hover:bg-yellow-600">
+                                Sửa
+                            </button>
+                            <button wire:click="openConfirmModal({{ $sach->id }})"
+                                class="bg-red-600 text-white px-3 py-1 rounded-md hover:bg-red-700">
+                                Xoá
+                            </button>
+                        </td>
+                    </tr>
+=======
                 <tr class="hover:bg-gray-100">
                     <td class="border border-gray-300 px-4 py-2 text-center">{{ $sach->id }}</td>
                     <td class="border border-gray-300 px-4 py-2 text-center">{{ $sach->ten_sach }}</td>
@@ -60,6 +91,7 @@
                         </button>
                     </td>
                 </tr>
+>>>>>>> 277c6c7b4c64e517cd23ecc11ab3f6f3d728e50a
                 @empty
                 <tr>
                     <td colspan="12" class="border border-gray-300 px-4 py-2 text-center">Không có dữ liệu sách.
@@ -98,7 +130,11 @@
                         class="w-full border border-gray-300 rounded-md px-3 py-2">
                         <option value="">-- Chọn ID --</option>
                         @foreach($tacgias as $tacgia)
+<<<<<<< HEAD
+                            <option value="{{ $tacgia->id }}">{{ $tacgia->ho_ten }}</option>
+=======
                         <option value="{{ $tacgia->id }}">{{ $tacgia->id }}</option>
+>>>>>>> 277c6c7b4c64e517cd23ecc11ab3f6f3d728e50a
                         @endforeach
                     </select>
                     @error('tac_gia_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
@@ -110,7 +146,11 @@
                         class="w-full border border-gray-300 rounded-md px-3 py-2">
                         <option value="">-- Chọn ID --</option>
                         @foreach($nhaxuatbans as $snhaxuatban)
+<<<<<<< HEAD
+                            <option value="{{ $snhaxuatban->id }}">{{ $snhaxuatban->ten_nha_xuat_ban }}</option>
+=======
                         <option value="{{ $snhaxuatban->id }}">{{ $snhaxuatban->id }}</option>
+>>>>>>> 277c6c7b4c64e517cd23ecc11ab3f6f3d728e50a
                         @endforeach
                     </select>
                     @error('nha_xuat_ban_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
@@ -122,7 +162,11 @@
                         class="w-full border border-gray-300 rounded-md px-3 py-2">
                         <option value="">-- Chọn ID --</option>
                         @foreach($theloais as $theloai)
+<<<<<<< HEAD
+                            <option value="{{ $theloai->id }}">{{ $theloai->ten_the_loai }}</option>
+=======
                         <option value="{{ $theloai->id }}">{{ $theloai->id }}</option>
+>>>>>>> 277c6c7b4c64e517cd23ecc11ab3f6f3d728e50a
                         @endforeach
                     </select>
                     @error('the_loai_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
@@ -133,6 +177,13 @@
                     <input type="text" id="nam_xuat_ban" wire:model.defer="nam_xuat_ban"
                         class="w-full border border-gray-300 rounded-md px-3 py-2">
                     @error('nam_xuat_ban') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                </div>
+
+                <div class="mb-4">
+                    <label for="so_trang" class="block font-semibold">Số Trang</label>
+                    <input type="text" id="so_trang" wire:model.defer="so_trang"
+                        class="w-full border border-gray-300 rounded-md px-3 py-2">
+                    @error('so_trang') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                 </div>
 
                 <div class="mb-4">
@@ -148,7 +199,11 @@
                         class="w-full border border-gray-300 rounded-md px-3 py-2">
                         <option value="">-- Chọn ID --</option>
                         @foreach($monhocs as $monhoc)
+<<<<<<< HEAD
+                            <option value="{{ $monhoc->id }}">{{ $monhoc->ten_mon }}</option>
+=======
                         <option value="{{ $monhoc->id }}">{{ $monhoc->ten_bo_phan }}</option>
+>>>>>>> 277c6c7b4c64e517cd23ecc11ab3f6f3d728e50a
                         @endforeach
                     </select>
                     @error('mon_hoc_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
@@ -160,7 +215,11 @@
                         class="w-full border border-gray-300 rounded-md px-3 py-2">
                         <option value="">-- Chọn ID --</option>
                         @foreach($nganhs as $nganh)
+<<<<<<< HEAD
+                            <option value="{{ $nganh->id }}">{{ $nganh->ten_nganh }}</option>
+=======
                         <option value="{{ $nganh->id }}">{{ $nganh->ten_bo_phan }}</option>
+>>>>>>> 277c6c7b4c64e517cd23ecc11ab3f6f3d728e50a
                         @endforeach
                     </select>
                     @error('nganh_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
@@ -172,7 +231,11 @@
                         class="w-full border border-gray-300 rounded-md px-3 py-2">
                         <option value="">-- Chọn ID --</option>
                         @foreach($khoas as $khoa)
+<<<<<<< HEAD
+                            <option value="{{ $khoa->id }}">{{ $khoa->ten_khoa }}</option>
+=======
                         <option value="{{ $khoa->id }}">{{ $khoa->ten_bo_phan }}</option>
+>>>>>>> 277c6c7b4c64e517cd23ecc11ab3f6f3d728e50a
                         @endforeach
                     </select>
                     @error('khoa_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
