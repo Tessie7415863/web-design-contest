@@ -13,13 +13,17 @@ class LienKetSachNganh extends Model
         'nganh_id'
     ];
 
-    public function sach_id()
+    protected $primaryKey = 'sach_id';
+    public $timestamps = false;
+    public $incrementing = false;
+
+    public function sach()
     {
-        return $this->belongsTo(Sach::class);
+        return $this->belongsTo(Sach::class, 'sach_id');
     }
 
-    public function nganh_id()
+    public function nganh()
     {
-        return $this->belongsTo(Nganh::class);
+        return $this->belongsTo(Nganh::class, 'nganh_id');
     }
 }

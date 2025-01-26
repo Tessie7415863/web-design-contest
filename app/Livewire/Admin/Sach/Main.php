@@ -101,7 +101,7 @@ class Main extends Component
 
         Sach::create([
             'ten_sach' => $this->ten_sach,
-            'tac_gia-id' => $this->tac_gia_id,
+            'tac_gia_id' => $this->tac_gia_id,
             'nha_xuat_ban_id' => $this->nha_xuat_ban_id,
             'the_loai_id' => $this->the_loai_id,
             'nam_xuat_ban' => $this->nam_xuat_ban,
@@ -136,11 +136,11 @@ class Main extends Component
         $this->openModal();
     }
 
-    public function updateNhanVien(FlasherInterface $flasher)
+    public function updateSach(FlasherInterface $flasher)
     {
         $this->validate([
             'ten_sach' => 'required',
-            'tac-gia_id' => 'required',
+            'tac_gia_id' => 'required',
             'nha_xuat_ban_id' => 'required',
             'the_loai_id' => 'required',
             'nam_xuat_ban' => 'nullable',
@@ -150,10 +150,27 @@ class Main extends Component
             'nganh_id' => 'required',
             'khoa_id' => 'required',
         ]);
+        // Kiểm tra trùng lặp tên sách
+        $exists = Sach::where('ten_sach', $this->ten_sach)
+            ->where('id', '!=', $this->id) // Loại trừ chính sách hiện tại
+            ->exists();
+        if ($exists) {
+            // Kiểm tra tác giả của sách
+            $existsAuthor = Sach::where('ten_sach', $this->ten_sach)
+                ->where('tac_gia_id', $this->tac_gia_id)
+                ->where('id', '!=', $this->id) // Loại trừ sách hiện tại
+                ->exists();
+            if ($existsAuthor) {
+                $flasher->addError('Sách của tác giả này đã tồn tại.');
+                return; // Dừng việc cập nhật sách
+            }
+        }
+
+        // Tiến hành cập nhật sách
         $sach = Sach::findOrFail($this->id);
         $sach->update([
             'ten_sach' => $this->ten_sach,
-            'tac_gia-id' => $this->tac_gia_id,
+            'tac_gia_id' => $this->tac_gia_id,
             'nha_xuat_ban_id' => $this->nha_xuat_ban_id,
             'the_loai_id' => $this->the_loai_id,
             'nam_xuat_ban' => $this->nam_xuat_ban,
@@ -164,19 +181,10 @@ class Main extends Component
             'khoa_id' => $this->khoa_id,
         ]);
 
-        // Kiểm tra trùng lặp tên sách
-        $exists = Sach::where('ten_sach', $this->ten_sach)->exists();
-        if ($exists) {
-            $existsAuthor = Sach::where('ten_sach', $this->ten_sach)->where('tac_gia_id', $this->tac_gia_id)->exists();
-            if ($existsAuthor) {
-                $flasher->addError('Sách đã tồn tại.');
-                return;
-            } else {
-                return;
-            }
-        }
-
+        // Thông báo thành công
         $flasher->addSuccess('Cập nhật sách thành công!');
+
+
         $this->closeModal();
         $this->resetForm();
     }

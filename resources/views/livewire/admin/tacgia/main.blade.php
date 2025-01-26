@@ -32,7 +32,9 @@
                     <tr class="hover:bg-gray-100">
                         <td class="border border-gray-300 px-4 py-2 text-center">{{ $tacgia->id }}</td>
                         <td class="border border-gray-300 px-4 py-2 text-center">{{ $tacgia->ho_ten }}</td>
-                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $tacgia->thong_tin ?? 'Chưa có'}}</td>
+                        <td class="border border-gray-300 px-4 py-2 text-center">
+                            {!! $tacgia->thong_tin ? $tacgia->thong_tin : '<span class="text-gray-400">Chưa có</span>' !!}
+                        </td>
                         <td class="border border-gray-300 px-4 py-2 flex justify-center space-x-2">
                             <button wire:click="editTacGia({{ $tacgia->id }})"
                                 class="bg-yellow-500 text-white px-3 py-1 rounded-md hover:bg-yellow-600">

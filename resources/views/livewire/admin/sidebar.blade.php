@@ -1,9 +1,9 @@
 <!-- Sidebar -->
-<aside class="bg-gray-800 text-white w-full md:w-64 h-16 md:h-full flex-shrink-0 md:flex md:flex-col">
+<aside class="bg-gray-800 text-white w-full md:w-64 h-16 md:h-full flex-shrink-0 md:flex md:flex-col overflow-y-auto">
     <div class="p-4 text-lg font-semibold border-b border-gray-700">
         Admin Panel
     </div>
-    <nav class="flex flex-row md:flex-col space-x-4 md:space-x-0 md:space-y-2 p-4">
+    <nav class="flex flex-row md:flex-col space-x-4 md:space-x-0 md:space-y-2 p-4 ">
         <a href="/admin" wire:navigate class="block text-gray-300 hover:text-white px-2 py-1 rounded-md">Dashboard</a>
         <a href="/admin/manage-user" wire:navigate
             class="block text-gray-300 hover:text-white px-2 py-1 rounded-md">Users</a>
@@ -37,5 +37,19 @@
             class="block text-gray-300 hover:text-white px-2 py-1 rounded-md">Sach</a>
         <a href="/admin/manage-vitrisach" wire:navigate
             class="block text-gray-300 hover:text-white px-2 py-1 rounded-md">Vi Tri Sach</a>
+        <a href="/admin/manage-cuonsach" wire:navigate
+            class="block text-gray-300 hover:text-white px-2 py-1 rounded-md">Cuon Sach</a>
+        <a href="/admin/manage-datsach" wire:navigate
+            class="block text-gray-300 hover:text-white px-2 py-1 rounded-md">Dat Sach</a>
+        <a href="/admin/manage-lienketsachnganh" wire:navigate
+            class="block text-gray-300 hover:text-white px-2 py-1 rounded-md">Lien Ket Sach Nganh</a>
+        <a href="/admin/manage-tailieumo" wire:navigate
+            class="block text-gray-300 hover:text-white px-2 py-1 rounded-md">Tai Lieu Mo</a>
+        <a href="/admin/manage-booksubject" wire:navigate
+            class="block text-gray-300 hover:text-white px-2 py-1 rounded-md">Book Subject</a>
+        <a href="/admin/manage-phieumuon" wire:navigate
+            class="block text-gray-300 hover:text-white px-2 py-1 rounded-md">Phieu Muon</a>
+        <a href="/admin/manage-phieutra" wire:navigate
+            class="block text-gray-300 hover:text-white px-2 py-1 rounded-md">Phieu Tra</a>
     </nav>
 </aside>

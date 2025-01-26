@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class TaiLieuMo extends Model
 {
     use HasFactory;
+    protected $table = 'tai_lieu_mos';
     protected $fillable = [
         'ten_tai_lieu',
         'loai_tai_lieu_id',
@@ -22,28 +23,28 @@ class TaiLieuMo extends Model
         'khoa_id'
     ];
 
-    public function loai_tai_lieu_id()
+    public function loaitailieu()
     {
-        return $this->belongsTo(LoaiTaiLieu::class);
+        return $this->belongsTo(LoaiTaiLieu::class, 'loai_tai_lieu_id');
     }
-    public function nha_xuat_ban_id()
+    public function nhaxuatban()
     {
-        return $this->belongsTo(NhaXuatBan::class);
+        return $this->belongsTo(NhaXuatBan::class, 'nha_xuat_ban_id');
     }
-    public function tac_gia_id()
+    public function tacgia()
     {
-        return $this->belongsTo(TacGia::class);
+        return $this->belongsTo(TacGia::class, 'tac_gia_id');
     }
-    public function mon_hoc_id()
+    public function monhoc()
     {
-        return $this->belongsTo(MonHoc::class);
+        return $this->belongsTo(MonHoc::class, 'mon_hoc_id');
     }
-    public function nganh_id()
+    public function nganh()
     {
-        return $this->belongsTo(Nganh::class);
+        return $this->belongsTo(Nganh::class, 'nganh_id');
     }
-    public function khoa_id()
+    public function khoa()
     {
-        return $this->belongsTo(Khoa::class);
+        return $this->belongsTo(Khoa::class, 'khoa_id');
     }
 }

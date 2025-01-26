@@ -9,7 +9,6 @@ class ViTriSach extends Model
 {
     protected $table = 'vi_tri_sachs';
     use HasFactory;
-    protected $table = 'vi_tri_sachs';
     protected $fillable = [
         'khu_vuc',
         'tuong',

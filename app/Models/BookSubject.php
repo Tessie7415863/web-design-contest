@@ -8,18 +8,21 @@ use Illuminate\Database\Eloquent\Model;
 class BookSubject extends Model
 {
     use HasFactory;
+    protected $table = 'book_subject';
+
+    protected $primaryKey = ['sach_id', 'mon_hoc_id'];
     protected $fillable = [
         'sach_id',
         'mon_hoc_id'
     ];
 
-    public function sach_id()
+    public function sach()
     {
-        return $this->belongsTo(Sach::class);
+        return $this->belongsTo(Sach::class, 'sach_id');
     }
 
-    public function mon_hoc_id()
+    public function monhoc()
     {
-        return $this->belongsTo(MonHoc::class);
+        return $this->belongsTo(MonHoc::class, 'mon_hoc_id');
     }
 }

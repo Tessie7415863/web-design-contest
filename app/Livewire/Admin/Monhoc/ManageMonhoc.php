@@ -8,6 +8,6 @@ class ManageMonhoc extends Component
 {
     public function render()
     {
-        return view('livewire.admin.monhoc.manage-main');
+        return view('livewire.admin.monhoc.manage-monhoc');
     }
 }
