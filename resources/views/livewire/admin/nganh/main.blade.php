@@ -29,27 +29,27 @@
             </thead>
             <tbody>
                 @forelse ($nganhs as $nganh)
-                    <tr class="hover:bg-gray-100">
-                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $nganh->id }}</td>
-                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $nganh->ten_nganh }}</td>
-                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $nganh->khoa_id }} -
-                            {{ $nganh->khoa->ten_khoa }}
-                        </td>
-                        <td class="border border-gray-300 px-4 py-2 flex justify-center space-x-2">
-                            <button wire:click="editNganh({{ $nganh->id }})"
-                                class="bg-yellow-500 text-white px-3 py-1 rounded-md hover:bg-yellow-600">
-                                Sửa
-                            </button>
-                            <button wire:click="openConfirmModal({{ $nganh->id }})"
-                                class="bg-red-600 text-white px-3 py-1 rounded-md hover:bg-red-700">
-                                Xoá
-                            </button>
-                        </td>
-                    </tr>
+                <tr class="hover:bg-gray-100">
+                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $nganh->id }}</td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $nganh->ten_nganh }}</td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $nganh->khoa_id }} -
+                        {{ $nganh->khoa->ten_khoa }}
+                    </td>
+                    <td class="border border-gray-300 px-4 py-2 flex justify-center space-x-2">
+                        <button wire:click="editNganh({{ $nganh->id }})"
+                            class="bg-yellow-500 text-white px-3 py-1 rounded-md hover:bg-yellow-600">
+                            Sửa
+                        </button>
+                        <button wire:click="openConfirmModal({{ $nganh->id }})"
+                            class="bg-red-600 text-white px-3 py-1 rounded-md hover:bg-red-700">
+                            Xoá
+                        </button>
+                    </td>
+                </tr>
                 @empty
-                    <tr>
-                        <td colspan="4" class="border border-gray-300 px-4 py-2 text-center">Không có dữ liệu ngành.</td>
-                    </tr>
+                <tr>
+                    <td colspan="4" class="border border-gray-300 px-4 py-2 text-center">Không có dữ liệu ngành.</td>
+                </tr>
                 @endforelse
             </tbody>
         </table>
@@ -85,7 +85,7 @@
                         class="w-full border border-gray-300 rounded-md px-3 py-2">
                         <option value="">-- Chọn Khoa --</option>
                         @foreach($khoas as $khoa)
-                            <option value="{{ $khoa->id }}">{{ $khoa->ten_khoa }}</option>
+                        <option value="{{ $khoa->id }}">{{ $khoa->ten_khoa }}</option>
                         @endforeach
                     </select>
                     @error('khoa_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
@@ -122,33 +122,28 @@
         <div class="inline-flex items-center space-x-2">
             <!-- Previous Page Button -->
             @if($nganhs->onFirstPage())
-                <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Previous</span>
+            <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Previous</span>
             @else
-                <a href="{{ $nganhs->previousPageUrl() }}"
-                    class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">Previous</a>
+            <a href="{{ $nganhs->previousPageUrl() }}"
+                class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">Previous</a>
             @endif
 
             <!-- Page Numbers -->
             @foreach ($nganhs->getUrlRange(1, $nganhs->lastPage()) as $page => $url)
-                <!-- @if ($page == $nganhs->currentPage())
-                                                        <span class="px-4 py-2 text-white bg-blue-600 rounded-md">{{ $page }}</span>
-                                                    @else
-                                                        <a href="{{ $url }}"
-                                                            class="px-4 py-2 text-blue-600 border border-gray-300 rounded-md hover:bg-gray-100">{{ $page }}</a>
-                                                    @endif -->
-
-                <a wire:click.prevent="gotoPage({{ $page }})" href="#"
-                    class="{{ $page == $nganhs->currentPage() ? 'bg-blue-600 text-white' : 'text-blue-600 border border-gray-300 hover:bg-gray-100' }} px-4 py-2 rounded-md">
-                    {{ $page }}
-                </a>
+            @if ($page == $nganhs->currentPage())
+            <span class="px-4 py-2 text-white bg-blue-600 rounded-md">{{ $page }}</span>
+            @else
+            <a href="{{ $url }}"
+                class="px-4 py-2 text-blue-600 border border-gray-300 rounded-md hover:bg-gray-100">{{ $page }}</a>
+            @endif
             @endforeach
 
             <!-- Next Page Button -->
             @if($nganhs->hasMorePages())
-                <a href="{{ $nganhs->nextPageUrl() }}"
-                    class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">Next</a>
+            <a href="{{ $nganhs->nextPageUrl() }}"
+                class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">Next</a>
             @else
-                <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Next</span>
+            <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Next</span>
             @endif
         </div>
     </div>

@@ -7,6 +7,7 @@ use App\Models\User;
 use Flasher\Prime\FlasherInterface;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
+
 class Main extends Component
 {
     public $users;
@@ -100,11 +101,11 @@ class Main extends Component
             'created_at' => now(),
             'updated_at' => null
         ]);
-        User::create([
-            'name' => $this->ho_ten,
-            'email' => $this->email,
-            'password' => Hash::make($this->password),
-        ]);
+        // User::create([
+        //     'name' => $this->ho_ten,
+        //     'email' => $this->email,
+        //     'password' => Hash::make($this->password),
+        // ]);
         $flasher->addSuccess('Sinh viên đã được thêm thành công!');
         $this->closeModal();
         $this->loadSinhViens();

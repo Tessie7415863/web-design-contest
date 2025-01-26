@@ -16,21 +16,11 @@
                 <input type="text" wire:model.live="searchName" placeholder="Tìm kiếm theo tên"
                     class="border border-gray-300 px-4 py-2 rounded-md focus:outline-none " />
             </div>
-            <div class="mb-4 flex justify-end">
-                <button wire:click="deleteSelected"
-                    class="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 disabled:opacity-50"
-                    {{ empty($selectedIds) ? 'disabled' : '' }}>
-                    Xoá toàn bộ đã chọn
-                </button>
-            </div>
         </div>
 
         <table class="table-auto w-full border-collapse border border-gray-300">
             <thead class="bg-gray-100">
                 <tr>
-                    <th class="border border-gray-300 px-4 py-2 text-center">
-                        <!-- <input type="checkbox" wire:model.live="selectAll"> -->
-                    </th>
                     <th class="border border-gray-300 px-4 py-2">ID</th>
                     <th class="border border-gray-300 px-4 py-2">User id</th>
                     <th class="border border-gray-300 px-4 py-2">Họ tên</th>
@@ -46,18 +36,19 @@
             <tbody>
                 @foreach ($sinhviens as $sinhvien)
                 <tr class="hover:bg-gray-100">
-                    <td class="border border-gray-300 px-4 py-2 text-center">
-                        <input type="checkbox" wire:model.live="selectedIds" value="{{ $sinhvien->id }}">
-                    </td>
                     <td class="border border-gray-300 px-4 py-2 text-center">{{ $sinhvien->id }}</td>
                     <td class="border border-gray-300 px-4 py-2 text-center">{{ $sinhvien->user_id }}</td>
                     <td class="border border-gray-300 px-4 py-2">{{ $sinhvien->ho_ten }}</td>
                     <td class="border border-gray-300 px-4 py-2">{{ $sinhvien->ngay_sinh }}</td>
                     <td class="border border-gray-300 px-4 py-2">{{ $sinhvien->lop }}</td>
                     <td class="border border-gray-300 px-4 py-2">{{ $sinhvien->email }}</td>
-                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $sinhvien->password }}</td>
+                    <td class="border border-gray-300 px-4 py-2 text-center  truncate max-w-xs">
+                        {{ $sinhvien->password }}
+                    </td>
                     <td class="border border-gray-300 px-4 py-2">{{ $sinhvien->sdt }}</td>
-                    <td class="border border-gray-300 px-4 py-2">{{ $sinhvien->dia_chi }}</td>
+                    <td class="border border-gray-300 px-4 py-2 truncate max-w-xs">
+                        {{ $sinhvien->dia_chi }}
+                    </td>
                     <td class="border border-gray-300 px-4 py-2 flex justify-center space-x-2">
                         <button wire:click="editSinhVien({{ $sinhvien->id }})"
                             class="bg-yellow-500 text-white px-3 py-1 rounded-md hover:bg-yellow-600">

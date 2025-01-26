@@ -29,27 +29,27 @@
             </thead>
             <tbody>
                 @forelse ($loaitailieus as $loaitailieu)
-                    <tr class="hover:bg-gray-100">
-                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $loaitailieu->id }}</td>
-                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $loaitailieu->ten_loai }}</td>
-                        <td class="border border-gray-300 px-4 py-2 text-center">
-                            {!! $loaitailieu->mo_ta ? $loaitailieu->mo_ta : '<span class="text-gray-400">Chưa có</span>' !!}
-                        </td>
-                        <td class="border border-gray-300 px-4 py-2 flex justify-center space-x-2">
-                            <button wire:click="editTaiLieu({{ $loaitailieu->id }})"
-                                class="bg-yellow-500 text-white px-3 py-1 rounded-md hover:bg-yellow-600">
-                                Sửa
-                            </button>
-                            <button wire:click="openConfirmModal({{ $loaitailieu->id }})"
-                                class="bg-red-600 text-white px-3 py-1 rounded-md hover:bg-red-700">
-                                Xoá
-                            </button>
-                        </td>
-                    </tr>
+                <tr class="hover:bg-gray-100">
+                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $loaitailieu->id }}</td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $loaitailieu->ten_loai }}</td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">
+                        {!! $loaitailieu->mo_ta ? $loaitailieu->mo_ta : '<span class="text-gray-400">Chưa có</span>' !!}
+                    </td>
+                    <td class="border border-gray-300 px-4 py-2 flex justify-center space-x-2">
+                        <button wire:click="editTaiLieu({{ $loaitailieu->id }})"
+                            class="bg-yellow-500 text-white px-3 py-1 rounded-md hover:bg-yellow-600">
+                            Sửa
+                        </button>
+                        <button wire:click="openConfirmModal({{ $loaitailieu->id }})"
+                            class="bg-red-600 text-white px-3 py-1 rounded-md hover:bg-red-700">
+                            Xoá
+                        </button>
+                    </td>
+                </tr>
                 @empty
-                    <tr>
-                        <td colspan="4" class="border border-gray-300 px-4 py-2 text-center">Không có tài liệu.</td>
-                    </tr>
+                <tr>
+                    <td colspan="4" class="border border-gray-300 px-4 py-2 text-center">Không có tài liệu.</td>
+                </tr>
                 @endforelse
             </tbody>
         </table>
@@ -119,33 +119,28 @@
         <div class="inline-flex items-center space-x-2">
             <!-- Previous Page Button -->
             @if($loaitailieus->onFirstPage())
-                <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Previous</span>
+            <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Previous</span>
             @else
-                <a href="{{ $loaitailieus->previousPageUrl() }}"
-                    class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">Previous</a>
+            <a href="{{ $loaitailieus->previousPageUrl() }}"
+                class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">Previous</a>
             @endif
 
             <!-- Page Numbers -->
             @foreach ($loaitailieus->getUrlRange(1, $loaitailieus->lastPage()) as $page => $url)
-                @if ($page == $loaitailieus->currentPage())
-                    <span class="px-4 py-2 text-white bg-blue-600 rounded-md">{{ $page }}</span>
-                @else
-                    <a href="{{ $url }}"
-                        class="px-4 py-2 text-blue-600 border border-gray-300 rounded-md hover:bg-gray-100">{{ $page }}</a>
-                @endif
-
-                <a wire:click.prevent="gotoPage({{ $page }})" href="#"
-                    class="{{ $page == $loaitailieus->currentPage() ? 'bg-blue-600 text-white' : 'text-blue-600 border border-gray-300 hover:bg-gray-100' }} px-4 py-2 rounded-md">
-                    {{ $page }}
-                </a>
+            @if ($page == $loaitailieus->currentPage())
+            <span class="px-4 py-2 text-white bg-blue-600 rounded-md">{{ $page }}</span>
+            @else
+            <a href="{{ $url }}"
+                class="px-4 py-2 text-blue-600 border border-gray-300 rounded-md hover:bg-gray-100">{{ $page }}</a>
+            @endif
             @endforeach
 
             <!-- Next Page Button -->
             @if($loaitailieus->hasMorePages())
-                <a href="{{ $loaitailieus->nextPageUrl() }}"
-                    class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">Next</a>
+            <a href="{{ $loaitailieus->nextPageUrl() }}"
+                class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">Next</a>
             @else
-                <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Next</span>
+            <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Next</span>
             @endif
         </div>
     </div>

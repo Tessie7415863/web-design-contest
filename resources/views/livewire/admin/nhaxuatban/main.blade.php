@@ -31,36 +31,37 @@
             </thead>
             <tbody>
                 @forelse ($nhaxuatbans as $nhaxuatban)
-                    <tr class="hover:bg-gray-100">
-                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $nhaxuatban->id }}</td>
-                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $nhaxuatban->ten_nha_xuat_ban }}</td>
-                        <td class="border border-gray-300 px-4 py-2 text-center">
-                            {!! $nhaxuatban->dia_chi ? $nhaxuatban->dia_chi : '<span class="text-gray-400">Chưa có</span>' !!}
+                <tr class="hover:bg-gray-100">
+                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $nhaxuatban->id }}</td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $nhaxuatban->ten_nha_xuat_ban }}</td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">
+                        {!! $nhaxuatban->dia_chi ? $nhaxuatban->dia_chi : '<span class="text-gray-400">Chưa có</span>'
+                        !!}
 
-                        </td>
-                        <td class="border border-gray-300 px-4 py-2 text-center">
-                            {!! $nhaxuatban->sdt ? $nhaxuatban->dia_chi : '<span class="text-gray-400">Chưa có</span>' !!}
+                    </td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">
+                        {!! $nhaxuatban->sdt ? $nhaxuatban->dia_chi : '<span class="text-gray-400">Chưa có</span>' !!}
 
-                        </td>
-                        <td class="border border-gray-300 px-4 py-2 text-center">
-                            {!! $nhaxuatban->email ? $nhaxuatban->dia_chi : '<span class="text-gray-400">Chưa có</span>' !!}
+                    </td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">
+                        {!! $nhaxuatban->email ? $nhaxuatban->dia_chi : '<span class="text-gray-400">Chưa có</span>' !!}
 
-                        </td>
-                        <td class="border border-gray-300 px-4 py-2 flex justify-center space-x-2">
-                            <button wire:click="editNhaXuatBan({{ $nhaxuatban->id }})"
-                                class="bg-yellow-500 text-white px-3 py-1 rounded-md hover:bg-yellow-600">
-                                Sửa
-                            </button>
-                            <button wire:click="openConfirmModal({{ $nhaxuatban->id }})"
-                                class="bg-red-600 text-white px-3 py-1 rounded-md hover:bg-red-700">
-                                Xoá
-                            </button>
-                        </td>
-                    </tr>
+                    </td>
+                    <td class="border border-gray-300 px-4 py-2 flex justify-center space-x-2">
+                        <button wire:click="editNhaXuatBan({{ $nhaxuatban->id }})"
+                            class="bg-yellow-500 text-white px-3 py-1 rounded-md hover:bg-yellow-600">
+                            Sửa
+                        </button>
+                        <button wire:click="openConfirmModal({{ $nhaxuatban->id }})"
+                            class="bg-red-600 text-white px-3 py-1 rounded-md hover:bg-red-700">
+                            Xoá
+                        </button>
+                    </td>
+                </tr>
                 @empty
-                    <tr>
-                        <td colspan="6" class="border border-gray-300 px-4 py-2 text-center">Không có nhà xuất bản.</td>
-                    </tr>
+                <tr>
+                    <td colspan="6" class="border border-gray-300 px-4 py-2 text-center">Không có nhà xuất bản.</td>
+                </tr>
                 @endforelse
 
             </tbody>
@@ -143,33 +144,28 @@
         <div class="inline-flex items-center space-x-2">
             <!-- Previous Page Button -->
             @if($nhaxuatbans->onFirstPage())
-                <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Previous</span>
+            <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Previous</span>
             @else
-                <a href="{{ $nhaxuatbans->previousPageUrl() }}"
-                    class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">Previous</a>
+            <a href="{{ $nhaxuatbans->previousPageUrl() }}"
+                class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">Previous</a>
             @endif
 
             <!-- Page Numbers -->
             @foreach ($nhaxuatbans->getUrlRange(1, $nhaxuatbans->lastPage()) as $page => $url)
-                @if ($page == $nhaxuatbans->currentPage())
-                    <span class="px-4 py-2 text-white bg-blue-600 rounded-md">{{ $page }}</span>
-                @else
-                    <a href="{{ $url }}"
-                        class="px-4 py-2 text-blue-600 border border-gray-300 rounded-md hover:bg-gray-100">{{ $page }}</a>
-                @endif
-
-                <a wire:click.prevent="gotoPage({{ $page }})" href="#"
-                    class="{{ $page == $nhaxuatbans->currentPage() ? 'bg-blue-600 text-white' : 'text-blue-600 border border-gray-300 hover:bg-gray-100' }} px-4 py-2 rounded-md">
-                    {{ $page }}
-                </a>
+            @if ($page == $nhaxuatbans->currentPage())
+            <span class="px-4 py-2 text-white bg-blue-600 rounded-md">{{ $page }}</span>
+            @else
+            <a href="{{ $url }}"
+                class="px-4 py-2 text-blue-600 border border-gray-300 rounded-md hover:bg-gray-100">{{ $page }}</a>
+            @endif
             @endforeach
 
             <!-- Next Page Button -->
             @if($nhaxuatbans->hasMorePages())
-                <a href="{{ $nhaxuatbans->nextPageUrl() }}"
-                    class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">Next</a>
+            <a href="{{ $nhaxuatbans->nextPageUrl() }}"
+                class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">Next</a>
             @else
-                <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Next</span>
+            <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Next</span>
             @endif
         </div>
     </div>

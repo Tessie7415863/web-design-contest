@@ -21,6 +21,7 @@ use App\Livewire\Auth\Forgot;
 use App\Livewire\Auth\Login;
 use App\Livewire\Auth\Register;
 use App\Livewire\Auth\ResetPassword;
+use App\Livewire\Client\Components\Borrow;
 use App\Livewire\Client\Components\Sach;
 use App\Livewire\Client\HomePage;
 use Illuminate\Support\Facades\Route;
@@ -30,18 +31,18 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('web')->group(function () {
     Route::get('/', HomePage::class);
     Route::get('sach', Sach::class)->name('sach');
+    Route::get('borrow/{id}', Borrow::class)->name('borrow');
     Route::get('/register', Register::class)->name('register');
     Route::get('/login', Login::class)->name('login');
     Route::get('/forgot', action: Forgot::class)->name('password.request');
     Route::get('/reset/{token}', action: ResetPassword::class)->name('password.reset');
 });
-
+Route::get('/logout', function () {
+    auth()->logout();
+    return redirect('/login');
+});
 // Đảm bảo yêu cầu người dùng phải đăng nhập và có quyền admin
 Route::middleware(['auth', 'can:access-admin'])->group(function () {
-    Route::get('/logout', function () {
-        auth()->logout();
-        return redirect('/login');
-    });
     Route::get('/admin', AdminLayout::class);
     Route::get('/admin/manage-user', ManageUser::class)->name('admin.manage-user');
     Route::get('/admin/manage-sinhvien', ManageSinhvien::class)->name('admin.manage-sinhvien');

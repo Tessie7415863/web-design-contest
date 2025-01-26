@@ -10,6 +10,7 @@ use App\Models\NhaXuatBan;
 use App\Models\Sach as ModelsSach;
 use App\Models\TacGia;
 use App\Models\TheLoai;
+use Flasher\Prime\FlasherInterface;
 use Livewire\Component;
 use Livewire\Attributes\Url;
 use Livewire\WithPagination;
@@ -57,7 +58,10 @@ class Sach extends Component
         $this->selectedSachDetails = CuonSach::where('sach_id', $sach_id)->first();
         $this->showModal = true;
     }
-
+    public function alert(FlasherInterface $flasher)
+    {
+        $flasher->addError('Thông báo', 'Bạn phải đăng nhập để mượn sách');
+    }
     public function closeModal()
     {
         $this->showModal = false;
@@ -77,7 +81,10 @@ class Sach extends Component
         $this->start_year = min($this->nams);
         $this->end_year = max($this->nams);
     }
-
+    public function borrowSach($id)
+    {
+        return redirect()->route('borrow', ['id' => $id]);
+    }
     public function render()
     {
         // Lấy danh sách sách

@@ -292,7 +292,7 @@
                         <div class="w-full overflow-y-auto overflow-x-hidden">
                             @foreach($sachs as $sach)
                             <div
-                                class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 group mb-4">
+                                class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 group mb-4 mx-16">
                                 <div class="p-4 flex flex-row justify-between">
                                     <div>
                                         <h3 class="font-semibold mb-2 line-clamp-2 text-gray-900 dark:text-white">
@@ -309,10 +309,17 @@
                                     </div>
                                     <div
                                         class="flex flex-col gap-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                        <button wire:click="borrowsach({{ $sach->id }})"
+                                        @auth
+                                        <button wire:click="borrowSach({{ $sach->id }})"
                                             class="bg-blue-600 px-4 py-2 rounded-full text-sm text-white hover:bg-blue-700 transition-colors">
                                             Mượn ngay
                                         </button>
+                                        @else
+                                        <button wire:click="alert"
+                                            class="bg-gray-400 px-4 py-2 rounded-full text-sm text-white cursor-not-allowed">
+                                            Mượn ngay
+                                        </button>
+                                        @endauth
                                         <button wire:click="showSachDetails({{ $sach->id }})"
                                             class="bg-blue-600 px-4 py-2 rounded-full text-sm text-white hover:bg-blue-700 transition-colors">
                                             Chi tiết
@@ -321,7 +328,6 @@
                                 </div>
                             </div>
                             @endforeach
-
                             <!-- Modal -->
                             @if($showModal)
                             <div
