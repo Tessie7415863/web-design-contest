@@ -21,38 +21,25 @@
         <table class="table-auto w-full border-collapse border border-gray-300">
             <thead class="bg-gray-100">
                 <tr>
-                    <th class="border border-gray-300 px-4 py-2">ID Sách</th>
-                    <th class="border border-gray-300 px-4 py-2">ID Môn</th>
-                    <th class="border border-gray-300 px-4 py-2">Hành động</th>
+                    <th class="border border-gray-300 px-4 py-2">Sách</th>
+                    <th class="border border-gray-300 px-4 py-2">Môn</th>
                 </tr>
             </thead>
             <tbody>
                 @forelse ($booksubjects as $booksubject)
-                    <tr class="hover:bg-gray-100">
-                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $booksubject->sach_id }} -
-                            {{ $booksubject->sach->ten_sach}}
-                        </td>
-                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $booksubject->mon_hoc_id }} -
-                            {{ $booksubject->monhoc->ten_mon}}
-                        </td>
-                        <td class="border border-gray-300 px-4 py-2 flex justify-center space-x-2">
-                            <button
-                                wire:click="editBookSubject('{{ $booksubject->sach_id }}', '{{  $booksubject->mon_hoc_id}}')"
-                                class="bg-yellow-500 text-white px-3 py-1 rounded-md hover:bg-yellow-600">
-                                Sửa
-                            </button>
-                            <button
-                                wire:click="openConfirmModal('{{ $booksubject->sach_id }}', '{{  $booksubject->mon_hoc_id}}')"
-                                class=" bg-red-600 text-white px-3 py-1 rounded-md hover:bg-red-700">
-                                Xoá
-                            </button>
-                        </td>
-                    </tr>
+                <tr class="hover:bg-gray-100">
+                    <td class="border border-gray-300 px-4 py-2 text-center">
+                        {{ $booksubject->sach->ten_sach}}
+                    </td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">
+                        {{ $booksubject->mon->ten_mon}}
+                    </td>
+                </tr>
                 @empty
-                    <tr>
-                        <td colspan="10" class="border border-gray-300 px-4 py-2 text-center">Không có Book Subject.
-                        </td>
-                    </tr>
+                <tr>
+                    <td colspan="10" class="border border-gray-300 px-4 py-2 text-center">Không có Book Subject.
+                    </td>
+                </tr>
                 @endforelse
             </tbody>
         </table>
@@ -82,7 +69,7 @@
                         class="w-full border border-gray-300 rounded-md px-3 py-2">
                         <option value="">-- Chọn ID --</option>
                         @foreach($sachs as $sach)
-                            <option value="{{ $sach->id }}">{{ $sach->ten_sach }}</option>
+                        <option value="{{ $sach->id }}">{{ $sach->ten_sach }}</option>
                         @endforeach
                     </select>
                     @error('sach_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
@@ -94,7 +81,7 @@
                         class="w-full border border-gray-300 rounded-md px-3 py-2">
                         <option value="">-- Chọn ID --</option>
                         @foreach($monhocs as $monhoc)
-                            <option value="{{ $monhoc->id }}">{{ $monhoc->ten_mon }}</option>
+                        <option value="{{ $monhoc->id }}">{{ $monhoc->ten_mon }}</option>
                         @endforeach
                     </select>
                     @error('mon_hoc_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
@@ -132,27 +119,27 @@
         <div class="inline-flex items-center space-x-2">
             <!-- Previous Page Button -->
             @if($booksubjects->onFirstPage())
-                <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Previous</span>
+            <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Previous</span>
             @else
-                <a href="{{ $booksubjects->previousPageUrl() }}"
-                    class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">Previous</a>
+            <a href="{{ $booksubjects->previousPageUrl() }}"
+                class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">Previous</a>
             @endif
 
             <!-- Page Numbers -->
             @foreach ($booksubjects->getUrlRange(1, $booksubjects->lastPage()) as $page => $url)
 
-                <a wire:click.prevent="gotoPage({{ $page }})" href="#"
-                    class="{{ $page == $booksubjects->currentPage() ? 'bg-blue-600 text-white' : 'text-blue-600 border border-gray-300 hover:bg-gray-100' }} px-4 py-2 rounded-md">
-                    {{ $page }}
-                </a>
+            <a wire:click.prevent="gotoPage({{ $page }})" href="#"
+                class="{{ $page == $booksubjects->currentPage() ? 'bg-blue-600 text-white' : 'text-blue-600 border border-gray-300 hover:bg-gray-100' }} px-4 py-2 rounded-md">
+                {{ $page }}
+            </a>
             @endforeach
 
             <!-- Next Page Button -->
             @if($booksubjects->hasMorePages())
-                <a href="{{ $booksubjects->nextPageUrl() }}"
-                    class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">Next</a>
+            <a href="{{ $booksubjects->nextPageUrl() }}"
+                class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">Next</a>
             @else
-                <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Next</span>
+            <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Next</span>
             @endif
         </div>
     </div>

@@ -8,23 +8,28 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Attributes\On;
 use Flasher\SweetAlert\Prime\SweetAlertInterface;
+
 class Main extends Component
 {
-    public $users;
     public $userId, $name, $email, $password;
     public $isEditMode = false;
     public $isModalOpen = false;
     public $isConfirmModalOpen = false;
     public $deleteUserId = null;
+    public $searchName = '';
 
     public function mount()
     {
-        $this->loadUsers();
+        // Initialize nếu cần thiết
     }
 
-    public function loadUsers()
+    public function render()
     {
-        $this->users = User::all();
+        $users = User::when($this->searchName, function ($query) {
+            $query->where('name', 'like', '%' . $this->searchName . '%');
+        })->paginate(10);
+
+        return view('livewire.admin.user.main', compact('users'));
     }
 
     public function openModal()
@@ -71,13 +76,11 @@ class Main extends Component
             'name' => $this->name,
             'email' => $this->email,
             'password' => Hash::make($this->password),
-            'created_at' => now(),
-            'updated_at' => null
         ]);
+
         $flasher->addSuccess('Người dùng đã được thêm thành công!');
 
         $this->closeModal();
-        $this->loadUsers();
     }
 
     public function editUser($id)
@@ -92,6 +95,11 @@ class Main extends Component
 
     public function updateUser(FlasherInterface $flasher)
     {
+        if (!$this->userId) {
+            $flasher->addError('Người dùng không tồn tại!');
+            return;
+        }
+
         $this->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $this->userId,
@@ -102,18 +110,25 @@ class Main extends Component
             'name' => $this->name,
             'email' => $this->email,
         ]);
-        $flasher->addSuccess('Người dùng đã được cập nhật thành công!');
 
+        $flasher->addSuccess('Người dùng đã được cập nhật thành công!');
         $this->closeModal();
-        $this->loadUsers();
     }
 
-    public function deleteUser()
+    public function deleteUser(FlasherInterface $flasher)
     {
         if ($this->deleteUserId) {
-            User::findOrFail($this->deleteUserId)->delete();
-            $this->closeConfirmModal();
-            $this->loadUsers();
+            $user = User::find($this->deleteUserId);
+
+            if (!$user) {
+                $flasher->addError('Người dùng không tồn tại!');
+                return;
+            }
+
+            $user->delete();
+            $flasher->addSuccess('Người dùng đã được xóa thành công!');
         }
+
+        $this->closeConfirmModal();
     }
 }

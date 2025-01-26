@@ -10,7 +10,6 @@ class BookSubject extends Model
     use HasFactory;
     protected $table = 'book_subject';
 
-    protected $primaryKey = ['sach_id', 'mon_hoc_id'];
     protected $fillable = [
         'sach_id',
         'mon_hoc_id'
@@ -21,7 +20,7 @@ class BookSubject extends Model
         return $this->belongsTo(Sach::class, 'sach_id');
     }
 
-    public function monhoc()
+    public function mon()
     {
         return $this->belongsTo(MonHoc::class, 'mon_hoc_id');
     }

@@ -23,7 +23,7 @@ class TaiLieuMo extends Model
         'khoa_id'
     ];
 
-    public function loaitailieu()
+    public function tailieu()
     {
         return $this->belongsTo(LoaiTaiLieu::class, 'loai_tai_lieu_id');
     }
@@ -35,7 +35,7 @@ class TaiLieuMo extends Model
     {
         return $this->belongsTo(TacGia::class, 'tac_gia_id');
     }
-    public function monhoc()
+    public function mon()
     {
         return $this->belongsTo(MonHoc::class, 'mon_hoc_id');
     }

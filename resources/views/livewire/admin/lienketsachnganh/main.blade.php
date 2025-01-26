@@ -21,35 +21,24 @@
         <table class="table-auto w-full border-collapse border border-gray-300">
             <thead class="bg-gray-100">
                 <tr>
-                    <th class="border border-gray-300 px-4 py-2">ID Sách</th>
-                    <th class="border border-gray-300 px-4 py-2">ID Ngành</th>
-                    <th class="border border-gray-300 px-4 py-2">Hành động</th>
+                    <th class="border border-gray-300 px-4 py-2">Sách</th>
+                    <th class="border border-gray-300 px-4 py-2">Ngành</th>
                 </tr>
             </thead>
             <tbody>
                 @forelse ($lienketsachnganhs as $lienketsachnganh)
-                    <tr class="hover:bg-gray-100">
-                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $lienketsachnganh->sach_id }} -
-                            {{ $lienketsachnganh->sach->ten_sach }}
-                        </td>
-                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $lienketsachnganh->nganh_id }} -
-                            {{ $lienketsachnganh->nganh->ten_nganh }}
-                        </td>
-                        <td class="border border-gray-300 px-4 py-2 flex justify-center space-x-2">
-                            <button wire:click="editLienKetSachNganh({{ $lienketsachnganh->sach_id }})"
-                                class="bg-yellow-500 text-white px-3 py-1 rounded-md hover:bg-yellow-600">
-                                Sửa
-                            </button>
-                            <button wire:click="openConfirmModal({{ $lienketsachnganh->sach_id }})"
-                                class="bg-red-600 text-white px-3 py-1 rounded-md hover:bg-red-700">
-                                Xoá
-                            </button>
-                        </td>
-                    </tr>
+                <tr class="hover:bg-gray-100">
+                    <td class="border border-gray-300 px-4 py-2 text-center">
+                        {{ $lienketsachnganh->sach->ten_sach }}
+                    </td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">
+                        {{ $lienketsachnganh->nganh->ten_nganh }}
+                    </td>
+                </tr>
                 @empty
-                    <tr>
-                        <td colspan="6" class="border border-gray-300 px-4 py-2 text-center">Không có dữ liệu liên kết.</td>
-                    </tr>
+                <tr>
+                    <td colspan="6" class="border border-gray-300 px-4 py-2 text-center">Không có dữ liệu liên kết.</td>
+                </tr>
                 @endforelse
             </tbody>
         </table>
@@ -79,7 +68,7 @@
                         class="w-full border border-gray-300 rounded-md px-3 py-2">
                         <option value="">-- Chọn ID --</option>
                         @foreach($sachs as $sach)
-                            <option value="{{ $sach->id }}">{{ $sach->ten_sach }}</option>
+                        <option value="{{ $sach->id }}">{{ $sach->ten_sach }}</option>
                         @endforeach
                     </select>
                     @error('sach_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
@@ -91,7 +80,7 @@
                         class="w-full border border-gray-300 rounded-md px-3 py-2">
                         <option value="">-- Chọn ID --</option>
                         @foreach($nganhs as $nganh)
-                            <option value="{{ $nganh->id }}">{{ $nganh->ten_nganh }}</option>
+                        <option value="{{ $nganh->id }}">{{ $nganh->ten_nganh }}</option>
                         @endforeach
                     </select>
                     @error('nganh_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
@@ -128,28 +117,28 @@
         <div class="inline-flex items-center space-x-2">
             <!-- Previous Page Button -->
             @if($lienketsachnganhs->onFirstPage())
-                <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Previous</span>
+            <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Previous</span>
             @else
-                <a href="{{ $lienketsachnganhs->previousPageUrl() }}"
-                    class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">Previous</a>
+            <a href="{{ $lienketsachnganhs->previousPageUrl() }}"
+                class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">Previous</a>
             @endif
 
             <!-- Page Numbers -->
             @foreach ($lienketsachnganhs->getUrlRange(1, $lienketsachnganhs->lastPage()) as $page => $url)
-                @if ($page == $lienketsachnganhs->currentPage())
-                    <span class="px-4 py-2 text-white bg-blue-600 rounded-md">{{ $page }}</span>
-                @else
-                    <a href="{{ $url }}"
-                        class="px-4 py-2 text-blue-600 border border-gray-300 rounded-md hover:bg-gray-100">{{ $page }}</a>
-                @endif
+            @if ($page == $lienketsachnganhs->currentPage())
+            <span class="px-4 py-2 text-white bg-blue-600 rounded-md">{{ $page }}</span>
+            @else
+            <a href="{{ $url }}"
+                class="px-4 py-2 text-blue-600 border border-gray-300 rounded-md hover:bg-gray-100">{{ $page }}</a>
+            @endif
             @endforeach
 
             <!-- Next Page Button -->
             @if($lienketsachnganhs->hasMorePages())
-                <a href="{{ $lienketsachnganhs->nextPageUrl() }}"
-                    class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">Next</a>
+            <a href="{{ $lienketsachnganhs->nextPageUrl() }}"
+                class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">Next</a>
             @else
-                <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Next</span>
+            <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Next</span>
             @endif
         </div>
     </div>

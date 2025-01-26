@@ -21,12 +21,9 @@ class Main extends Component
     public $isConfirmModalOpen = false;
     public function render()
     {
-
-
-        $booksubjects = BookSubject::with('sach', 'monhoc')->paginate(10);
+        $booksubjects = BookSubject::paginate(10);
         $sachs = Sach::all();
         $monhocs = MonHoc::all();
-
         return view('livewire.admin.booksubject.main', compact('booksubjects', 'sachs', 'monhocs'));
     }
 
@@ -66,9 +63,10 @@ class Main extends Component
     public function createBookSubject(FlasherInterface $flasher)
     {
         $this->validate([
-            'sach_id' => 'required',
-            'mon_hoc_id' => 'required',
+            'sach_id' => 'required|integer|exists:sachs,id',
+            'mon_hoc_id' => 'required|integer|exists:mon_hocs,id',
         ]);
+
 
         $exists = BookSubject::where('sach_id', $this->sach_id)
             ->where('mon_hoc_id', $this->mon_hoc_id)
@@ -144,5 +142,4 @@ class Main extends Component
             $flasher->addError('Dữ liệu không hợp lệ!');
         }
     }
-
 }

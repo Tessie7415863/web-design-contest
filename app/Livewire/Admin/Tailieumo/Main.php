@@ -16,7 +16,7 @@ use Livewire\WithPagination;
 class Main extends Component
 {
     use WithPagination;
-    public $id, $ten_tai_lieu, $loai_tai_lieu, $tac_gia_id, $nha_xuat_ban_id, $nam_phat_hanh, $so_trang, $isbn, $link_tai_ve, $mon_hoc_id, $nganh_id, $khoa_id;
+    public $id, $ten_tai_lieu, $loai_tai_lieu, $loai_tai_lieu_id, $tac_gia_id, $nha_xuat_ban_id, $nam_phat_hanh, $so_trang, $isbn, $link_tai_ve, $mon_hoc_id, $nganh_id, $khoa_id;
 
     public $deleteTaiLieuMoId;
     public $searchName = '';
@@ -60,7 +60,7 @@ class Main extends Component
     public function resetForm()
     {
         $this->ten_tai_lieu = null;
-        $this->loai_tai_lieu = null;
+        $this->loai_tai_lieu_id = null;
         $this->tac_gia_id = null;
         $this->nha_xuat_ban_id = null;
         $this->nam_phat_hanh = null;
@@ -77,10 +77,10 @@ class Main extends Component
     {
         $this->validate([
             'ten_tai_lieu' => 'required',
-            'loai_tai_lieu' => 'required',
+            'loai_tai_lieu_id' => 'required',
             'tac_gia_id' => 'required',
             'nha_xuat_ban_id' => 'required',
-            'nam_phat_hanh' => 'nullable',
+            'nam_phat_hanh' =>  'nullable|regex:/^\d{4}$/',
             'so_trang' => 'nullable',
             'isbn' => 'nullable',
             'link_tai_ve' => 'nullable',
@@ -88,19 +88,16 @@ class Main extends Component
             'nganh_id' => 'required',
             'khoa_id' => 'required',
         ]);
+        $existingTaiLieu = TaiLieuMo::where('ten_tai_lieu', $this->ten_tai_lieu)
+            ->where('loai_tai_lieu_id', $this->loai_tai_lieu_id)
+            ->where('tac_gia_id', $this->tac_gia_id)
+            ->where('id', '!=', $this->id) // Loại trừ tài liệu hiện tại
+            ->exists();
 
-        // Kiểm tra trùng lặp tên tài liệu
-        // $exists = TaiLieuMo::where('ten_tai_lieu', $this->ten_tai_lieu)->exists();
-        // if ($exists) {
-        //     $existsAuthor = TaiLieuMo::where('ten_tai_lieu', $this->ten_tai_lieu)->where('tac_gia_id', $this->tac_gia_id)->exists();
-        //     if ($existsAuthor) {
-        //         $flasher->addError('Sách đã tồn tại.');
-        //         return;
-        //     } else {
-        //         return;
-        //     }
-        // }
-
+        if ($existingTaiLieu) {
+            $flasher->addError('Tài liệu đã tồn tại trong hệ thống!');
+            return; // Dừng quá trình nếu tài liệu đã tồn tại
+        }
         TaiLieuMo::create([
             'ten_tai_lieu' => $this->ten_tai_lieu,
             'loai_tai_lieu_id' => $this->loai_tai_lieu_id,
@@ -140,14 +137,14 @@ class Main extends Component
         $this->openModal();
     }
 
-    public function updateSach(FlasherInterface $flasher)
+    public function updateTaiLieuMo(FlasherInterface $flasher)
     {
         $this->validate([
             'ten_tai_lieu' => 'required',
-            'loai_tai_lieu' => 'required',
+            'loai_tai_lieu_id' => 'required',
             'tac_gia_id' => 'required',
             'nha_xuat_ban_id' => 'required',
-            'nam_phat_hanh' => 'nullable',
+            'nam_phat_hanh' =>  'nullable|regex:/^\d{4}$/',
             'so_trang' => 'nullable',
             'isbn' => 'nullable',
             'link_tai_ve' => 'nullable',
@@ -155,19 +152,22 @@ class Main extends Component
             'nganh_id' => 'required',
             'khoa_id' => 'required',
         ]);
-        // Kiểm tra trùng lặp tên sách
-        $exists = TaiLieuMo::where('ten_tai_lieu', $this->ten_tai_lieu)->exists();
-        if ($exists) {
-            $existsAuthor = TaiLieuMo::where('ten_tai_lieu', $this->ten_tai_lieu)->where('tac_gia_id', $this->tac_gia_id)->exists();
-            if ($existsAuthor) {
-                $flasher->addError('Sách đã tồn tại.');
-                return;
-            } else {
-                return;
-            }
+
+        // Kiểm tra trùng lặp
+        $existingTaiLieu = TaiLieuMo::where('ten_tai_lieu', $this->ten_tai_lieu)
+            ->where('loai_tai_lieu_id', $this->loai_tai_lieu_id)
+            ->where('tac_gia_id', $this->tac_gia_id)
+            ->where('id', '!=', $this->id) // Loại trừ tài liệu hiện tại
+            ->exists();
+
+        if ($existingTaiLieu) {
+            $flasher->addError('Tài liệu đã tồn tại trong hệ thống!');
+            return; // Dừng quá trình nếu tài liệu đã tồn tại
         }
 
-        TaiLieuMo::create([
+        // Tìm và cập nhật tài liệu
+        $taiLieuMo = TaiLieuMo::findOrFail($this->id);
+        $taiLieuMo->update([
             'ten_tai_lieu' => $this->ten_tai_lieu,
             'loai_tai_lieu_id' => $this->loai_tai_lieu_id,
             'tac_gia_id' => $this->tac_gia_id,
@@ -181,10 +181,11 @@ class Main extends Component
             'khoa_id' => $this->khoa_id,
         ]);
 
-        $flasher->addSuccess('Tạo tài liệu thành công!');
+        $flasher->addSuccess('Cập nhật tài liệu thành công!');
         $this->closeModal();
         $this->resetForm();
     }
+
 
     public function deleteTaiLieuMo(FlasherInterface $flasher)
     {

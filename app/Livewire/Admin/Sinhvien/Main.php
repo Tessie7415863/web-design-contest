@@ -16,8 +16,6 @@ class Main extends Component
     public $isModalOpen = false;
     public $isConfirmModalOpen = false;
     public $deleteSinhVienId = null;
-    public $selectedIds = [];
-    public $selectAll = false;
     public $searchName = ''; // Biến lưu trữ giá trị tìm kiếm
     public function loadSinhViens()
     {
@@ -178,32 +176,6 @@ class Main extends Component
             $this->closeConfirmModal();
             $flasher->addSuccess('Xoá Sinh viên thành công!');
             $this->loadSinhViens();
-        }
-    }
-    // public function updatedSelectAll($value)
-    // {
-    //     if ($value) {
-    //         // Lấy tất cả các sinh viên trong trang hiện tại từ thuộc tính items() của paginator
-    //         $this->selectedIds = $this->sinhviens->items()->pluck('id')->toArray();
-    //         dd($this->selectedIds);
-    //     } else {
-    //         $this->selectedIds = [];
-    //     }
-    // }
-
-
-    public function deleteSelected(FlasherInterface $flasher)
-    {
-        if (!empty($this->selectedIds)) {
-            foreach ($this->selectedIds as $id) {
-                $sinhvien = SinhVien::find($id);
-                if ($sinhvien) {
-                    $sinhvien->delete();
-                }
-            }
-            $this->selectedIds = [];
-            $this->selectAll = false;
-            $flasher->addSuccess('Xoá Sinh viên thành công!');
         }
     }
 }
