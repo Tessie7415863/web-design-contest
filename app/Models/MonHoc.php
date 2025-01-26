@@ -17,4 +17,8 @@ class MonHoc extends Model
     {
         return $this->belongsTo(Nganh::class);
     }
+    public function sach()
+    {
+        return $this->belongsTo(Sach::class);
+    }
 }

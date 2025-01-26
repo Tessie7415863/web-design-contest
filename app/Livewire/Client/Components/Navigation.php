@@ -12,7 +12,6 @@ class Navigation extends Component
     {
         $this->activeTab = $tab;
     }
-
     public function render()
     {
         return view('livewire.client.components.navigation');

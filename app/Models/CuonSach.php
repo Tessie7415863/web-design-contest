@@ -24,4 +24,8 @@ class CuonSach extends Model
     {
         return $this->belongsTo(ViTriSach::class);
     }
+    public function viTriSach()
+    {
+        return $this->belongsTo(ViTriSach::class, 'vi_tri_sach_id');
+    }
 }

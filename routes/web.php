@@ -23,11 +23,16 @@ use App\Livewire\Admin\Tacgia\ManageTacgia;
 use App\Livewire\Admin\Tailieumo\ManageTailieumo;
 use App\Livewire\Admin\Theloai\ManageTheloai;
 use App\Livewire\Admin\User\ManageUser;
+<<<<<<< HEAD
 use App\Livewire\Admin\Vitrisach\ManageVitrisach;
+=======
+use App\Livewire\Admin\Vitrisach\ManageViTriSach;
+>>>>>>> 277c6c7b4c64e517cd23ecc11ab3f6f3d728e50a
 use App\Livewire\Auth\Forgot;
 use App\Livewire\Auth\Login;
 use App\Livewire\Auth\Register;
 use App\Livewire\Auth\ResetPassword;
+use App\Livewire\Client\Components\Sach;
 use App\Livewire\Client\HomePage;
 use Illuminate\Support\Facades\Route;
 
@@ -35,6 +40,7 @@ use Illuminate\Support\Facades\Route;
 // Trang chính
 Route::middleware('web')->group(function () {
     Route::get('/', HomePage::class);
+    Route::get('sach', Sach::class)->name('sach');
     Route::get('/register', Register::class)->name('register');
     Route::get('/login', Login::class)->name('login');
     Route::get('/forgot', action: Forgot::class)->name('password.request');
@@ -63,6 +69,7 @@ Route::middleware(['auth', 'can:access-admin'])->group(function () {
     Route::get('/admin/manage-theloai', ManageTheloai::class)->name('admin.manage-theloai');
     Route::get('/admin/manage-monhoc', ManageMonhoc::class)->name('admin.manage-monhoc');
     Route::get('/admin/manage-sach', ManageSach::class)->name('admin.manage-sach');
+<<<<<<< HEAD
     Route::get('/admin/manage-vitrisach', ManageVitrisach::class)->name('admin.manage-vitrisach');
     Route::get('/admin/manage-cuonsach', ManageCuonsach::class)->name('admin.manage-cuonsach');
     Route::get('/admin/manage-datsach', ManageDatsach::class)->name('admin.manage-datsach');
@@ -73,3 +80,7 @@ Route::middleware(['auth', 'can:access-admin'])->group(function () {
     Route::get('/admin/manage-phieutra', ManagePhieutra::class)->name('admin.manage-phieutra');
 
 });
+=======
+    Route::get('/admin/manage-vitrisach', ManageViTriSach::class)->name('admin.manage-vitrisach');
+});
+>>>>>>> 277c6c7b4c64e517cd23ecc11ab3f6f3d728e50a
