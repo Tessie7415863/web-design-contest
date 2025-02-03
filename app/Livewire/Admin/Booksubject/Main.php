@@ -12,7 +12,7 @@ use Livewire\WithPagination;
 class Main extends Component
 {
     use WithPagination;
-    public $sach_id, $mon_hoc_id, $ten_sach, $ten_mon_hoc;
+    public $sach_id, $mon_hoc_id;
 
     public $deleteBookSubject;
     public $searchName = '';

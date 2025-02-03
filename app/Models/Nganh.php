@@ -16,4 +16,9 @@ class Nganh extends Model
     {
         return $this->belongsTo(Khoa::class);
     }
+
+    public function digitalresource()
+    {
+        return $this->hasMany(DigitalResourceMajor::class, 'nganh_id');
+    }
 }
