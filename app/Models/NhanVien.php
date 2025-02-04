@@ -20,7 +20,6 @@ class NhanVien extends Model
     public function boPhan()
     {
         return $this->belongsTo(Bophan::class);
-
     }
 
     public function user()

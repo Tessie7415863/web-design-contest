@@ -21,6 +21,6 @@ class Main extends Component
     {
         $phieutras = PhieuTra::paginate(10);
         $phieumuons = PhieuMuon::all();
-        return view('livewire.admin.phieutra.main', compact('phieumuons'));
+        return view('livewire.admin.phieutra.main', compact('phieumuons', 'phieutras'));
     }
 }

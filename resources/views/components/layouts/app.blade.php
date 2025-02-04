@@ -16,7 +16,21 @@
 </head>
 
 <body class="bg-gray-100 min-h-screen dark:bg-gray-900">
+    <section class="dots-container">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </section>
     {{ $slot }}
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        setTimeout(function() {
+            document.querySelector(".dots-container").style.display = "none";
+        }, 1000);
+    });
+    </script>
     @livewireScripts
     @vite('resources/js/app.js')
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>

@@ -32,7 +32,7 @@
                 <tr class="hover:bg-gray-100">
                     <td class="border border-gray-300 px-4 py-2 text-center">{{ $nganh->id }}</td>
                     <td class="border border-gray-300 px-4 py-2 text-center">{{ $nganh->ten_nganh }}</td>
-                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $nganh->khoa_id }} -
+                    <td class="border border-gray-300 px-4 py-2 text-center">
                         {{ $nganh->khoa->ten_khoa }}
                     </td>
                     <td class="border border-gray-300 px-4 py-2 flex justify-center space-x-2">
