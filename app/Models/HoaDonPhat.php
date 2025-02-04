@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class HoaDonPhat extends Model
 {
     use HasFactory;
+    protected $table = "hoa_don_phats";
     protected $fillable = [
         'phat_id',
         'ngay_lap',
@@ -15,8 +16,8 @@ class HoaDonPhat extends Model
         'trang_thai'
     ];
 
-    public function phat_id()
+    public function phat()
     {
-        return $this->belongsTo(Phat::class);
+        return $this->belongsTo(Phat::class, 'phat_id');
     }
 }

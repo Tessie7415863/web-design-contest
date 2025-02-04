@@ -118,6 +118,16 @@
                 {{ request()->is('admin/manage-lienketsachnganh') ? 'bg-gray-400 text-blue-500' : 'text-black hover:bg-gray-300' }}">
                     Liên kết sách ngành
                 </a>
+                <a href="/admin/manage-monhoc"
+                    class="block px-3 py-2 rounded-md 
+                {{ request()->is('admin/manage-monhoc') ? 'bg-gray-400 text-blue-500' : 'text-black hover:bg-gray-300' }}">
+                    Môn Học
+                </a>
+                <a href="/admin/manage-booksubject"
+                    class="block px-3 py-2 rounded-md 
+                {{ request()->is('admin/manage-booksubject') ? 'bg-gray-400 text-blue-500' : 'text-black hover:bg-gray-300' }}">
+                    Book Subject
+                </a>
             </div>
         </div>
 
@@ -140,14 +150,23 @@
                 {{ request()->is('admin/manage-phieutra') ? 'bg-gray-400 text-blue-500' : 'text-black hover:bg-gray-300' }}">
                     Phiếu trả
                 </a>
+                <a href="/admin/manage-phat"
+                    class="block px-3 py-2 rounded-md 
+                {{ request()->is('admin/manage-phat') ? 'bg-gray-400 text-blue-500' : 'text-black hover:bg-gray-300' }}">
+                    Phạt
+                </a>
+                <a href="/admin/manage-hoadonphat"
+                    class="block px-3 py-2 rounded-md 
+                {{ request()->is('admin/manage-hoadonphat') ? 'bg-gray-400 text-blue-500' : 'text-black hover:bg-gray-300' }}">
+                    Hóa đơn phạt
+                </a>
             </div>
         </div>
-
-        <!-- Các quản lý khác -->
+        <!-- Quản lý tài liệu -->
         <div x-data="{ open: false }">
             <button @click="open = !open"
                 class="flex justify-between items-center w-full px-3 py-2 text-left rounded-md text-black hover:bg-gray-300">
-                Khác
+                Tài liệu
                 <span x-show="!open">▼</span>
                 <span x-show="open">▲</span>
             </button>
@@ -157,6 +176,23 @@
                 {{ request()->is('admin/manage-loaitailieu') ? 'bg-gray-400 text-blue-500' : 'text-black hover:bg-gray-300' }}">
                     Loại tài liệu
                 </a>
+
+                <a href="/admin/manage-tailieumo"
+                    class="block px-3 py-2 rounded-md 
+                {{ request()->is('admin/manage-tailieumo') ? 'bg-gray-400 text-blue-500' : 'text-black hover:bg-gray-300' }}">
+                    Tài liệu mở
+                </a>
+            </div>
+        </div>
+        <!-- Các quản lý khác -->
+        <div x-data="{ open: false }">
+            <button @click="open = !open"
+                class="flex justify-between items-center w-full px-3 py-2 text-left rounded-md text-black hover:bg-gray-300">
+                Khác
+                <span x-show="!open">▼</span>
+                <span x-show="open">▲</span>
+            </button>
+            <div x-show="open" class="space-y-2 pl-4">
                 <a href="/admin/manage-nhaxuatban"
                     class="block px-3 py-2 rounded-md 
                 {{ request()->is('admin/manage-nhaxuatban') ? 'bg-gray-400 text-blue-500' : 'text-black hover:bg-gray-300' }}">
@@ -172,16 +208,39 @@
                 {{ request()->is('admin/manage-theloai') ? 'bg-gray-400 text-blue-500' : 'text-black hover:bg-gray-300' }}">
                     Thể loại
                 </a>
-                <a href="/admin/manage-tailieumo"
+                <a href="/admin/manage-digitalresourcemajor"
                     class="block px-3 py-2 rounded-md 
+                {{ request()->is('admin/manage-digitalresourcemajor') ? 'bg-gray-400 text-blue-500' : 'text-black hover:bg-gray-300' }}">
+                    Digital Resource Major
+                </a>
+                <a href="/admin/manage-digitalresourcesubject"
+                    class="block px-3 py-2 rounded-md 
+                {{ request()->is('admin/manage-digitalresourcesubject') ? 'bg-gray-400 text-blue-500' : 'text-black hover:bg-gray-300' }}">
+                    Digital Resource Subject
+                </a>
+            </div>
+
+            <!-- Quản lý hệ thống và bảo mật -->
+            <div x-data="{ open: false }">
+                <button @click="open = !open"
+                    class="flex justify-between items-center w-full px-3 py-2 text-left rounded-md text-black hover:bg-gray-300">
+                    Hệ thống và bảo mật
+                    <span x-show="!open">▼</span>
+                    <span x-show="open">▲</span>
+                </button>
+                <div x-show="open" class="space-y-2 pl-4">
+                    <a href="/admin/manage-failedjob"
+                        class="block px-3 py-2 rounded-md 
+                {{ request()->is('admin/manage-failedjob') ? 'bg-gray-400 text-blue-500' : 'text-black hover:bg-gray-300' }}">
+                        Failed Job
+                    </a>
+
+                    <a href="/admin/manage-tailieumo"
+                        class="block px-3 py-2 rounded-md 
                 {{ request()->is('admin/manage-tailieumo') ? 'bg-gray-400 text-blue-500' : 'text-black hover:bg-gray-300' }}">
-                    Tài liệu mở
-                </a>
-                <a href="/admin/manage-booksubject"
-                    class="block px-3 py-2 rounded-md 
-                {{ request()->is('admin/manage-booksubject') ? 'bg-gray-400 text-blue-500' : 'text-black hover:bg-gray-300' }}">
-                    Book Subject
-                </a>
+                        Tài liệu mở
+                    </a>
+                </div>
             </div>
         </div>
     </nav>

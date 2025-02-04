@@ -76,3 +76,7 @@ b5 : Bắt đầu code table
 sau khi code xong template table thì chuyển sang file app/livewire/admin/{roles}/main
 
 nếu không tìm thấy table nào thì vào Models/ model cần tìm thêm dòng này vào { protected $table = '{ten_table}';}
+
+Khi pull dự án về bị báo lỗi not found là do :
+    1: chưa npm install
+    2: chưa composer install 

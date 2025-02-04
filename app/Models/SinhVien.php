@@ -11,7 +11,7 @@ class SinhVien extends Model
     protected $table = 'sinh_viens';
     protected $fillable = [
         'user_id',
-        'hppo_ten',
+        'ho_ten',
         'ngay_sinh',
         'gioi_tinh',
         'lop',

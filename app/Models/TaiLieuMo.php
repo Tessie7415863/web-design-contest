@@ -47,4 +47,9 @@ class TaiLieuMo extends Model
     {
         return $this->belongsTo(Khoa::class, 'khoa_id');
     }
+
+    public function digitalresource()
+    {
+        return $this->hasMany(DigitalResourceMajor::class, 'tai_lieu_id');
+    }
 }

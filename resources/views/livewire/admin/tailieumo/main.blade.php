@@ -38,35 +38,37 @@
             </thead>
             <tbody>
                 @forelse ($tailieumos as $tailieumo)
-                <tr class="hover:bg-gray-100">
-                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $tailieumo->id }}</td>
-                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $tailieumo->ten_tai_lieu }}</td>
-                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $tailieumo->tailieu->ten_loai }}</td>
-                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $tailieumo->tacgia->ho_ten }}</td>
-                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $tailieumo->nha_xuat_ban_id }}</td>
-                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $tailieumo->nam_phat_hanh }}</td>
-                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $tailieumo->so_trang }}</td>
-                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $tailieumo->isbn }}</td>
-                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $tailieumo->link_tai_ve }}</td>
-                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $tailieumo->mon->ten_mon }}</td>
-                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $tailieumo->nganh->ten_nganh }}</td>
-                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $tailieumo->khoa->ten_khoa }}</td>
-                    <td class="border border-gray-300 px-4 py-2 flex justify-center space-x-2">
-                        <button wire:click="editTaiLieuMo({{ $tailieumo->id }})"
-                            class="bg-yellow-500 text-white px-3 py-1 rounded-md hover:bg-yellow-600">
-                            Sửa
-                        </button>
-                        <button wire:click="openConfirmModal({{ $tailieumo->id }})"
-                            class="bg-red-600 text-white px-3 py-1 rounded-md hover:bg-red-700">
-                            Xoá
-                        </button>
-                    </td>
-                </tr>
+                    <tr class="hover:bg-gray-100">
+                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $tailieumo->id }}</td>
+                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $tailieumo->ten_tai_lieu }}</td>
+                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $tailieumo->tailieu->ten_loai }}</td>
+                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $tailieumo->tacgia->ho_ten }}</td>
+                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $tailieumo->nha_xuat_ban_id }}</td>
+                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $tailieumo->nam_phat_hanh }}</td>
+                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $tailieumo->so_trang }}</td>
+                        <td class="border border-gray-300 px-4 py-2 text-center">
+                            {!! $tailieumo->isbn ? $tailieumo->isbn : '<span class="text-gray-400">Chưa có</span>' !!}
+                        </td>
+                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $tailieumo->link_tai_ve }}</td>
+                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $tailieumo->mon->ten_mon }}</td>
+                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $tailieumo->nganh->ten_nganh }}</td>
+                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $tailieumo->khoa->ten_khoa }}</td>
+                        <td class="border border-gray-300 px-4 py-2 flex justify-center space-x-2">
+                            <button wire:click="editTaiLieuMo({{ $tailieumo->id }})"
+                                class="bg-yellow-500 text-white px-3 py-1 rounded-md hover:bg-yellow-600">
+                                Sửa
+                            </button>
+                            <button wire:click="openConfirmModal({{ $tailieumo->id }})"
+                                class="bg-red-600 text-white px-3 py-1 rounded-md hover:bg-red-700">
+                                Xoá
+                            </button>
+                        </td>
+                    </tr>
                 @empty
-                <tr>
-                    <td colspan="14" class="border border-gray-300 px-4 py-2 text-center">Không có dữ liệu tài liệu mở.
-                    </td>
-                </tr>
+                    <tr>
+                        <td colspan="14" class="border border-gray-300 px-4 py-2 text-center">Không có dữ liệu tài liệu mở.
+                        </td>
+                    </tr>
                 @endforelse
             </tbody>
         </table>
@@ -104,7 +106,7 @@
                                 class="w-full border border-gray-300 rounded-md px-3 py-2">
                                 <option value="">-- Chọn Loại Tài Liệu --</option>
                                 @foreach($loaitailieus as $loaitailieu)
-                                <option value="{{ $loaitailieu->id }}">{{ $loaitailieu->ten_loai }}</option>
+                                    <option value="{{ $loaitailieu->id }}">{{ $loaitailieu->ten_loai }}</option>
                                 @endforeach
                             </select>
                             @error('loai_tai_lieu_id') <span class="text-red-500 text-sm">{{ $message }}</span>
@@ -116,7 +118,7 @@
                                 class="w-full border border-gray-300 rounded-md px-3 py-2">
                                 <option value="">-- Chọn Tác Giả--</option>
                                 @foreach($tacgias as $tacgia)
-                                <option value="{{ $tacgia->id }}">{{ $tacgia->ho_ten }}</option>
+                                    <option value="{{ $tacgia->id }}">{{ $tacgia->ho_ten }}</option>
                                 @endforeach
                             </select>
                             @error('tac_gia_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
@@ -127,7 +129,7 @@
                                 class="w-full border border-gray-300 rounded-md px-3 py-2">
                                 <option value="">-- Chọn NXB --</option>
                                 @foreach($nhaxuatbans as $nhaxuatban)
-                                <option value="{{ $nhaxuatban->id }}">{{ $nhaxuatban->ten_nha_xuat_ban }}</option>
+                                    <option value="{{ $nhaxuatban->id }}">{{ $nhaxuatban->ten_nha_xuat_ban }}</option>
                                 @endforeach
                             </select>
                             @error('nha_xuat_ban_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
@@ -168,7 +170,7 @@
                                 class="w-full border border-gray-300 rounded-md px-3 py-2">
                                 <option value="">-- Chọn Môn--</option>
                                 @foreach($monhocs as $monhoc)
-                                <option value="{{ $monhoc->id }}">{{ $monhoc->ten_mon }}</option>
+                                    <option value="{{ $monhoc->id }}">{{ $monhoc->ten_mon }}</option>
                                 @endforeach
                             </select>
                             @error('mon_hoc_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
@@ -180,7 +182,7 @@
                                 class="w-full border border-gray-300 rounded-md px-3 py-2">
                                 <option value="">-- Chọn Ngành --</option>
                                 @foreach($nganhs as $nganh)
-                                <option value="{{ $nganh->id }}">{{ $nganh->ten_nganh }}</option>
+                                    <option value="{{ $nganh->id }}">{{ $nganh->ten_nganh }}</option>
                                 @endforeach
                             </select>
                             @error('nganh_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
@@ -192,7 +194,7 @@
                                 class="w-full border border-gray-300 rounded-md px-3 py-2">
                                 <option value="">-- Chọn Khoa --</option>
                                 @foreach($khoas as $khoa)
-                                <option value="{{ $khoa->id }}">{{ $khoa->ten_khoa }}</option>
+                                    <option value="{{ $khoa->id }}">{{ $khoa->ten_khoa }}</option>
                                 @endforeach
                             </select>
                             @error('khoa_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
@@ -230,27 +232,27 @@
         <div class="inline-flex items-center space-x-2">
             <!-- Previous Page Button -->
             @if($tailieumos->onFirstPage())
-            <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Previous</span>
+                <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Previous</span>
             @else
-            <a href="{{ $tailieumos->previousPageUrl() }}"
-                class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">Previous</a>
+                <a href="{{ $tailieumos->previousPageUrl() }}"
+                    class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">Previous</a>
             @endif
 
             <!-- Page Numbers -->
             @foreach ($tailieumos->getUrlRange(1, $tailieumos->lastPage()) as $page => $url)
 
-            <a wire:click.prevent="gotoPage({{ $page }})" href="#"
-                class="{{ $page == $tailieumos->currentPage() ? 'bg-blue-600 text-white' : 'text-blue-600 border border-gray-300 hover:bg-gray-100' }} px-4 py-2 rounded-md">
-                {{ $page }}
-            </a>
+                <a wire:click.prevent="gotoPage({{ $page }})" href="#"
+                    class="{{ $page == $tailieumos->currentPage() ? 'bg-blue-600 text-white' : 'text-blue-600 border border-gray-300 hover:bg-gray-100' }} px-4 py-2 rounded-md">
+                    {{ $page }}
+                </a>
             @endforeach
 
             <!-- Next Page Button -->
             @if($tailieumos->hasMorePages())
-            <a href="{{ $tailieumos->nextPageUrl() }}"
-                class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">Next</a>
+                <a href="{{ $tailieumos->nextPageUrl() }}"
+                    class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">Next</a>
             @else
-            <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Next</span>
+                <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Next</span>
             @endif
         </div>
     </div>
