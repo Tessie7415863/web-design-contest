@@ -1,6 +1,6 @@
 <div class="min-h-screen bg-gray-100 flex items-center justify-center p-4">
     <div class="max-w-md w-full bg-white rounded-xl shadow-lg p-8">
-        <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">Đăng nhập Admin Dashboard</h2>
+        <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">Đăng nhập Sinh Viên</h2>
         <form class="space-y-4" wire:submit.prevent="login">
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>

@@ -21,11 +21,11 @@ class Main extends Component
     public $isConfirmModalOpen = false;
     public function render()
     {
-        $phieumuons = PhieuMuon::with('sinhvien') // Gọi quan hệ để tải thông tin từ bảng sinhviens
+        $phieumuons = PhieuMuon::with('sinhvien')
             ->whereHas('sinhvien', function ($query) {
-                $query->where('ho_ten', 'like', '%' . $this->searchName . '%'); // Tìm kiếm theo tên sinh viên
+                $query->where('ho_ten', 'like', '%' . $this->searchName . '%');
             })
-            ->orWhere('id', $this->searchName) // Tìm kiếm theo ID phiếu mượn
+            ->orWhere('id', $this->searchName)
             ->paginate(10);
 
         $sinhviens = SinhVien::all();
@@ -78,8 +78,7 @@ class Main extends Component
             'tinh_trang' => 'required',
         ]);
 
-        $exists = PhieuMuon::where('sinh_vien_id', $this->sinh_vien_id)->
-            exists();
+        $exists = PhieuMuon::where('sinh_vien_id', $this->sinh_vien_id)->exists();
         if ($exists) {
             // Thêm thông báo lỗi
             $flasher->addError('Phiếu mượn đã tồn tại.');

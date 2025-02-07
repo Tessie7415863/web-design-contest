@@ -4,7 +4,10 @@ namespace App\Livewire\Auth;
 
 use Flasher\Prime\FlasherInterface;
 use Illuminate\Support\Facades\Password;
+use Livewire\Attributes\Title;
 use Livewire\Component;
+
+#[Title('Lấy lại mật khẩu - Thư viện ITC')]
 
 class Forgot extends Component
 {
@@ -26,7 +29,6 @@ class Forgot extends Component
                 $this->email = '';
             } else {
                 $flasher->addError('Lỗi');
-
             }
         } catch (\Exception $e) {
             $flasher->addError('Lỗi');

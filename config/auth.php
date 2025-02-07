@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'sinhvien' => [
+            'driver' => 'session',
+            'provider' => 'sinhviens',
+        ],
     ],
 
     /*
@@ -65,10 +69,10 @@ return [
             'model' => App\Models\User::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'sinhviens' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Sinhvien::class,
+        ],
     ],
 
     /*

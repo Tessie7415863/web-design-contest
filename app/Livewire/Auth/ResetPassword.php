@@ -11,6 +11,8 @@ use Livewire\Component;
 use Livewire\Attributes\Url;
 use Illuminate\Support\Str;
 
+#[Title('Tạo lại mật khẩu - Thư viện ITC')]
+
 class ResetPassword extends Component
 {
     public $token;
@@ -54,7 +56,6 @@ class ResetPassword extends Component
             return redirect('/login');
         } else {
             $flasher->addSuccess('Lỗi khi tạo lại mật khẩu!');
-
         }
     }
     public function render()

@@ -1,14 +1,14 @@
 <div class="min-h-screen bg-gray-100 flex items-center justify-center p-4">
     <div class="max-w-md w-full bg-white rounded-xl shadow-lg p-8">
-        <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">Đăng Ký tài khoản</h2>
+        <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">Sinh viên đăng ký</h2>
 
         <form class="space-y-4" wire:submit.prevent="register">
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Họ Tên</label>
-                <input type="text" wire:model="name"
+                <input type="text" wire:model="ho_ten"
                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
-                    placeholder="Nhập name của bạn" />
-                @error('name')
+                    placeholder="Nhập họ tên của bạn" />
+                @error('ho_ten')
                 <span class="text-red-500 text-xs">{{ $message }}</span>
                 @enderror
             </div>

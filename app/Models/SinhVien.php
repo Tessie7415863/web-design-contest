@@ -4,13 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class SinhVien extends Model
+class SinhVien extends Authenticatable
 {
     use HasFactory;
     protected $table = 'sinh_viens';
     protected $fillable = [
-        'user_id',
         'ho_ten',
         'ngay_sinh',
         'gioi_tinh',
@@ -19,9 +19,10 @@ class SinhVien extends Model
         'sdt',
         'dia_chi',
         'password',
+        'tai_khoan'
     ];
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
+    // public function user()
+    // {
+    //     return $this->belongsTo(User::class);
+    // }
 }
