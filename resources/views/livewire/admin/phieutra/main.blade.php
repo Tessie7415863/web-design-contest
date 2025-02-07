@@ -30,30 +30,38 @@
             </thead>
             <tbody>
                 @forelse ($phieutras as $phieutra)
-                    <tr class="hover:bg-gray-100">
-                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $phieutra->id }}</td>
-                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $phieutra->phieu_muon_id }}
-                        </td>
-                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $phieutra->ngay_tra }}
-                        </td>
-                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $phieutra->tinh_trang }}
-                        </td>
+                <tr class="hover:bg-gray-100">
+                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $phieutra->id }}</td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $phieutra->phieu_muon_id }}
+                    </td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $phieutra->ngay_tra }}
+                    </td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">
+                        @if($phieutra->tinh_trang === 'HoanThanh')
+                        Hoàn thành
+                        @elseif($phieutra->tinh_trang === 'ChuaHoanThanh')
+                        Chưa hoàn thành
+                        @else
+                        {{ $phieutra->tinh_trang }}
+                        @endif
+                    </td>
 
-                        <td class="border border-gray-300 px-4 py-2 flex justify-center space-x-2">
-                            <button wire:click="editPhieuTra({{ $phieutra->id }})"
-                                class="bg-yellow-500 text-white px-3 py-1 rounded-md hover:bg-yellow-600">
-                                Sửa
-                            </button>
-                            <button wire:click="openConfirmModal({{ $phieutra->id }})"
-                                class="bg-red-600 text-white px-3 py-1 rounded-md hover:bg-red-700">
-                                Xoá
-                            </button>
-                        </td>
-                    </tr>
+
+                    <td class="border border-gray-300 px-4 py-2 flex justify-center space-x-2">
+                        <button wire:click="editPhieuTra({{ $phieutra->id }})"
+                            class="bg-yellow-500 text-white px-3 py-1 rounded-md hover:bg-yellow-600">
+                            Sửa
+                        </button>
+                        <button wire:click="openConfirmModal({{ $phieutra->id }})"
+                            class="bg-red-600 text-white px-3 py-1 rounded-md hover:bg-red-700">
+                            Xoá
+                        </button>
+                    </td>
+                </tr>
                 @empty
-                    <tr>
-                        <td colspan="8" class="border border-gray-300 px-4 py-2 text-center">Không có phiếu trả.</td>
-                    </tr>
+                <tr>
+                    <td colspan="8" class="border border-gray-300 px-4 py-2 text-center">Không có phiếu trả.</td>
+                </tr>
                 @endforelse
             </tbody>
         </table>
@@ -83,7 +91,7 @@
                         class="w-full border border-gray-300 rounded-md px-3 py-2">
                         <option value="">-- Chọn ID --</option>
                         @foreach($phieumuons as $phieumuon)
-                            <option value="{{ $phieumuon->id }}">{{ $phieumuon->sinh_vien_id }}</option>
+                        <option value="{{ $phieumuon->id }}">{{ $phieumuon->sinh_vien_id }}</option>
                         @endforeach
                     </select>
                     @error('phieu_muon_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
@@ -91,17 +99,22 @@
 
                 <div class="mb-4">
                     <label for="ngay_tra" class="block font-semibold">Ngày Trả</label>
-                    <input type="text" id="ngay_tra" wire:model.defer="ngay_tra"
+                    <input type="date" id="ngay_tra" wire:model.defer="ngay_tra"
                         class="w-full border border-gray-300 rounded-md px-3 py-2">
                     @error('ngay_tra') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                 </div>
 
                 <div class="mb-4">
                     <label for="tinh_trang" class="block font-semibold">Tình Trạng</label>
-                    <input type="text" id="tinh_trang" wire:model.defer="tinh_trang"
+                    <select id="tinh_trang" wire:model.defer="tinh_trang"
                         class="w-full border border-gray-300 rounded-md px-3 py-2">
+                        <option value="">-- Chọn tình trạng --</option>
+                        <option value="hoanthanh">Hoàn thành</option>
+                        <option value="chuahoanthanh">Chưa hoàn thành</option>
+                    </select>
                     @error('tinh_trang') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                 </div>
+
 
                 <div class="flex justify-end space-x-2">
                     <button type="button" wire:click="closeModal"
@@ -134,28 +147,28 @@
         <div class="inline-flex items-center space-x-2">
             <!-- Previous Page Button -->
             @if($phieutras->onFirstPage())
-                <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Previous</span>
+            <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Previous</span>
             @else
-                <a href="{{ $phieutras->previousPageUrl() }}"
-                    class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">Previous</a>
+            <a href="{{ $phieutras->previousPageUrl() }}"
+                class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">Previous</a>
             @endif
 
             <!-- Page Numbers -->
             @foreach ($phieutras->getUrlRange(1, $phieutras->lastPage()) as $page => $url)
-                @if ($page == $phieutras->currentPage())
-                    <span class="px-4 py-2 text-white bg-blue-600 rounded-md">{{ $page }}</span>
-                @else
-                    <a href="{{ $url }}"
-                        class="px-4 py-2 text-blue-600 border border-gray-300 rounded-md hover:bg-gray-100">{{ $page }}</a>
-                @endif
+            @if ($page == $phieutras->currentPage())
+            <span class="px-4 py-2 text-white bg-blue-600 rounded-md">{{ $page }}</span>
+            @else
+            <a href="{{ $url }}"
+                class="px-4 py-2 text-blue-600 border border-gray-300 rounded-md hover:bg-gray-100">{{ $page }}</a>
+            @endif
             @endforeach
 
             <!-- Next Page Button -->
             @if($phieutras->hasMorePages())
-                <a href="{{ $phieutras->nextPageUrl() }}"
-                    class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">Next</a>
+            <a href="{{ $phieutras->nextPageUrl() }}"
+                class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">Next</a>
             @else
-                <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Next</span>
+            <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Next</span>
             @endif
         </div>
     </div>

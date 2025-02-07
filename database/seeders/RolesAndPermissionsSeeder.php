@@ -18,62 +18,50 @@ class RolesAndPermissionsSeeder extends Seeder
     public function run()
     {
         // Tạo quyền (permissions)
-        $createUserPermission = Permission::create(['name' => 'create-user']);
-        $editUserPermission = Permission::create(['name' => 'edit-user']);
-        $deleteUserPermission = Permission::create(['name' => 'delete-user']);
-        $manageDocumentPermission = Permission::create(['name' => 'manage-document']);
-        $borrowDocumentPermission = Permission::create(['name' => 'borrow-document']);
-        $viewDocumentPermission = Permission::create(['name' => 'view-document']);
-        $suggestDocumentPermission = Permission::create(['name' => 'suggest-document']);
+        $permissions = [
+            'create-user',
+            'edit-user',
+            'delete-user',
+            'manage-document',
+            'borrow-document',
+            'view-document',
+            'suggest-document',
+            'access-admin'
+        ];
+
+        foreach ($permissions as $perm) {
+            Permission::findOrCreate($perm);
+        }
 
         // Tạo vai trò (roles)
-        $adminRole = Role::create(['name' => 'admin']);
-        $librarianRole = Role::create(['name' => 'librarian']);
-        $teacherRole = Role::create(['name' => 'teacher']);
-        $studentRole = Role::create(['name' => 'student']);
+        $roles = [
+            'admin' => ['create-user', 'edit-user', 'delete-user', 'manage-document', 'borrow-document', 'view-document', 'suggest-document', 'access-admin'],
+            'librarian' => ['manage-document', 'borrow-document', 'view-document', 'access-admin'],
+            'teacher' => ['borrow-document', 'view-document', 'suggest-document'],
+            'student' => ['borrow-document', 'view-document']
+        ];
 
-        // Gán quyền cho vai trò
-        $adminRole->givePermissionTo(
-            $createUserPermission,
-            $editUserPermission,
-            $deleteUserPermission,
-            $manageDocumentPermission,
-            $borrowDocumentPermission,
-            $viewDocumentPermission,
-            $suggestDocumentPermission
-        );
+        foreach ($roles as $role => $perms) {
+            $roleInstance = Role::findOrCreate($role);
+            $roleInstance->givePermissionTo($perms);
+        }
 
-        $librarianRole->givePermissionTo(
-            $manageDocumentPermission,
-            $borrowDocumentPermission,
-            $viewDocumentPermission
-        );
+        // Tạo tài khoản mẫu
+        $users = [
+            ['name' => 'Quân', 'email' => 'vquan.dev@gmail.com', 'password' => 'vanquan2509', 'role' => 'admin'],
+            ['name' => 'Hoàng', 'email' => 'nguyenvanhoang130820@gmail.com', 'password' => 'vanhoang123', 'role' => 'admin'],
+            ['name' => 'Librarian User', 'email' => 'librarian@example.com', 'password' => 'password', 'role' => 'librarian'],
+            ['name' => 'Teacher User', 'email' => 'teacher@example.com', 'password' => 'password', 'role' => 'teacher'],
+            ['name' => 'Student User', 'email' => 'student@example.com', 'password' => 'password', 'role' => 'student']
+        ];
 
-        $teacherRole->givePermissionTo(
-            $borrowDocumentPermission,
-            $viewDocumentPermission,
-            $suggestDocumentPermission
-        );
-
-        $studentRole->givePermissionTo($borrowDocumentPermission, $viewDocumentPermission);
-
-        // Tạo người dùng mẫu và gán vai trò
-        $user = User::create([
-            'name' => 'QUÂN',
-            'email' => 'vquan.dev@gmail.com',
-            'password' => bcrypt('vanquan2509')
-        ]);
-        $user->assignRole('admin');
-        $permission = Permission::findOrCreate('access-admin');
-
-        $user = User::create([
-            'name' => 'Hoàng',
-            'email' => 'nguyenvanhoang130820@gmail.com',
-            'password' => bcrypt('vanhoang123')
-        ]);
-        $user->assignRole('admin');
-        $permission = Permission::findOrCreate('access-admin');
-        // Gán quyền cho user
-        $user->givePermissionTo($permission);
+        foreach ($users as $userData) {
+            $user = User::create([
+                'name' => $userData['name'],
+                'email' => $userData['email'],
+                'password' => bcrypt($userData['password'])
+            ]);
+            $user->assignRole($userData['role']);
+        }
     }
 }

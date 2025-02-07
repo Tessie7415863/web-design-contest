@@ -11,7 +11,7 @@ use Livewire\Component;
 class Main extends Component
 {
     public $users;
-    public $id, $user_id, $ho_ten, $ngay_sinh, $gioi_tinh, $lop, $email, $tai_khoan, $password, $sdt, $dia_chi;
+    public $id, $ho_ten, $ngay_sinh, $gioi_tinh, $lop, $email, $tai_khoan, $password, $sdt, $dia_chi;
     public $isEditMode = false;
     public $isModalOpen = false;
     public $isConfirmModalOpen = false;
@@ -59,7 +59,6 @@ class Main extends Component
     public function resetForm()
     {
         $this->id = null;
-        $this->user_id = '';
         $this->ho_ten = '';
         $this->ngay_sinh = '';
         $this->gioi_tinh = '';
@@ -74,7 +73,6 @@ class Main extends Component
     public function createSinhVien(FlasherInterface $flasher)
     {
         $this->validate([
-            'user_id' => 'required',
             'ho_ten' => 'required|string|max:255',
             'ngay_sinh' => 'required',
             'gioi_tinh' => 'required',
@@ -86,7 +84,6 @@ class Main extends Component
             'dia_chi' => 'required',
         ]);
         SinhVien::create([
-            'user_id' => $this->user_id,
             'ho_ten' => $this->ho_ten,
             'ngay_sinh' => $this->ngay_sinh,
             'gioi_tinh' => $this->gioi_tinh,
@@ -99,11 +96,6 @@ class Main extends Component
             'created_at' => now(),
             'updated_at' => null
         ]);
-        // User::create([
-        //     'name' => $this->ho_ten,
-        //     'email' => $this->email,
-        //     'password' => Hash::make($this->password),
-        // ]);
         $flasher->addSuccess('Sinh viên đã được thêm thành công!');
         $this->closeModal();
         $this->loadSinhViens();
@@ -113,7 +105,6 @@ class Main extends Component
     {
         $sinhvien = SinhVien::findOrFail($id);
         $this->id = $sinhvien->id;
-        $this->user_id = $sinhvien->user_id;
         $this->ho_ten = $sinhvien->ho_ten;
         $this->ngay_sinh = $sinhvien->ngay_sinh;
         $this->gioi_tinh = $sinhvien->gioi_tinh;
@@ -130,7 +121,6 @@ class Main extends Component
     public function updateSinhVien(FlasherInterface $flasher)
     {
         $this->validate([
-            'user_id' => 'required',
             'ho_ten' => 'required|string|max:255',
             'ngay_sinh' => 'required',
             'gioi_tinh' => 'required',
@@ -141,11 +131,8 @@ class Main extends Component
             'sdt' => 'required|min:6|max:10',
             'dia_chi' => 'required',
         ]);
-
         $sinhvien = SinhVien::findOrFail($this->id);
-        $user = User::findOrFail($this->user_id);
         $sinhvien->update([
-            'user_id' => $this->user_id,
             'ho_ten' => $this->ho_ten,
             'ngay_sinh' => $this->ngay_sinh,
             'gioi_tinh' => $this->gioi_tinh,
@@ -155,13 +142,7 @@ class Main extends Component
             'tai_khoan' => $this->tai_khoan,
             'sdt' => $this->sdt,
             'dia_chi' => $this->dia_chi,
-            'created_at' => now(),
-            'updated_at' => null
-        ]);
-        $user->update([
-            'name' => $this->ho_ten,
-            'email' => $this->email,
-            'password' => Hash::make($this->password),
+            'updated_at' => now(),
         ]);
         $flasher->addSuccess('Sinh viên đã được cập nhật thành công!');
 

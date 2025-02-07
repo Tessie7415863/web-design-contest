@@ -2,17 +2,19 @@
 
 namespace App\Livewire\Auth;
 
-use Illuminate\Support\Facades\Auth;
-use Livewire\Component;
 use Flasher\Prime\FlasherInterface;
+use Livewire\Component;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Title;
 
 #[Title('Đăng nhập - Thư viện ITC')]
-class Login extends Component
+
+class SinhvienLogin extends Component
 {
     public $email;
     public $password;
-    public $showPassword;
+    public $showPassword = false;
+
     public function login(FlasherInterface $flasher)
     {
         $this->validate([
@@ -25,20 +27,21 @@ class Login extends Component
             'password.min' => 'Mật khẩu phải có ít nhất 6 ký tự.',
         ]);
 
-        if (Auth::attempt(['email' => $this->email, 'password' => $this->password])) {
+        // Thử đăng nhập với guard 'sinhvien'
+        if (Auth::guard('sinhvien')->attempt(['email' => $this->email, 'password' => $this->password]) || Auth::attempt(['email' => $this->email, 'password' => $this->password])) {
             $flasher->addSuccess('Đăng nhập thành công!');
             return redirect()->intended('/');
         } else {
             $flasher->addError('Email hoặc mật khẩu không đúng!');
         }
     }
+
     public function togglePasswordVisibility()
     {
         $this->showPassword = !$this->showPassword;
     }
-
     public function render()
     {
-        return view('livewire.auth.login');
+        return view('livewire.auth.sinhvien-login');
     }
 }

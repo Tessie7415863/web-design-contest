@@ -22,11 +22,11 @@
             <thead class="bg-gray-100">
                 <tr>
                     <th class="border border-gray-300 px-4 py-2">ID</th>
-                    <th class="border border-gray-300 px-4 py-2">User id</th>
                     <th class="border border-gray-300 px-4 py-2">Họ tên</th>
                     <th class="border border-gray-300 px-4 py-2">Ngày sinh</th>
                     <th class="border border-gray-300 px-4 py-2">Lớp</th>
                     <th class="border border-gray-300 px-4 py-2">Email</th>
+                    <th class="border border-gray-300 px-4 py-2">Tài khoản</th>
                     <th class="border border-gray-300 px-4 py-2">Mật khẩu</th>
                     <th class="border border-gray-300 px-4 py-2">Số điện thoại</th>
                     <th class="border border-gray-300 px-4 py-2">Địa chỉ</th>
@@ -37,11 +37,11 @@
                 @foreach ($sinhviens as $sinhvien)
                 <tr class="hover:bg-gray-100">
                     <td class="border border-gray-300 px-4 py-2 text-center">{{ $sinhvien->id }}</td>
-                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $sinhvien->user_id }}</td>
                     <td class="border border-gray-300 px-4 py-2">{{ $sinhvien->ho_ten }}</td>
                     <td class="border border-gray-300 px-4 py-2">{{ $sinhvien->ngay_sinh }}</td>
                     <td class="border border-gray-300 px-4 py-2">{{ $sinhvien->lop }}</td>
                     <td class="border border-gray-300 px-4 py-2">{{ $sinhvien->email }}</td>
+                    <td class="border border-gray-300 px-4 py-2">{{ $sinhvien->tai_khoan }}</td>
                     <td class="border border-gray-300 px-4 py-2 text-center  truncate max-w-xs">
                         {{ $sinhvien->password }}
                     </td>
@@ -99,17 +99,6 @@
                     <input type="password" id="password" wire:model.defer="password"
                         class="w-full border border-gray-300 rounded-md px-3 py-2">
                     @error('password') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-                </div>
-                <div class="mb-4">
-                    <label for="user_id" class="block font-semibold">User ID (Tùy chọn)</label>
-                    <select id="user_id" wire:model.defer="user_id"
-                        class="w-full border border-gray-300 rounded-md px-3 py-2">
-                        <option value="">-- Chọn User --</option>
-                        @foreach ($users as $user)
-                        <option value="{{ $user->id }}">{{ $user->name }}</option>
-                        @endforeach
-                    </select>
-                    @error('user_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                 </div>
                 <div class="mb-4">
                     <label for="ngay_sinh" class="block font-semibold">Ngày sinh</label>

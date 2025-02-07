@@ -49,7 +49,12 @@
                     </td>
                     <td class="border border-gray-300 px-4 py-2 text-center">{{ $phieumuon->ngay_hen_tra }}
                     </td>
-                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $phieumuon->ngay_tra }}
+                    <td class="border border-gray-300 px-4 py-2 text-center">
+                        @if (!empty($phieumuon->ngay_tra))
+                        {{ $phieumuon->ngay_tra ?? 'Chưa trả' }}
+                        @else
+                        Chưa trả
+                        @endif
                     </td>
                     <td class="border border-gray-300 px-4 py-2 text-center">{{ $phieumuon->tinh_trang }}
                     </td>
@@ -118,31 +123,37 @@
 
                 <div class="mb-4">
                     <label for="ngay_muon" class="block font-semibold">Ngày Mượn</label>
-                    <input type="text" id="ngay_muon" wire:model.defer="ngay_muon"
+                    <input type="date" id="ngay_muon" wire:model.defer="ngay_muon"
                         class="w-full border border-gray-300 rounded-md px-3 py-2">
                     @error('ngay_muon') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                 </div>
 
                 <div class="mb-4">
                     <label for="ngay_hen_tra" class="block font-semibold">Ngày Hẹn Trả</label>
-                    <input type="text" id="ngay_hen_tra" wire:model.defer="ngay_hen_tra"
+                    <input type="date" id="ngay_hen_tra" wire:model.defer="ngay_hen_tra"
                         class="w-full border border-gray-300 rounded-md px-3 py-2">
                     @error('ngay_hen_tra') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                 </div>
 
                 <div class="mb-4">
                     <label for="ngay_tra" class="block font-semibold">Ngày Trả</label>
-                    <input type="text" id="ngay_tra" wire:model.defer="ngay_tra"
+                    <input type="date" id="ngay_tra" wire:model.defer="ngay_tra"
                         class="w-full border border-gray-300 rounded-md px-3 py-2">
                     @error('ngay_tra') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                 </div>
 
                 <div class="mb-4">
                     <label for="tinh_trang" class="block font-semibold">Tình Trạng</label>
-                    <input type="text" id="tinh_trang" wire:model.defer="tinh_trang"
+                    <select id="tinh_trang" wire:model.defer="tinh_trang"
                         class="w-full border border-gray-300 rounded-md px-3 py-2">
+                        <option value="">-- Chọn tình trạng --</option>
+                        <option value="DangMuon">Đang mượn</option>
+                        <option value="DaTra">Đã trả</option>
+                        <option value="QuaHan">Quá hạn</option>
+                    </select>
                     @error('tinh_trang') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                 </div>
+
 
                 <div class="flex justify-end space-x-2">
                     <button type="button" wire:click="closeModal"
