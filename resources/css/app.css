@@ -19,9 +19,6 @@ input[type="range"]::-moz-range-thumb {
     cursor: pointer;
 }
 
-<<<<<<< HEAD
-
-=======
 .dots-container {
     position: fixed;
     top: 50%;
@@ -81,4 +78,3 @@ input[type="range"]::-moz-range-thumb {
         box-shadow: 0 0 0 0 rgba(178, 212, 252, 0.7);
     }
 }
->>>>>>> 79fb82dc38f55603b965588ca1ee2f593a394f66
