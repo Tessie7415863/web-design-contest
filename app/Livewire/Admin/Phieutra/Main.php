@@ -12,7 +12,7 @@ class Main extends Component
 {
     use WithPagination;
     public $id, $phieu_muon_id, $ngay_tra, $tinh_trang;
-    public $deletePhieuTraId;
+    public $deletePhieuTra;
     public $searchName = '';
     public $isEditMode = false;
     public $isModalOpen = false;
