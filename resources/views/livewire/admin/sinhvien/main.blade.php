@@ -5,7 +5,10 @@
     <!-- Button Tạo Sinh Viên Mới -->
     <div class="mb-4 text-left">
         <button wire:click="openModal" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
-            Tạo Sinh Viên mới
+            Tạo sinh viên mới
+        </button>
+        <button wire:click="exportExcel" class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700">
+            In danh sách sinh viên
         </button>
     </div>
 
@@ -35,31 +38,31 @@
             </thead>
             <tbody>
                 @foreach ($sinhviens as $sinhvien)
-                <tr class="hover:bg-gray-100">
-                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $sinhvien->id }}</td>
-                    <td class="border border-gray-300 px-4 py-2">{{ $sinhvien->ho_ten }}</td>
-                    <td class="border border-gray-300 px-4 py-2">{{ $sinhvien->ngay_sinh }}</td>
-                    <td class="border border-gray-300 px-4 py-2">{{ $sinhvien->lop }}</td>
-                    <td class="border border-gray-300 px-4 py-2">{{ $sinhvien->email }}</td>
-                    <td class="border border-gray-300 px-4 py-2">{{ $sinhvien->tai_khoan }}</td>
-                    <td class="border border-gray-300 px-4 py-2 text-center  truncate max-w-xs">
-                        {{ $sinhvien->password }}
-                    </td>
-                    <td class="border border-gray-300 px-4 py-2">{{ $sinhvien->sdt }}</td>
-                    <td class="border border-gray-300 px-4 py-2 truncate max-w-xs">
-                        {{ $sinhvien->dia_chi }}
-                    </td>
-                    <td class="border border-gray-300 px-4 py-2 flex justify-center space-x-2">
-                        <button wire:click="editSinhVien({{ $sinhvien->id }})"
-                            class="bg-yellow-500 text-white px-3 py-1 rounded-md hover:bg-yellow-600">
-                            Sửa
-                        </button>
-                        <button wire:click="openConfirmModal({{ $sinhvien->id }})"
-                            class="bg-red-600 text-white px-3 py-1 rounded-md hover:bg-red-700">
-                            Xoá
-                        </button>
-                    </td>
-                </tr>
+                    <tr class="hover:bg-gray-100">
+                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $sinhvien->id }}</td>
+                        <td class="border border-gray-300 px-4 py-2">{{ $sinhvien->ho_ten }}</td>
+                        <td class="border border-gray-300 px-4 py-2">{{ $sinhvien->ngay_sinh }}</td>
+                        <td class="border border-gray-300 px-4 py-2">{{ $sinhvien->lop }}</td>
+                        <td class="border border-gray-300 px-4 py-2">{{ $sinhvien->email }}</td>
+                        <td class="border border-gray-300 px-4 py-2">{{ $sinhvien->tai_khoan }}</td>
+                        <td class="border border-gray-300 px-4 py-2 text-center  truncate max-w-xs">
+                            {{ $sinhvien->password }}
+                        </td>
+                        <td class="border border-gray-300 px-4 py-2">{{ $sinhvien->sdt }}</td>
+                        <td class="border border-gray-300 px-4 py-2 truncate max-w-xs">
+                            {{ $sinhvien->dia_chi }}
+                        </td>
+                        <td class="border border-gray-300 px-4 py-2 flex justify-center space-x-2">
+                            <button wire:click="editSinhVien({{ $sinhvien->id }})"
+                                class="bg-yellow-500 text-white px-3 py-1 rounded-md hover:bg-yellow-600">
+                                Sửa
+                            </button>
+                            <button wire:click="openConfirmModal({{ $sinhvien->id }})"
+                                class="bg-red-600 text-white px-3 py-1 rounded-md hover:bg-red-700">
+                                Xoá
+                            </button>
+                        </td>
+                    </tr>
                 @endforeach
             </tbody>
         </table>
@@ -172,28 +175,28 @@
         <div class="inline-flex items-center space-x-2">
             <!-- Previous Page Button -->
             @if($sinhviens->onFirstPage())
-            <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Previous</span>
+                <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Previous</span>
             @else
-            <a href="{{ $sinhviens->previousPageUrl() }}"
-                class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">Previous</a>
+                <a href="{{ $sinhviens->previousPageUrl() }}"
+                    class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">Previous</a>
             @endif
 
             <!-- Page Numbers -->
             @foreach ($sinhviens->getUrlRange(1, $sinhviens->lastPage()) as $page => $url)
-            @if ($page == $sinhviens->currentPage())
-            <span class="px-4 py-2 text-white bg-blue-600 rounded-md">{{ $page }}</span>
-            @else
-            <a href="{{ $url }}"
-                class="px-4 py-2 text-blue-600 border border-gray-300 rounded-md hover:bg-gray-100">{{ $page }}</a>
-            @endif
+                @if ($page == $sinhviens->currentPage())
+                    <span class="px-4 py-2 text-white bg-blue-600 rounded-md">{{ $page }}</span>
+                @else
+                    <a href="{{ $url }}"
+                        class="px-4 py-2 text-blue-600 border border-gray-300 rounded-md hover:bg-gray-100">{{ $page }}</a>
+                @endif
             @endforeach
 
             <!-- Next Page Button -->
             @if($sinhviens->hasMorePages())
-            <a href="{{ $sinhviens->nextPageUrl() }}"
-                class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">Next</a>
+                <a href="{{ $sinhviens->nextPageUrl() }}"
+                    class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">Next</a>
             @else
-            <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Next</span>
+                <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Next</span>
             @endif
         </div>
     </div>

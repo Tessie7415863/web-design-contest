@@ -36,38 +36,42 @@
                 <tr class="hover:bg-gray-100">
                     <td class="border border-gray-300 px-4 py-2 text-center">{{ $phieumuon->id }}</td>
                     <td class="border border-gray-300 px-4 py-2 text-center">
-                        {{ $phieumuon->sinhvien->ho_ten}}
+                        {{ $phieumuon->sinhvien->ho_ten }}
                     </td>
                     <td class="border border-gray-300 px-4 py-2 text-center">
-                        @if (!empty($phieumuon->sinhvien->ho_ten))
                         {{ $phieumuon->nhanvien->ho_ten ?? 'Không có nhân viên.' }}
-                        @else
-                        Không có nhân viên.
-                        @endif
                     </td>
-                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $phieumuon->ngay_muon }}
-                    </td>
-                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $phieumuon->ngay_hen_tra }}
+                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $phieumuon->ngay_muon }}</td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $phieumuon->ngay_hen_tra }}</td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">
+                        {{ $phieumuon->ngay_tra ?? 'Chưa trả' }}
                     </td>
                     <td class="border border-gray-300 px-4 py-2 text-center">
-                        @if (!empty($phieumuon->ngay_tra))
-                        {{ $phieumuon->ngay_tra ?? 'Chưa trả' }}
-                        @else
-                        Chưa trả
-                        @endif
+                        @switch($phieumuon->tinh_trang)
+                        @case('DangMuon')
+                        Đang Mượn
+                        @break
+                        @case('DaTra')
+                        Đã Trả
+                        @break
+                        @case('QuaHan')
+                        Quá Hạn
+                        @break
+                        @default
+                        Không xác định
+                        @endswitch
                     </td>
-                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $phieumuon->tinh_trang }}
-                    </td>
-
-                    <td class="border border-gray-300 px-4 py-2 flex justify-center space-x-2">
-                        <button wire:click="editPhieuMuon({{ $phieumuon->id }})"
-                            class="bg-yellow-500 text-white px-3 py-1 rounded-md hover:bg-yellow-600">
-                            Sửa
-                        </button>
-                        <button wire:click="openConfirmModal({{ $phieumuon->id }})"
-                            class="bg-red-600 text-white px-3 py-1 rounded-md hover:bg-red-700">
-                            Xoá
-                        </button>
+                    <td class="border border-gray-300 px-4 py-2 text-center">
+                        <div class="flex justify-center space-x-2">
+                            <button wire:click="editPhieuMuon({{ $phieumuon->id }})"
+                                class="bg-yellow-500 text-white px-3 py-1 rounded-md hover:bg-yellow-600">
+                                Sửa
+                            </button>
+                            <button wire:click="openConfirmModal({{ $phieumuon->id }})"
+                                class="bg-red-600 text-white px-3 py-1 rounded-md hover:bg-red-700">
+                                Xoá
+                            </button>
+                        </div>
                     </td>
                 </tr>
                 @empty
