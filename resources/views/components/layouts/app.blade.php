@@ -24,20 +24,20 @@
     </section> -->
     {{ $slot }}
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            setTimeout(function() {
-                document.querySelector(".dots-container").style.display = "none";
-            }, 1000);
-        });
+    document.addEventListener("DOMContentLoaded", function() {
+        setTimeout(function() {
+            document.querySelector(".dots-container").style.display = "none";
+        }, 1000);
+    });
     </script>
     <script>
-        document.addEventListener("turbo:before-visit", function() {
-            let loader = document.querySelector(".dots-container");
-            if (loader) {
-                loader.style.display = "block"; // Hiện lại loading
-                loader.style.opacity = "1"; // Hiển thị từ từ
-            }
-        });
+    document.addEventListener("turbo:before-visit", function() {
+        let loader = document.querySelector(".dots-container");
+        if (loader) {
+            loader.style.display = "block"; // Hiện lại loading
+            loader.style.opacity = "1"; // Hiển thị từ từ
+        }
+    });
     </script>
 
     @livewireScripts

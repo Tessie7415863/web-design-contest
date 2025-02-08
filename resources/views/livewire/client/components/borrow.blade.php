@@ -22,15 +22,13 @@
                     class="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     required>
             </div>
-            <button type="submit"
-                class="w-full bg-blue-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-200">
-                Xác nhận mượn
+            <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md">
+                <!-- Hiển thị nội dung bình thường khi không loading -->
+                <span wire:loading.remove wire:target="borrowBook">Mượn sách</span>
+                <!-- Hiển thị nội dung khi đang xử lý -->
+                <span wire:loading wire:target="borrowBook">Đang xử lý...</span>
             </button>
         </form>
 
-        @if (session()->has('success'))
-        <p class="text-green-600 text-center font-medium mt-4">{{ session('success') }}</p>
-        @endif
     </div>
-
 </div>
