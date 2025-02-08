@@ -17,9 +17,9 @@
                 @foreach($biphats as $biphat)
                     <tr class="text-center">
                         <td class="border px-4 py-2">{{ $biphat->id }}</td>
-                        <td class="border px-4 py-2">{{ $biphat->sinhvien?->ho_ten ?? 'Không có dữ liệu' }}</td>
-                        <td class="border px-4 py-2">{{ $biphat->sach?->ten_sach ?? 'Không có dữ liệu' }}</td>
-                        <td class="border px-4 py-2">{{ $biphat->phieutra?->ngay_tra ?? 'Không có dữ liệu' }}</td>
+                        <td class="border px-4 py-2">{{ $biphat->sinhvien->ho_ten ?? 'Không có dữ liệu' }}</td>
+                        <td class="border px-4 py-2">{{ $biphat->sach->ten_sach ?? 'Không có dữ liệu' }}</td>
+                        <td class="border px-4 py-2">{{ $biphat->phieutra->ngay_tra ?? 'Không có dữ liệu' }}</td>
                         <td class="border px-4 py-2">{{ $biphat->ly_do }}</td>
                         <td class="border px-4 py-2">{{ number_format($biphat->so_tien, 0, ',', '.') }} VND</td>
                     </tr>

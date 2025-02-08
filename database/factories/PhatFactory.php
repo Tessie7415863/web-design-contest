@@ -18,6 +18,8 @@ class PhatFactory extends Factory
     {
         return [
             'phieu_tra_id' => \App\Models\PhieuTra::inRandomOrder()->first()->id,
+            'sinh_vien_id' => \App\Models\SinhVien::inRandomOrder()->first()->id,
+            'sach_id' => \App\Models\Sach::inRandomOrder()->first()->id,
             'so_tien' => $this->faker->randomFloat(2, 5000, 100000),
             'ly_do' => $this->faker->sentence(),
             'tinh_trang' => $this->faker->randomElement(['ChuaThanhToan', 'DaThanhToan']),
