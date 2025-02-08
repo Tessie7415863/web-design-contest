@@ -104,7 +104,8 @@
         <div x-data="{ open:window.location.pathname.startsWith('/admin/manage-sach') ||
         window.location.pathname.startsWith('/admin/manage-vitrisach') ||
         window.location.pathname.startsWith('/admin/manage-lienketsachnganh') ||
-        window.location.pathname.startsWith('/admin/manage-monhoc')  
+        window.location.pathname.startsWith('/admin/manage-monhoc')  || 
+        window.location.pathname.startsWith('/admin/manage-cuonsach')  
         }">
             <button @click="open = !open"
                 class="flex justify-between items-center w-full px-3 py-2 text-left rounded-md text-black hover:bg-gray-300">
@@ -132,6 +133,11 @@
                     class="block px-3 py-2 rounded-md 
                 {{ request()->is('admin/manage-monhoc') ? 'bg-gray-400 text-blue-500' : 'text-black hover:bg-gray-300' }}">
                     Môn Học
+                </a>
+                <a href="/admin/manage-cuonsach"
+                    class="block px-3 py-2 rounded-md 
+                {{ request()->is('admin/manage-cuonsach') ? 'bg-gray-400 text-blue-500' : 'text-black hover:bg-gray-300' }}">
+                    Cuốn Sách
                 </a>
                 <!-- <a href="/admin/manage-booksubject"
                     class="block px-3 py-2 rounded-md 

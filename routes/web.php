@@ -71,7 +71,7 @@ Route::get('/admin/logout', function () {
     session()->regenerateToken();
     return redirect('/admin/login');
 })->name('admin.logout');
-
+//chỉ có admin mới quản lý được người dùng và sinh viên
 Route::middleware(['auth', 'can:manage-users'])->group(function () {
     Route::get('/admin/manage-user', ManageUser::class)->name('admin.manage-user');
 });
@@ -80,7 +80,7 @@ Route::middleware(['auth', 'can:manage-sinhvien'])->group(function () {
     Route::get('/admin/manage-sinhvien', ManageSinhvien::class)->name('admin.manage-sinhvien');
 });
 
-// Đảm bảo yêu cầu người dùng phải đăng nhập và có quyền admin
+// Đảm bảo yêu cầu người dùng phải đăng nhập và có quyền admin hoặc thủ thư
 Route::middleware(['auth', 'can:access-admin'])->group(function () {
     Route::get('/admin', AdminLayout::class);
     Route::get('/admin/manage-user', ManageUser::class)->name('admin.manage-user');

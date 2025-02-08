@@ -2,7 +2,9 @@
 
 namespace App\Livewire\Admin\Rolehaspermission;
 
+use Livewire\Attributes\Title;
 use Livewire\Component;
+#[Title('Quản lý rolehaspermission - Thư viện ITC')]
 
 class ManageRolehaspermission extends Component
 {

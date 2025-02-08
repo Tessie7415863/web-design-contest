@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -21,7 +20,6 @@ class SinhVienFactory extends Factory
         $yearSuffix = now()->year % 100; // Lấy 2 số cuối của năm hiện tại
         $randomNumber = $faker->randomDigitNotNull(); // Lấy số ngẫu nhiên từ 1 đến 9
         return [
-            'user_id' => User::factory(),
             'ho_ten' => $faker->name(),
             'ngay_sinh' => $faker->date('Y-m-d'),
             'gioi_tinh' => $faker->randomElement(['Nam', 'Nữ']),

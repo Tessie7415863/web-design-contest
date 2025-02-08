@@ -7,6 +7,7 @@ use Flasher\Prime\FlasherInterface;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\Attributes\Url;
 use Illuminate\Support\Str;
