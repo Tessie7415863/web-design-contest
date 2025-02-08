@@ -35,9 +35,19 @@
                         <td class="border border-gray-300 px-4 py-2 text-center">{{ $phat->id }}</td>
                         <td class="border border-gray-300 px-4 py-2 text-center">{{ $phat->phieu_tra_id }}
                         </td>
-                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $phat->so_tien }}</td>
+                        <td class="border border-gray-300 px-4 py-2 text-center">
+                            {{ number_format($phat->so_tien, 0, ',', '.') }} VNĐ
+                        </td>
                         <td class="border border-gray-300 px-4 py-2 text-center">{{ $phat->ly_do }}</td>
-                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $phat->tinh_trang }}</td>
+                        <td class="border border-gray-300 px-4 py-2 text-center">
+                            @if($phat->tinh_trang === 'DaThanhToan')
+                                Đã Thanh Toán
+                            @elseif($phat->tinh_trang === 'ChuaThanhToan')
+                                Chưa Thanh Toán
+                            @else
+                                {{ $phat->tinh_trang }}
+                            @endif
+                        </td>
                         <td class="border border-gray-300 px-4 py-2 flex justify-center space-x-2">
                             <button wire:click="editPhat({{ $phat->id }})"
                                 class="bg-yellow-500 text-white px-3 py-1 rounded-md hover:bg-yellow-600">
@@ -101,8 +111,12 @@
                 </div>
                 <div class="mb-4">
                     <label for="tinh_trang" class="block font-semibold">Tình Trạng</label>
-                    <input type="text" id="tinh_trang" wire:model.defer="tinh_trang"
+                    <select id="tinh_trang" wire:model.defer="tinh_trang"
                         class="w-full border border-gray-300 rounded-md px-3 py-2">
+                        <option value="">-- Chọn tình trạng --</option>
+                        <option value="DaThanhToan">Đã Thanh Toán</option>
+                        <option value="ChuaThanhToan">Chưa Thanh Toán</option>
+                    </select>
                     @error('tinh_trang') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                 </div>
 

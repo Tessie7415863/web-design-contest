@@ -33,7 +33,15 @@
                         <td class="border border-gray-300 px-4 py-2 text-center">{{ $hoadonphat->phat_id}}</td>
                         <td class="border border-gray-300 px-4 py-2 text-center">{{ $hoadonphat->ngay_lap}}</td>
                         <td class="border border-gray-300 px-4 py-2 text-center">{{ $hoadonphat->ngay_thanh_toan}}</td>
-                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $hoadonphat->trang_thai}}</td>
+                        <td class="border border-gray-300 px-4 py-2 text-center">
+                            @if($hoadonphat->trang_thai === 'DaThanhToan')
+                                Đã Thanh Toán
+                            @elseif($hoadonphat->trang_thai === 'ChuaThanhToan')
+                                Chưa Thanh Toán
+                            @else
+                                {{ $hoadonphat->trang_thai }}
+                            @endif
+                        </td>
                     </tr>
                 @empty
                     <tr>
@@ -76,14 +84,14 @@
 
                 <div class="mb-4">
                     <label for="ngay_lap" class="block font-semibold">Ngày Lập</label>
-                    <input type="text" id="ngay_lap" wire:model.defer="ngay_lap"
+                    <input type="date" id="ngay_lap" wire:model.defer="ngay_lap"
                         class="w-full border border-gray-300 rounded-md px-3 py-2">
                     @error('ngay_lap') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                 </div>
 
                 <div class="mb-4">
                     <label for="ngay_thanh_toan" class="block font-semibold">Ngày Thanh Toán</label>
-                    <input type="text" id="ngay_thanh_toan" wire:model.defer="ngay_thanh_toan"
+                    <input type="date" id="ngay_thanh_toan" wire:model.defer="ngay_thanh_toan"
                         class="w-full border border-gray-300 rounded-md px-3 py-2">
                     @error('ngay_thanh_toan') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                 </div>

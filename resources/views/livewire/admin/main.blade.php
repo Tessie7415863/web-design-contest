@@ -5,7 +5,7 @@
         @livewire('user-count')
         @livewire('sinh-vien-count')
         @livewire('sach-count')
-        @livewire('khoa-count')
+        @livewire('tai-lieu-count')
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         @livewire('table.new-books')

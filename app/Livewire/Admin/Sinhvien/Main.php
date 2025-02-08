@@ -2,11 +2,13 @@
 
 namespace App\Livewire\Admin\Sinhvien;
 
+use App\Exports\SinhVienExport;
 use App\Models\SinhVien;
 use App\Models\User;
 use Flasher\Prime\FlasherInterface;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
+use Maatwebsite\Excel\Facades\Excel;
 
 class Main extends Component
 {
@@ -70,6 +72,10 @@ class Main extends Component
         $this->dia_chi = '';
     }
 
+    public function exportExcel()
+    {
+        return Excel::download(new SinhVienExport, 'sinhvien.xlsx');
+    }
     public function createSinhVien(FlasherInterface $flasher)
     {
         $this->validate([
