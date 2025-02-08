@@ -183,8 +183,7 @@
             </div>
         </div>
         <!-- Quản lý tài liệu -->
-        <div x-data="{ open:window.location.pathname.startsWith('/admin/manage-loaitailieu') ||
-        window.location.pathname.startsWith('/admin/manage-tailieumo')}">
+        <div x-data="{ open:window.location.pathname.startsWith('/admin/manage-tailieumo')}">
             <button @click="open = !open"
                 class="flex justify-between items-center w-full px-3 py-2 text-left rounded-md text-black hover:bg-gray-300">
                 Tài liệu
@@ -192,11 +191,6 @@
                 <span x-show="open">▲</span>
             </button>
             <div x-show="open" class="space-y-2 pl-4">
-                <a href="/admin/manage-loaitailieu"
-                    class="block px-3 py-2 rounded-md 
-                {{ request()->is('admin/manage-loaitailieu') ? 'bg-gray-400 text-blue-500' : 'text-black hover:bg-gray-300' }}">
-                    Loại tài liệu
-                </a>
                 <a href="/admin/manage-tailieumo"
                     class="block px-3 py-2 rounded-md 
                 {{ request()->is('admin/manage-tailieumo') ? 'bg-gray-400 text-blue-500' : 'text-black hover:bg-gray-300' }}">

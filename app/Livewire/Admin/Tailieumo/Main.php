@@ -3,7 +3,6 @@
 namespace App\Livewire\Admin\Tailieumo;
 
 use App\Models\Khoa;
-use App\Models\LoaiTaiLieu;
 use App\Models\MonHoc;
 use App\Models\Nganh;
 use App\Models\NhaXuatBan;
@@ -16,7 +15,7 @@ use Livewire\WithPagination;
 class Main extends Component
 {
     use WithPagination;
-    public $id, $ten_tai_lieu, $loai_tai_lieu, $loai_tai_lieu_id, $tac_gia_id, $nha_xuat_ban_id, $nam_phat_hanh, $so_trang, $isbn, $link_tai_ve, $mon_hoc_id, $nganh_id, $khoa_id;
+    public $id, $ten_tai_lieu, $tac_gia_id, $nha_xuat_ban_id, $nam_phat_hanh, $so_trang, $isbn, $link_tai_ve, $mon_hoc_id, $nganh_id, $khoa_id;
 
     public $deleteTaiLieuMoId;
     public $searchName = '';
@@ -31,8 +30,7 @@ class Main extends Component
         $nganhs = Nganh::all();
         $khoas = Khoa::all();
         $monhocs = MonHoc::all();
-        $loaitailieus = LoaiTaiLieu::all();
-        return view('livewire.admin.tailieumo.main', compact('tailieumos', 'tacgias', 'nhaxuatbans', 'nganhs', 'khoas', 'monhocs', 'loaitailieus'));
+        return view('livewire.admin.tailieumo.main', compact('tailieumos', 'tacgias', 'nhaxuatbans', 'nganhs', 'khoas', 'monhocs'));
     }
 
     public function openModal()
@@ -60,7 +58,6 @@ class Main extends Component
     public function resetForm()
     {
         $this->ten_tai_lieu = null;
-        $this->loai_tai_lieu_id = null;
         $this->tac_gia_id = null;
         $this->nha_xuat_ban_id = null;
         $this->nam_phat_hanh = null;
@@ -77,7 +74,6 @@ class Main extends Component
     {
         $this->validate([
             'ten_tai_lieu' => 'required',
-            'loai_tai_lieu_id' => 'required',
             'tac_gia_id' => 'required',
             'nha_xuat_ban_id' => 'required',
             'nam_phat_hanh' =>  'nullable|regex:/^\d{4}$/',
@@ -89,7 +85,6 @@ class Main extends Component
             'khoa_id' => 'required',
         ]);
         $existingTaiLieu = TaiLieuMo::where('ten_tai_lieu', $this->ten_tai_lieu)
-            ->where('loai_tai_lieu_id', $this->loai_tai_lieu_id)
             ->where('tac_gia_id', $this->tac_gia_id)
             ->where('id', '!=', $this->id) // Loại trừ tài liệu hiện tại
             ->exists();
@@ -100,7 +95,6 @@ class Main extends Component
         }
         TaiLieuMo::create([
             'ten_tai_lieu' => $this->ten_tai_lieu,
-            'loai_tai_lieu_id' => $this->loai_tai_lieu_id,
             'tac_gia_id' => $this->tac_gia_id,
             'nha_xuat_ban_id' => $this->nha_xuat_ban_id,
             'nam_phat_hanh' => $this->nam_phat_hanh,
@@ -123,7 +117,6 @@ class Main extends Component
         $tailieumo = TaiLieuMo::findOrFail($id);
         $this->id = $tailieumo->id;
         $this->ten_tai_lieu = $tailieumo->ten_tai_lieu;
-        $this->loai_tai_lieu_id = $tailieumo->loai_tai_lieu_id;
         $this->tac_gia_id = $tailieumo->tac_gia_id;
         $this->nha_xuat_ban_id = $tailieumo->nha_xuat_ban_id;
         $this->nam_phat_hanh = $tailieumo->nam_phat_hanh;
@@ -141,7 +134,6 @@ class Main extends Component
     {
         $this->validate([
             'ten_tai_lieu' => 'required',
-            'loai_tai_lieu_id' => 'required',
             'tac_gia_id' => 'required',
             'nha_xuat_ban_id' => 'required',
             'nam_phat_hanh' =>  'nullable|regex:/^\d{4}$/',
@@ -155,7 +147,6 @@ class Main extends Component
 
         // Kiểm tra trùng lặp
         $existingTaiLieu = TaiLieuMo::where('ten_tai_lieu', $this->ten_tai_lieu)
-            ->where('loai_tai_lieu_id', $this->loai_tai_lieu_id)
             ->where('tac_gia_id', $this->tac_gia_id)
             ->where('id', '!=', $this->id) // Loại trừ tài liệu hiện tại
             ->exists();
@@ -169,7 +160,6 @@ class Main extends Component
         $taiLieuMo = TaiLieuMo::findOrFail($this->id);
         $taiLieuMo->update([
             'ten_tai_lieu' => $this->ten_tai_lieu,
-            'loai_tai_lieu_id' => $this->loai_tai_lieu_id,
             'tac_gia_id' => $this->tac_gia_id,
             'nha_xuat_ban_id' => $this->nha_xuat_ban_id,
             'nam_phat_hanh' => $this->nam_phat_hanh,

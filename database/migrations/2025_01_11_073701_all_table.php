@@ -73,13 +73,6 @@ return new class extends Migration {
             $table->timestamps();
         });
 
-        // 7. loai_tai_lieu (Resource Types)
-        Schema::create('loai_tai_lieus', function (Blueprint $table) {
-            $table->id();
-            $table->string('ten_loai');
-            $table->text('mo_ta')->nullable();
-            $table->timestamps();
-        });
 
         // 8. tac_gias (Authors)
         Schema::create('tac_gias', function (Blueprint $table) {
@@ -127,7 +120,6 @@ return new class extends Migration {
         Schema::create('tai_lieu_mos', function (Blueprint $table) {
             $table->id();
             $table->string('ten_tai_lieu');
-            $table->foreignId('loai_tai_lieu_id')->nullable()->constrained('loai_tai_lieus')->onDelete('set null')->onUpdate('cascade');
             $table->foreignId('tac_gia_id')->nullable()->constrained('tac_gias')->onDelete('set null')->onUpdate('cascade');
             $table->foreignId('nha_xuat_ban_id')->nullable()->constrained('nha_xuat_bans')->onDelete('set null')->onUpdate('cascade');
             $table->year('nam_phat_hanh')->nullable();
@@ -275,7 +267,6 @@ return new class extends Migration {
         Schema::dropIfExists('mon_hocs');
         Schema::dropIfExists('nha_xuat_bans');
         Schema::dropIfExists('tac_gias');
-        Schema::dropIfExists('loai_tai_lieus');
         Schema::dropIfExists('the_loais');
         Schema::dropIfExists('nhan_viens');
         Schema::dropIfExists('sinh_viens');

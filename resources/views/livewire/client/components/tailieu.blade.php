@@ -177,46 +177,12 @@
                     </div>
                     @endif
                 </div>
-                <!-- Filter: The loai -->
-                <div class="mb-6 shadow-sm">
-                    <button
-                        class="w-full rounded-xl p-2 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 flex items-center justify-between"
-                        wire:click="$toggle('showTheLoais')">
-                        <span class="text-gray-900 dark:text-white">Thể loại</span>
-                        <span>
-                            @if ($showTheLoais)
-                            <i class="fa-solid fa-chevron-up"></i>
-                            @else
-                            <i class="fa-solid fa-chevron-down"></i>
-                            @endif
-                        </span>
-                    </button>
-                    @if ($showTheLoais)
-                    <div x-data="{ open: @entangle('showTheLoais') }" x-show="open"
-                        x-transition:enter="transition ease-out duration-300 transform"
-                        x-transition:enter-start="opacity-0 scale-y-0" x-transition:enter-end="opacity-100 scale-y-100"
-                        x-transition:leave="transition ease-in duration-300 transform"
-                        x-transition:leave-start="opacity-100 scale-y-100" x-transition:leave-end="opacity-0 scale-y-0"
-                        class="p-4 max-h-48 overflow-y-auto">
-                        <ul>
-                            @foreach ($theloais as $theloai)
-                            <li class="flex items-center justify-between mb-2">
-                                <label class="dark:text-white mr-2"
-                                    for="theloai-{{ $theloai->id }}">{{ $theloai->ten_the_loai }}</label>
-                                <input type="checkbox" id="theloai-{{ $theloai->id }}"
-                                    wire:model.live="selected_theloais" value="{{ $theloai->id }}" class="w-4 h-4">
-                            </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                    @endif
-                </div>
                 <!-- Filter: Năm -->
                 <div class="mb-6 shadow-sm">
                     <button
                         class="w-full rounded-xl p-2 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 flex items-center justify-between"
                         wire:click="$toggle('showNams')">
-                        <span class="text-gray-900 dark:text-white">Năm xuất bản</span>
+                        <span class="text-gray-900 dark:text-white">Năm phát hành</span>
                         <span>
                             @if ($showNams)
                             <i class="fa-solid fa-chevron-up"></i>
@@ -268,7 +234,6 @@
             </ul>
         </div>
     </aside>
-    <!-- main -->
     <div class="p-4 sm:ml-64">
         <div class="p-2 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-16">
             <div class="px-2">
@@ -291,37 +256,39 @@
                     </div>
                     <div class="w-full overflow-y-auto min-h-[74vh] max-h-[74vh]">
                         <div class="w-full overflow-y-auto overflow-x-hidden">
-                            @foreach($sachs as $sach)
+                            @foreach($tailieumos as $tailieumo)
                             <div
                                 class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 group mb-4 mx-16">
                                 <div class="p-4 flex flex-row justify-between">
                                     <div>
                                         <h3 class="font-semibold mb-2 line-clamp-2 text-gray-900 dark:text-white">
-                                            {{ $sach->ten_sach }}
+                                            {{ $tailieumo->ten_tai_lieu }}
                                         </h3>
                                         <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Tác giả:
-                                            {{ $sach->tacGia->ho_ten ?? 'Không rõ' }}
+                                            {{ $tailieumo->tacGia->ho_ten ?? 'Không rõ' }}
                                         </p>
-                                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Thể loại:
-                                            {{ $sach->theLoai->ten_the_loai ?? 'Không rõ' }}
-                                        </p>
-                                        <span class="text-sm text-gray-500 dark:text-gray-400">Năm xuất bản:
-                                            {{ $sach->nam_xuat_ban }}</span>
+                                        <span class="text-sm text-gray-500 dark:text-gray-400">Năm phát hành:
+                                            {{ $tailieumo->nam_phat_hanh }}</span>
                                     </div>
                                     <div
                                         class="flex flex-col gap-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                        @if(Auth::guard('sinhvien')->check() || Auth::guard('web')->check())
-                                        <button wire:click="borrowSach({{ $sach->id }})"
-                                            class="bg-blue-600 px-4 py-2 rounded-full text-sm text-white hover:bg-blue-700 transition-colors">
-                                            Mượn ngay
-                                        </button>
+                                        @auth
+                                        <a href="{{ $tailieumo->link_tai_ve }}" target="_blank"
+                                            rel="noopener noreferrer">
+                                            <button
+                                                class="bg-blue-600 px-4 py-2 rounded-full text-sm text-white hover:bg-blue-700 transition-colors">
+                                                Tải về
+                                            </button>
+                                        </a>
                                         @else
                                         <button wire:click="alert"
                                             class="bg-gray-400 px-4 py-2 rounded-full text-sm text-white cursor-not-allowed">
-                                            Mượn ngay
+                                            Tải xuống
                                         </button>
                                         @endauth
-                                        <button wire:click="showSachDetails({{ $sach->id }})"
+
+
+                                        <button wire:click="showTaiLieuDetails({{ $tailieumo->id }})"
                                             class="bg-blue-600 px-4 py-2 rounded-full text-sm text-white hover:bg-blue-700 transition-colors">
                                             Chi tiết
                                         </button>
@@ -335,7 +302,8 @@
                                 class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center">
                                 <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 w-full max-w-md">
                                     <div class="flex justify-between items-center mb-4">
-                                        <h2 class="text-lg font-bold text-gray-900 dark:text-white">Chi tiết sách</h2>
+                                        <h2 class="text-lg font-bold text-gray-900 dark:text-white">Chi tiết tài liệu
+                                        </h2>
                                         <button wire:click="closeModal"
                                             class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
@@ -346,58 +314,38 @@
                                         </button>
                                     </div>
                                     <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 space-y-6">
-                                        @if($selectedBook)
+                                        @if($selectedTailieumo)
                                         <div class="border-b pb-4 mb-4">
                                             <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-200">Thông tin
-                                                Sách
+                                                Tài liệu
                                             </h2>
                                             <div class="mt-2 text-gray-700 dark:text-gray-300 space-y-2">
                                                 <p><strong class="text-gray-900 dark:text-gray-100">Tên sách:</strong>
-                                                    {{ $selectedBook->ten_sach }}
+                                                    {{ $selectedTailieumo->ten_tai_lieu }}
                                                 </p>
                                                 <p><strong class="text-gray-900 dark:text-gray-100">Tác giả:</strong>
-                                                    {{ $selectedBook->tacGia->ho_ten ?? 'Không rõ' }}
+                                                    {{ $selectedTailieumo->tacGia->ho_ten ?? 'Không rõ' }}
                                                 </p>
                                                 <p><strong class="text-gray-900 dark:text-gray-100">Nhà xuất
                                                         bản:</strong>
-                                                    {{ $selectedBook->nhaXuatBan->ten_nha_xuat_ban ?? 'Không rõ' }}
+                                                    {{ $selectedTailieumo->nhaXuatBan->ten_nha_xuat_ban ?? 'Không rõ' }}
                                                 </p>
-                                                <p><strong class="text-gray-900 dark:text-gray-100">Năm xuất
-                                                        bản:</strong>
-                                                    {{ $selectedBook->nam_xuat_ban }}
+                                                <p><strong class="text-gray-900 dark:text-gray-100">Năm phát
+                                                        hành:</strong>
+                                                    {{ $selectedTailieumo->nam_phat_hanh }}
                                                 </p>
                                                 <p><strong class="text-gray-900 dark:text-gray-100">Thể loại:</strong>
-                                                    {{ $selectedBook->theLoai->ten_the_loai ?? 'Không rõ' }}
+                                                    {{ $selectedTailieumo->theLoai->ten_the_loai ?? 'Không rõ' }}
                                                 </p>
                                                 <p><strong class="text-gray-900 dark:text-gray-100">Số trang:</strong>
-                                                    {{ $selectedBook->so_trang }}
+                                                    {{ $selectedTailieumo->so_trang }}
+                                                </p>
+                                                <p><strong class="text-gray-900 dark:text-gray-100">Link tải
+                                                        về:</strong>
+                                                    {{ $selectedTailieumo->link_tai_ve }}
                                                 </p>
                                             </div>
                                         </div>
-                                        @endif
-                                        @if($selectedSachDetails)
-                                        <div>
-                                            <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-200">Chi tiết
-                                                Sách
-                                                trong Thư viện</h2>
-                                            <div class="mt-2 text-gray-700 dark:text-gray-300 space-y-2">
-                                                <p>
-                                                    <strong class="text-gray-900 dark:text-gray-100">Vị trí trong thư
-                                                        viện:</strong>
-                                                    {{ $selectedSachDetails->viTriSach->khu_vuc }},
-                                                    {{ $selectedSachDetails->viTriSach->tuong }},
-                                                    {{ $selectedSachDetails->viTriSach->ke }}
-                                                </p>
-                                                <p>
-                                                    <strong class="text-gray-900 dark:text-gray-100">Tình
-                                                        trạng:</strong>
-                                                    {{ $selectedSachDetails->tinh_trang }}
-                                                </p>
-                                            </div>
-                                        </div>
-                                        @else
-                                        <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-200">Sách này
-                                            không có trong thư viện</h2>
                                         @endif
                                     </div>
 
@@ -419,17 +367,17 @@
     <div class="flex justify-center mt-2">
         <div class="inline-flex items-center space-x-2">
             <!-- Previous Page Button -->
-            @if($sachs->onFirstPage())
+            @if($tailieumos->onFirstPage())
             <span
                 class="px-4 py-2 text-gray-400 bg-gray-200 dark:bg-gray-700 dark:text-gray-500 rounded-md cursor-not-allowed">Previous</span>
             @else
-            <a href="{{ $sachs->previousPageUrl() }}"
+            <a href="{{ $tailieumos->previousPageUrl() }}"
                 class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600">Previous</a>
             @endif
 
             <!-- Page Numbers -->
-            @foreach ($sachs->getUrlRange(1, $sachs->lastPage()) as $page => $url)
-            @if ($page == $sachs->currentPage())
+            @foreach ($tailieumos->getUrlRange(1, $tailieumos->lastPage()) as $page => $url)
+            @if ($page == $tailieumos->currentPage())
             <span class="px-4 py-2 text-white bg-blue-600 dark:bg-blue-500 rounded-md">{{ $page }}</span>
             @else
             <a href="{{ $url }}"
@@ -438,8 +386,8 @@
             @endforeach
 
             <!-- Next Page Button -->
-            @if($sachs->hasMorePages())
-            <a href="{{ $sachs->nextPageUrl() }}"
+            @if($tailieumos->hasMorePages())
+            <a href="{{ $tailieumos->nextPageUrl() }}"
                 class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600">Next</a>
             @else
             <span
@@ -447,5 +395,4 @@
             @endif
         </div>
     </div>
-
 </div>
