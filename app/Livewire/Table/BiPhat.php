@@ -10,10 +10,11 @@ use Livewire\Component;
 class BiPhat extends Component
 {
     public $biphats;
-    public function mount() {
-        $this->biphats = Phat::with(['sinhVien', 'sach']) // Load quan hệ
-            ->select('id', 'sach_id', 'ly_do', 'so_tien')
+    public function mount()
+    {
+        $this->biphats = Phat::with(['sinhvien', 'sach', 'phieutra'])
             ->get();
+
     }
     public function render()
     {

@@ -11,9 +11,7 @@ class Phat extends Model
     protected $table = 'phats';
     protected $fillable = [
         'sinh_vien_id',
-        'ho_ten',
         'sach_id',
-        'ten_sach',
         'phieu_tra_id',
         'so_tien',
         'ly_do',
@@ -25,11 +23,13 @@ class Phat extends Model
         return $this->belongsTo(PhieuTra::class, 'phieu_tra_id');
     }
 
-    public function sinhvien(){
-        return $this->belongsTo(SinhVien::class,'sinh_vien_id');
+    public function sinhvien()
+    {
+        return $this->belongsTo(SinhVien::class, 'sinh_vien_id');
     }
 
-    public function sach(){
-        return $this->belongsTo(Sach::class,'sach_id');
+    public function sach()
+    {
+        return $this->belongsTo(Sach::class, 'sach_id');
     }
 }
