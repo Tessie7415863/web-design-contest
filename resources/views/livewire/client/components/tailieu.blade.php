@@ -272,7 +272,7 @@
                                     </div>
                                     <div
                                         class="flex flex-col gap-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                        @auth
+                                        @if(Auth::guard('sinhvien')->check() || Auth::guard('web')->check())
                                         <a href="{{ $tailieumo->link_tai_ve }}" target="_blank"
                                             rel="noopener noreferrer">
                                             <button
@@ -286,8 +286,6 @@
                                             Tải xuống
                                         </button>
                                         @endauth
-
-
                                         <button wire:click="showTaiLieuDetails({{ $tailieumo->id }})"
                                             class="bg-blue-600 px-4 py-2 rounded-full text-sm text-white hover:bg-blue-700 transition-colors">
                                             Chi tiết
