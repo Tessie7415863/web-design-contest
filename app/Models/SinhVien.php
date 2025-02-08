@@ -21,8 +21,4 @@ class SinhVien extends Authenticatable
         'password',
         'tai_khoan'
     ];
-    // public function user()
-    // {
-    //     return $this->belongsTo(User::class);
-    // }
 }

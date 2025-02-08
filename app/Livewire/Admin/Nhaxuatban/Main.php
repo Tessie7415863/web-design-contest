@@ -82,10 +82,6 @@ class Main extends Component
 
         $nhaxuatban = NhaXuatBan::findOrFail($id);
 
-        // if (!$loaitailieu) {
-        //     return session()->flash('error', 'Tài liệu không tồn tại.');
-        // }
-
         $this->id = $nhaxuatban->id;
         $this->ten_nha_xuat_ban = $nhaxuatban->ten_nha_xuat_ban;
         $this->isEditMode = true;

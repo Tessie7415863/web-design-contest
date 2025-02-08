@@ -18,7 +18,6 @@ class TaiLieuMoFactory extends Factory
     {
         return [
             'ten_tai_lieu' => $this->faker->sentence(4),
-            'loai_tai_lieu_id' => \App\Models\LoaiTaiLieu::inRandomOrder()->first()->id ?? null,
             'tac_gia_id' => \App\Models\TacGia::inRandomOrder()->first()->id ?? null,
             'nha_xuat_ban_id' => \App\Models\NhaXuatBan::inRandomOrder()->first()->id ?? null,
             'nam_phat_hanh' => $this->faker->year(),
@@ -30,5 +29,4 @@ class TaiLieuMoFactory extends Factory
             'nganh_id' => \App\Models\Nganh::inRandomOrder()->first()->id ?? null,
         ];
     }
-
 }

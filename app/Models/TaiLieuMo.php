@@ -11,7 +11,6 @@ class TaiLieuMo extends Model
     protected $table = 'tai_lieu_mos';
     protected $fillable = [
         'ten_tai_lieu',
-        'loai_tai_lieu_id',
         'nha_xuat_ban_id',
         'tac_gia_id',
         'nam_phat_hanh',
@@ -23,10 +22,6 @@ class TaiLieuMo extends Model
         'khoa_id'
     ];
 
-    public function tailieu()
-    {
-        return $this->belongsTo(LoaiTaiLieu::class, 'loai_tai_lieu_id');
-    }
     public function nhaxuatban()
     {
         return $this->belongsTo(NhaXuatBan::class, 'nha_xuat_ban_id');
@@ -47,7 +42,6 @@ class TaiLieuMo extends Model
     {
         return $this->belongsTo(Khoa::class, 'khoa_id');
     }
-
     public function digitalresource()
     {
         return $this->hasMany(DigitalResourceMajor::class, 'tai_lieu_id');

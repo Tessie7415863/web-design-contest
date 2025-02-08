@@ -7,6 +7,7 @@ use App\Models\PhieuMuon;
 use App\Models\Sach;
 use App\Models\SinhVien;
 use Flasher\Prime\FlasherInterface;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class Borrow extends Component
@@ -31,12 +32,7 @@ class Borrow extends Component
             $flasher->addError('error', 'Hiện tại không có cuốn sách nào sẵn sàng để mượn.');
             return;
         }
-        $sinhVien = SinhVien::where('user_id', auth()->user()->id)->first();
-
-        if (!$sinhVien) {
-            // Xử lý khi không tìm thấy sinh viên
-            throw new \Exception('Không tìm thấy sinh viên với user_id này.');
-        }
+        $sinhVien = Auth::guard('sinhvien')->user();
 
         $phieuMuon = PhieuMuon::create([
             'sinh_vien_id' => $sinhVien->id, // ID của sinh viên

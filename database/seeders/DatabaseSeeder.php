@@ -23,7 +23,6 @@ class DatabaseSeeder extends Seeder
             NhanVienSeeder::class,
             TheLoaiSeeder::class,
 
-            LoaiTaiLieuSeeder::class,
             TacGiaSeeder::class,
             NhaXuatBanSeeder::class,
             MonHocSeeder::class,

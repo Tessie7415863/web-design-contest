@@ -41,12 +41,12 @@
                 </div>
                 <ul class="py-2" aria-labelledby="user-menu-button">
                     <li>
-                        <a href="#" wire:navigate
+                        <a href="/lich-su-muon" wire:navigate
                             class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
                             Lịch sử mượn sách / tài liệu</a>
                     </li>
                     <li>
-                        <a href="#" wire:navigate
+                        <a href="/tai-khoan" wire:navigate
                             class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
                             Quản lý tài khoản</a>
                     </li>
@@ -126,21 +126,19 @@
                         aria-current="page">Sách</a>
                 </li>
                 <li>
-                    <a wire:navigate href="/tailieu"
-                        class="block py-2 px-3 {{ request()->is('tailieu') ? 'text-blue-700 ' : 'dark:text-white' }} md:hover:bg-transparent md:hover:text-blue-700 rounded md:bg-transparent md:p-0">Tài
+                    <a wire:navigate href="/tai-lieu"
+                        class="block py-2 px-3 {{ request()->is('tai-lieu') ? 'text-blue-700 ' : 'dark:text-white' }} md:hover:bg-transparent md:hover:text-blue-700 rounded md:bg-transparent md:p-0">Tài
                         liệu</a>
                 </li>
                 <li>
                     <a wire:navigate href="/"
-                        class="block py-2 px-3 {{ request()->is('') ? 'text-blue-700 ' : 'dark:text-white' }} md:hover:bg-transparent md:hover:text-blue-700 rounded md:bg-transparent md:p-0">Services</a>
+                        class="block py-2 px-3 {{ request()->is('') ? 'text-blue-700 ' : 'dark:text-white' }} md:hover:bg-transparent md:hover:text-blue-700 rounded md:bg-transparent md:p-0">Đề
+                        xuất sách/tài liệu</a>
                 </li>
                 <li>
-                    <a wire:navigate href="/"
-                        class="block py-2 px-3 {{ request()->is('') ? 'text-blue-700 ' : 'dark:text-white' }} md:hover:bg-transparent md:hover:text-blue-700 rounded md:bg-transparent md:p-0">Pricing</a>
-                </li>
-                <li>
-                    <a wire:navigate href="/"
-                        class="block py-2 px-3 {{ request()->is('') ? 'text-blue-700 ' : 'dark:text-white' }} md:hover:bg-transparent md:hover:text-blue-700 rounded md:bg-transparent md:p-0">Contact</a>
+                    <a wire:navigate href="/lien-he"
+                        class="block py-2 px-3 {{ request()->is('') ? 'text-blue-700 ' : 'dark:text-white' }} md:hover:bg-transparent md:hover:text-blue-700 rounded md:bg-transparent md:p-0">Liên
+                        hệ</a>
                 </li>
             </ul>
         </div>

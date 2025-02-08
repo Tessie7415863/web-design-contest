@@ -2,24 +2,21 @@
 
 namespace App\Livewire\Client\Components;
 
-use App\Models\CuonSach;
 use App\Models\Khoa;
 use App\Models\MonHoc;
 use App\Models\Nganh;
 use App\Models\NhaXuatBan;
-use App\Models\Sach as ModelsSach;
 use App\Models\TacGia;
+use App\Models\TaiLieuMo;
 use App\Models\TheLoai;
 use Flasher\Prime\FlasherInterface;
 use Livewire\Attributes\Title;
-use Livewire\Component;
 use Livewire\Attributes\Url;
-use Livewire\WithPagination;
+use Livewire\Component;
 
-#[Title('Sách - Thư viện ITC')]
-class Sach extends Component
+#[Title('Tài liệu - Thư viện ITC')]
+class Tailieu extends Component
 {
-    use WithPagination;
     #[Url]
     public $selected_tacgias = [];
     #[Url]
@@ -50,25 +47,9 @@ class Sach extends Component
     public $showNams = true;
     public $sort = 'latest';
     public $showModal = false;
-    public $cuon_sach = [];
     public $search;
-    public $selectedBook = null;
-    public $selectedSachDetails = null;
-    public function showSachDetails($sach_id)
-    {
-        $this->selectedBook = ModelsSach::find($sach_id);
-        $this->selectedSachDetails = CuonSach::where('sach_id', $sach_id)->first();
-        $this->showModal = true;
-    }
-    public function alert(FlasherInterface $flasher)
-    {
-        $flasher->addError('Thông báo', 'Bạn phải đăng nhập để mượn sách');
-    }
-    public function closeModal()
-    {
-        $this->showModal = false;
-        $this->selectedBook = null;
-    }
+    public $selectedTailieumo = null;
+    public $selectedTailieumoDetails = null;
     public function mount()
     {
         $this->tacgias = TacGia::all();
@@ -77,19 +58,13 @@ class Sach extends Component
         $this->khoas = Khoa::all();
         $this->nganhs = Nganh::all();
         $this->theloais = TheLoai::all();
-        $this->cuon_sach = CuonSach::all();
         $this->nams = [1900, 2025];
         $this->start_year = min($this->nams);
         $this->end_year = max($this->nams);
     }
-    public function borrowSach($id)
-    {
-        return redirect()->route('borrow', ['id' => $id]);
-    }
     public function render()
     {
-        // Lấy danh sách sách
-        $query = ModelsSach::query();
+        $query = TaiLieuMo::query();
         if (!empty($this->selected_tacgias)) {
             $query->whereIn('tac_gia_id', $this->selected_tacgias);
         }
@@ -110,7 +85,7 @@ class Sach extends Component
         }
 
         if (!empty($this->search)) {
-            $query->where('ten_sach', 'like', '%' . $this->search . '%');
+            $query->where('ten_tai_lieu', 'like', '%' . $this->search . '%');
         }
         if ($this->sort == 'latest') {
             $query->latest();
@@ -121,12 +96,12 @@ class Sach extends Component
         if (
             $this->start_year && $this->end_year
         ) {
-            $query->whereBetween('nam_xuat_ban', [$this->start_year, $this->end_year]);
+            $query->whereBetween('nam_phat_hanh', [$this->start_year, $this->end_year]);
         }
         // Thực thi query
-        $sachs = $query->paginate(20);
-        return view('livewire.client.components.sach', [
-            'sachs' => $sachs,
+        $tailieumos = $query->paginate(20);
+        return view('livewire.client.components.tailieu', [
+            'tailieumos' => $tailieumos,
             'tacgias' => $this->tacgias,
             'nhaxuatbans' => $this->nhaxuatbans,
             'mons' => $this->mons,
@@ -134,5 +109,20 @@ class Sach extends Component
             'nganhs' => $this->nganhs,
             'theloais' => $this->theloais
         ]);
+    }
+    public function showTaiLieuDetails($tai_lieu_mo_id)
+    {
+        $this->selectedTailieumo = TaiLieuMo::find($tai_lieu_mo_id);
+        // $this->selectedTailieumoDetails = CuonSach::where('sach_id', $sach_id)->first();
+        $this->showModal = true;
+    }
+    public function closeModal()
+    {
+        $this->showModal = false;
+        $this->selectedTailieumo = null;
+    }
+    public function alert(FlasherInterface $flasher)
+    {
+        $flasher->addError('Thông báo', 'Bạn phải đăng nhập để mượn tài liệu');
     }
 }
