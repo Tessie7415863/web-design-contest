@@ -21,4 +21,8 @@ class SinhVien extends Authenticatable
         'password',
         'tai_khoan'
     ];
+    public function phieumuons()
+    {
+        return $this->hasMany(Phieumuon::class, 'sinh_vien_id');
+    }
 }

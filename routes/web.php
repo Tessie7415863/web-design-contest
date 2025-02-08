@@ -116,4 +116,6 @@ Route::middleware(['auth', 'can:access-admin'])->group(function () {
     Route::get('/admin/manage-digitalresourcesubject', ManageDigitalresourcesubject::class)->name('admin.manage-digitalresourcesubject');
     Route::get('/admin/manage-hoadonphat', ManageHoadonphat::class)->name('admin.manage-hoadonphat');
     Route::get('/admin/manage-phat', ManagePhat::class)->name('admin.manage-phat');
+    Route::get('/lich-su-muon/{sinh_vien_id}', LichSuMuon::class);
+
 });
