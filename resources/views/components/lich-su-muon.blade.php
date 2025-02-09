@@ -1,7 +1,7 @@
 <div>
     <h2 class="text-xl font-bold mb-4">Lịch Sử Mượn Sách Ngày {{ $ngay }}</h2>
 
-    <p class="mb-2">📚 Tổng số sách đã mượn: <strong>{{ $tong_sach }}</strong></p>
+    <p class="mb-2"> Tổng số sách đã mượn: <strong>{{ $tong_sach }}</strong></p>
 
     <table class="table-auto w-full border-collapse border border-gray-300">
         <thead>

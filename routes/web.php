@@ -35,6 +35,7 @@ use App\Livewire\Auth\ResetPassword;
 use App\Livewire\Auth\SinhvienLogin;
 use App\Livewire\Auth\SinhvienRegister;
 use App\Livewire\Client\Components\Borrow;
+use App\Livewire\Client\Components\DeXuatSachTaiLieu;
 use App\Livewire\Client\Components\LichSuMuon;
 use App\Livewire\Client\Components\Lienhe;
 use App\Livewire\Client\Components\Sach;
@@ -54,6 +55,7 @@ Route::middleware('web')->group(function () {
     Route::get('/tai-khoan', TaiKhoan::class)->name('tai-khoan');
     Route::get('lien-he', Lienhe::class)->name('lienhe');
     Route::get('lich-su-muon', LichSuMuon::class)->name('lienhe');
+    Route::get('de-xuat', DeXuatSachTaiLieu::class)->name('dexuat');
     //sinhvien
     Route::get('/register', SinhvienRegister::class)->name('register');
     Route::get('/login', SinhvienLogin::class)->name('login');
@@ -117,5 +119,4 @@ Route::middleware(['auth', 'can:access-admin'])->group(function () {
     Route::get('/admin/manage-hoadonphat', ManageHoadonphat::class)->name('admin.manage-hoadonphat');
     Route::get('/admin/manage-phat', ManagePhat::class)->name('admin.manage-phat');
     Route::get('/lich-su-muon/{sinh_vien_id}', LichSuMuon::class);
-
 });
