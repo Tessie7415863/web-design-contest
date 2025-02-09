@@ -295,18 +295,21 @@
                             <div
                                 class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 group mb-4 mx-16">
                                 <div class="p-4 flex flex-row justify-between">
-                                    <div>
-                                        <h3 class="font-semibold mb-2 line-clamp-2 text-gray-900 dark:text-white">
-                                            {{ $sach->ten_sach }}
-                                        </h3>
-                                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Tác giả:
-                                            {{ $sach->tacGia->ho_ten ?? 'Không rõ' }}
-                                        </p>
-                                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Thể loại:
-                                            {{ $sach->theLoai->ten_the_loai ?? 'Không rõ' }}
-                                        </p>
-                                        <span class="text-sm text-gray-500 dark:text-gray-400">Năm xuất bản:
-                                            {{ $sach->nam_xuat_ban }}</span>
+                                    <div class="flex gap-1">
+                                        <img src="{{ asset('storage/' . $sach->anh_bia) }}" alt="Ảnh bìa" width="150">
+                                        <div>
+                                            <h3 class="font-semibold mb-2 line-clamp-2 text-gray-900 dark:text-white">
+                                                {{ $sach->ten_sach }}
+                                            </h3>
+                                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Tác giả:
+                                                {{ $sach->tacGia->ho_ten ?? 'Không rõ' }}
+                                            </p>
+                                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Thể loại:
+                                                {{ $sach->theLoai->ten_the_loai ?? 'Không rõ' }}
+                                            </p>
+                                            <span class="text-sm text-gray-500 dark:text-gray-400">Năm xuất bản:
+                                                {{ $sach->nam_xuat_ban }}</span>
+                                        </div>
                                     </div>
                                     <div
                                         class="flex flex-col gap-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -329,87 +332,6 @@
                                 </div>
                             </div>
                             @endforeach
-                            <!-- Modal -->
-                            @if($showModal)
-                            <div
-                                class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center">
-                                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 w-full max-w-md">
-                                    <div class="flex justify-between items-center mb-4">
-                                        <h2 class="text-lg font-bold text-gray-900 dark:text-white">Chi tiết sách</h2>
-                                        <button wire:click="closeModal"
-                                            class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-                                                viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M6 18L18 6M6 6l12 12" />
-                                            </svg>
-                                        </button>
-                                    </div>
-                                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 space-y-6">
-                                        @if($selectedBook)
-                                        <div class="border-b pb-4 mb-4">
-                                            <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-200">Thông tin
-                                                Sách
-                                            </h2>
-                                            <div class="mt-2 text-gray-700 dark:text-gray-300 space-y-2">
-                                                <p><strong class="text-gray-900 dark:text-gray-100">Tên sách:</strong>
-                                                    {{ $selectedBook->ten_sach }}
-                                                </p>
-                                                <p><strong class="text-gray-900 dark:text-gray-100">Tác giả:</strong>
-                                                    {{ $selectedBook->tacGia->ho_ten ?? 'Không rõ' }}
-                                                </p>
-                                                <p><strong class="text-gray-900 dark:text-gray-100">Nhà xuất
-                                                        bản:</strong>
-                                                    {{ $selectedBook->nhaXuatBan->ten_nha_xuat_ban ?? 'Không rõ' }}
-                                                </p>
-                                                <p><strong class="text-gray-900 dark:text-gray-100">Năm xuất
-                                                        bản:</strong>
-                                                    {{ $selectedBook->nam_xuat_ban }}
-                                                </p>
-                                                <p><strong class="text-gray-900 dark:text-gray-100">Thể loại:</strong>
-                                                    {{ $selectedBook->theLoai->ten_the_loai ?? 'Không rõ' }}
-                                                </p>
-                                                <p><strong class="text-gray-900 dark:text-gray-100">Số trang:</strong>
-                                                    {{ $selectedBook->so_trang }}
-                                                </p>
-                                            </div>
-                                        </div>
-                                        @endif
-                                        @if($selectedSachDetails)
-                                        <div>
-                                            <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-200">Chi tiết
-                                                Sách
-                                                trong Thư viện</h2>
-                                            <div class="mt-2 text-gray-700 dark:text-gray-300 space-y-2">
-                                                <p>
-                                                    <strong class="text-gray-900 dark:text-gray-100">Vị trí trong thư
-                                                        viện:</strong>
-                                                    {{ $selectedSachDetails->viTriSach->khu_vuc }},
-                                                    {{ $selectedSachDetails->viTriSach->tuong }},
-                                                    {{ $selectedSachDetails->viTriSach->ke }}
-                                                </p>
-                                                <p>
-                                                    <strong class="text-gray-900 dark:text-gray-100">Tình
-                                                        trạng:</strong>
-                                                    {{ $selectedSachDetails->tinh_trang }}
-                                                </p>
-                                            </div>
-                                        </div>
-                                        @else
-                                        <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-200">Sách này
-                                            không có trong thư viện</h2>
-                                        @endif
-                                    </div>
-
-                                    <div class="mt-4 text-right">
-                                        <button wire:click="closeModal"
-                                            class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-                                            Đóng
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            @endif
                         </div>
                     </div>
                 </div>

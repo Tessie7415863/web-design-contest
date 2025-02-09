@@ -9,13 +9,15 @@ use App\Models\NhaXuatBan;
 use App\Models\TacGia;
 use App\Models\TaiLieuMo;
 use Flasher\Prime\FlasherInterface;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
+use Livewire\Features\SupportFileUploads\WithFileUploads;
 use Livewire\WithPagination;
 
 class Main extends Component
 {
-    use WithPagination;
-    public $id, $ten_tai_lieu, $tac_gia_id, $nha_xuat_ban_id, $nam_phat_hanh, $so_trang, $isbn, $link_tai_ve, $mon_hoc_id, $nganh_id, $khoa_id;
+    use WithPagination, WithFileUploads;
+    public $id, $anh_bia, $ten_tai_lieu, $tac_gia_id, $nha_xuat_ban_id, $nam_phat_hanh, $so_trang, $isbn, $link_tai_ve, $mon_hoc_id, $nganh_id, $khoa_id;
 
     public $deleteTaiLieuMoId;
     public $searchName = '';
@@ -58,6 +60,7 @@ class Main extends Component
     public function resetForm()
     {
         $this->ten_tai_lieu = null;
+        $this->anh_bia = '';
         $this->tac_gia_id = null;
         $this->nha_xuat_ban_id = null;
         $this->nam_phat_hanh = null;
@@ -73,6 +76,7 @@ class Main extends Component
     public function createTaiLieuMo(FlasherInterface $flasher)
     {
         $this->validate([
+            'anh_bia' => 'nullable|image|max:2048',
             'ten_tai_lieu' => 'required',
             'tac_gia_id' => 'required',
             'nha_xuat_ban_id' => 'required',
@@ -93,7 +97,9 @@ class Main extends Component
             $flasher->addError('Tài liệu đã tồn tại trong hệ thống!');
             return; // Dừng quá trình nếu tài liệu đã tồn tại
         }
+        $path = $this->anh_bia ? $this->anh_bia->store('tailieus', 'public') : null;
         TaiLieuMo::create([
+            'anh_bia' => $path,
             'ten_tai_lieu' => $this->ten_tai_lieu,
             'tac_gia_id' => $this->tac_gia_id,
             'nha_xuat_ban_id' => $this->nha_xuat_ban_id,
@@ -116,6 +122,7 @@ class Main extends Component
 
         $tailieumo = TaiLieuMo::findOrFail($id);
         $this->id = $tailieumo->id;
+        $this->anh_bia = $tailieumo->anh_bia;
         $this->ten_tai_lieu = $tailieumo->ten_tai_lieu;
         $this->tac_gia_id = $tailieumo->tac_gia_id;
         $this->nha_xuat_ban_id = $tailieumo->nha_xuat_ban_id;
@@ -133,6 +140,7 @@ class Main extends Component
     public function updateTaiLieuMo(FlasherInterface $flasher)
     {
         $this->validate([
+            'anh_bia' => 'nullable|image|max:2048',
             'ten_tai_lieu' => 'required',
             'tac_gia_id' => 'required',
             'nha_xuat_ban_id' => 'required',
@@ -156,9 +164,18 @@ class Main extends Component
             return; // Dừng quá trình nếu tài liệu đã tồn tại
         }
 
-        // Tìm và cập nhật tài liệu
         $taiLieuMo = TaiLieuMo::findOrFail($this->id);
+        if ($this->anh_bia) {
+            if ($taiLieuMo->anh_bia) {
+                Storage::disk('public')->delete($taiLieuMo->anh_bia);
+            }
+            $path = $this->anh_bia->store('tailieus', 'public');
+        } else {
+            $path = $taiLieuMo->anh_bia;
+        }
+        // Tìm và cập nhật tài liệu
         $taiLieuMo->update([
+            'anh_bia' => $path,
             'ten_tai_lieu' => $this->ten_tai_lieu,
             'tac_gia_id' => $this->tac_gia_id,
             'nha_xuat_ban_id' => $this->nha_xuat_ban_id,

@@ -23,33 +23,33 @@
                 <tr>
                     <th class="border border-gray-300 px-4 py-2">ID</th>
                     <th class="border border-gray-300 px-4 py-2">Tên Môn</th>
-                    <th class="border border-gray-300 px-4 py-2">ID Ngành</th>
+                    <th class="border border-gray-300 px-4 py-2">Ngành</th>
                     <th class="border border-gray-300 px-4 py-2">Hành động</th>
                 </tr>
             </thead>
             <tbody>
                 @forelse ($monhocs as $monhoc)
-                    <tr class="hover:bg-gray-100">
-                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $monhoc->id }}</td>
-                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $monhoc->ten_mon }}</td>
-                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $monhoc->nganh_id }} -
-                            {{ $monhoc->nganh->ten_nganh }}
-                        </td>
-                        <td class="border border-gray-300 px-4 py-2 flex justify-center space-x-2">
-                            <button wire:click="editMonHoc({{ $monhoc->id }})"
-                                class="bg-yellow-500 text-white px-3 py-1 rounded-md hover:bg-yellow-600">
-                                Sửa
-                            </button>
-                            <button wire:click="openConfirmModal({{ $monhoc->id }})"
-                                class="bg-red-600 text-white px-3 py-1 rounded-md hover:bg-red-700">
-                                Xoá
-                            </button>
-                        </td>
-                    </tr>
+                <tr class="hover:bg-gray-100">
+                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $monhoc->id }}</td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $monhoc->ten_mon }}</td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">
+                        {{ $monhoc->nganh->ten_nganh }}
+                    </td>
+                    <td class="border border-gray-300 px-4 py-2 flex justify-center space-x-2">
+                        <button wire:click="editMonHoc({{ $monhoc->id }})"
+                            class="bg-yellow-500 text-white px-3 py-1 rounded-md hover:bg-yellow-600">
+                            Sửa
+                        </button>
+                        <button wire:click="openConfirmModal({{ $monhoc->id }})"
+                            class="bg-red-600 text-white px-3 py-1 rounded-md hover:bg-red-700">
+                            Xoá
+                        </button>
+                    </td>
+                </tr>
                 @empty
-                    <tr>
-                        <td colspan="6" class="border border-gray-300 px-4 py-2 text-center">Không có dữ liệu môn.</td>
-                    </tr>
+                <tr>
+                    <td colspan="6" class="border border-gray-300 px-4 py-2 text-center">Không có dữ liệu môn.</td>
+                </tr>
                 @endforelse
             </tbody>
         </table>
@@ -86,7 +86,7 @@
                         class="w-full border border-gray-300 rounded-md px-3 py-2">
                         <option value="">-- Chọn Ngành --</option>
                         @foreach($nganhs as $nganh)
-                            <option value="{{ $nganh->id }}">{{ $nganh->ten_nganh }}</option>
+                        <option value="{{ $nganh->id }}">{{ $nganh->ten_nganh }}</option>
                         @endforeach
                     </select>
                     @error('nganh_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
@@ -123,28 +123,28 @@
         <div class="inline-flex items-center space-x-2">
             <!-- Previous Page Button -->
             @if($monhocs->onFirstPage())
-                <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Previous</span>
+            <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Previous</span>
             @else
-                <a href="{{ $monhocs->previousPageUrl() }}"
-                    class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">Previous</a>
+            <a href="{{ $monhocs->previousPageUrl() }}"
+                class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">Previous</a>
             @endif
 
             <!-- Page Numbers -->
             @foreach ($monhocs->getUrlRange(1, $monhocs->lastPage()) as $page => $url)
-                @if ($page == $monhocs->currentPage())
-                    <span class="px-4 py-2 text-white bg-blue-600 rounded-md">{{ $page }}</span>
-                @else
-                    <a href="{{ $url }}"
-                        class="px-4 py-2 text-blue-600 border border-gray-300 rounded-md hover:bg-gray-100">{{ $page }}</a>
-                @endif
+            @if ($page == $monhocs->currentPage())
+            <span class="px-4 py-2 text-white bg-blue-600 rounded-md">{{ $page }}</span>
+            @else
+            <a href="{{ $url }}"
+                class="px-4 py-2 text-blue-600 border border-gray-300 rounded-md hover:bg-gray-100">{{ $page }}</a>
+            @endif
             @endforeach
 
             <!-- Next Page Button -->
             @if($monhocs->hasMorePages())
-                <a href="{{ $monhocs->nextPageUrl() }}"
-                    class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">Next</a>
+            <a href="{{ $monhocs->nextPageUrl() }}"
+                class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">Next</a>
             @else
-                <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Next</span>
+            <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Next</span>
             @endif
         </div>
     </div>

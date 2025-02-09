@@ -22,35 +22,47 @@
             <thead class="bg-gray-100">
                 <tr>
                     <th class="border border-gray-300 px-4 py-2">ID</th>
-                    <th class="border border-gray-300 px-4 py-2">ID Sách</th>
-                    <th class="border border-gray-300 px-4 py-2">ID Vị Trí</th>
+                    <th class="border border-gray-300 px-4 py-2">Sách</th>
+                    <th class="border border-gray-300 px-4 py-2">Vị Trí</th>
                     <th class="border border-gray-300 px-4 py-2">Tình Trạng</th>
                     <th class="border border-gray-300 px-4 py-2">Hành động</th>
                 </tr>
             </thead>
             <tbody>
                 @forelse ($cuonsachs as $cuonsach)
-                    <tr class="hover:bg-gray-100">
-                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $cuonsach->id }}</td>
-                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $cuonsach->sach_id }}</td>
-                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $cuonsach->vi_tri_sach_id }}</td>
-                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $cuonsach->tinh_trang }}</td>
-                        <td class="border border-gray-300 px-4 py-2 flex justify-center space-x-2">
-                            <button wire:click="editCuonSach({{ $cuonsach->id }})"
-                                class="bg-yellow-500 text-white px-3 py-1 rounded-md hover:bg-yellow-600">
-                                Sửa
-                            </button>
-                            <button wire:click="openConfirmModal({{ $cuonsach->id }})"
-                                class="bg-red-600 text-white px-3 py-1 rounded-md hover:bg-red-700">
-                                Xoá
-                            </button>
-                        </td>
-                    </tr>
+                <tr class="hover:bg-gray-100">
+                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $cuonsach->id }}</td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $cuonsach->sach->ten_sach }}</td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">
+                        {{ $cuonsach->viTriSach->khu_vuc }}, {{ $cuonsach->viTriSach->ke }},
+                        {{ $cuonsach->viTriSach->tuong }}
+                    </td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">
+                        {{ match ($cuonsach->tinh_trang)
+                        {
+                        'Con' => 'Còn',
+                        'Bao_tri' => 'Bảo trì',
+                        default => 'Mất'
+                        } 
+                        }}
+                    </td>
+
+                    <td class="border border-gray-300 px-4 py-2 flex justify-center space-x-2">
+                        <button wire:click="editCuonSach({{ $cuonsach->id }})"
+                            class="bg-yellow-500 text-white px-3 py-1 rounded-md hover:bg-yellow-600">
+                            Sửa
+                        </button>
+                        <button wire:click="openConfirmModal({{ $cuonsach->id }})"
+                            class="bg-red-600 text-white px-3 py-1 rounded-md hover:bg-red-700">
+                            Xoá
+                        </button>
+                    </td>
+                </tr>
                 @empty
-                    <tr>
-                        <td colspan="10" class="border border-gray-300 px-4 py-2 text-center">Không có cuốn sách nào.
-                        </td>
-                    </tr>
+                <tr>
+                    <td colspan="10" class="border border-gray-300 px-4 py-2 text-center">Không có cuốn sách nào.
+                    </td>
+                </tr>
                 @endforelse
             </tbody>
         </table>
@@ -80,7 +92,7 @@
                         class="w-full border border-gray-300 rounded-md px-3 py-2">
                         <option value="">-- Chọn ID --</option>
                         @foreach($sachs as $sach)
-                            <option value="{{ $sach->id }}">{{ $sach->ten_sach }}</option>
+                        <option value="{{ $sach->id }}">{{ $sach->ten_sach }}</option>
                         @endforeach
                     </select>
                     @error('sach_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
@@ -92,7 +104,7 @@
                         class="w-full border border-gray-300 rounded-md px-3 py-2">
                         <option value="">-- Chọn ID --</option>
                         @foreach($vitrisachs as $vitrisach)
-                            <option value="{{ $vitrisach->id }}">{{ $vitrisach->id }}</option>
+                        <option value="{{ $vitrisach->id }}">{{ $vitrisach->id }}</option>
                         @endforeach
                     </select>
                     @error('vi_tri_sach_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
@@ -100,10 +112,18 @@
 
                 <div class="mb-4">
                     <label for="tinh_trang" class="block font-semibold">Tình Trạng</label>
-                    <input type="text" id="tinh_trang" wire:model.defer="tinh_trang"
+                    <select id="tinh_trang" wire:model.defer="tinh_trang"
                         class="w-full border border-gray-300 rounded-md px-3 py-2">
-                    @error('tinh_trang') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                        <option value="">-- Chọn tình trạng --</option>
+                        <option value="Con">Còn</option>
+                        <option value="Bao_tri">Bảo trì</option>
+                        <option value="Mat">Mất</option>
+                    </select>
+                    @error('tinh_trang')
+                    <span class="text-red-500 text-sm">{{ $message }}</span>
+                    @enderror
                 </div>
+
 
                 <div class="flex justify-end space-x-2">
                     <button type="button" wire:click="closeModal"
@@ -137,27 +157,27 @@
         <div class="inline-flex items-center space-x-2">
             <!-- Previous Page Button -->
             @if($cuonsachs->onFirstPage())
-                <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Previous</span>
+            <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Previous</span>
             @else
-                <a href="{{ $cuonsachs->previousPageUrl() }}"
-                    class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">Previous</a>
+            <a href="{{ $cuonsachs->previousPageUrl() }}"
+                class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">Previous</a>
             @endif
 
             <!-- Page Numbers -->
             @foreach ($cuonsachs->getUrlRange(1, $cuonsachs->lastPage()) as $page => $url)
 
-                <a wire:click.prevent="gotoPage({{ $page }})" href="#"
-                    class="{{ $page == $cuonsachs->currentPage() ? 'bg-blue-600 text-white' : 'text-blue-600 border border-gray-300 hover:bg-gray-100' }} px-4 py-2 rounded-md">
-                    {{ $page }}
-                </a>
+            <a wire:click.prevent="gotoPage({{ $page }})" href="#"
+                class="{{ $page == $cuonsachs->currentPage() ? 'bg-blue-600 text-white' : 'text-blue-600 border border-gray-300 hover:bg-gray-100' }} px-4 py-2 rounded-md">
+                {{ $page }}
+            </a>
             @endforeach
 
             <!-- Next Page Button -->
             @if($cuonsachs->hasMorePages())
-                <a href="{{ $cuonsachs->nextPageUrl() }}"
-                    class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">Next</a>
+            <a href="{{ $cuonsachs->nextPageUrl() }}"
+                class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">Next</a>
             @else
-                <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Next</span>
+            <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Next</span>
             @endif
         </div>
     </div>

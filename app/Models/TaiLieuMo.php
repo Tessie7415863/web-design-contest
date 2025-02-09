@@ -10,6 +10,7 @@ class TaiLieuMo extends Model
     use HasFactory;
     protected $table = 'tai_lieu_mos';
     protected $fillable = [
+        'anh_bia',
         'ten_tai_lieu',
         'nha_xuat_ban_id',
         'tac_gia_id',
@@ -21,7 +22,10 @@ class TaiLieuMo extends Model
         'nganh_id',
         'khoa_id'
     ];
-
+    public function getAnhBiaUrlAttribute()
+    {
+        return $this->anh_bia ? asset('storage/' . $this->anh_bia) : asset('images/default-tai-lieu-mo.jpg');
+    }
     public function nhaxuatban()
     {
         return $this->belongsTo(NhaXuatBan::class, 'nha_xuat_ban_id');

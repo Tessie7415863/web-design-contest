@@ -54,12 +54,11 @@ class Sach extends Component
     public $search;
     public $selectedBook = null;
     public $selectedSachDetails = null;
-    public function showSachDetails($sach_id)
+    public function showSachDetails($id)
     {
-        $this->selectedBook = ModelsSach::find($sach_id);
-        $this->selectedSachDetails = CuonSach::where('sach_id', $sach_id)->first();
-        $this->showModal = true;
+        return redirect()->route('ChiTietSach', ['id' => $id]);
     }
+
     public function alert(FlasherInterface $flasher)
     {
         $flasher->addError('Thông báo', 'Bạn phải đăng nhập để mượn sách');

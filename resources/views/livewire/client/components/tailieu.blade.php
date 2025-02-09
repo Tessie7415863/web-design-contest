@@ -260,15 +260,19 @@
                             <div
                                 class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 group mb-4 mx-16">
                                 <div class="p-4 flex flex-row justify-between">
-                                    <div>
-                                        <h3 class="font-semibold mb-2 line-clamp-2 text-gray-900 dark:text-white">
-                                            {{ $tailieumo->ten_tai_lieu }}
-                                        </h3>
-                                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Tác giả:
-                                            {{ $tailieumo->tacGia->ho_ten ?? 'Không rõ' }}
-                                        </p>
-                                        <span class="text-sm text-gray-500 dark:text-gray-400">Năm phát hành:
-                                            {{ $tailieumo->nam_phat_hanh }}</span>
+                                    <div class="flex gap-1">
+                                        <img src="{{ asset('storage/' . $tailieumo->anh_bia) }}" alt="Ảnh bìa"
+                                            width="150">
+                                        <div>
+                                            <h3 class="font-semibold mb-2 line-clamp-2 text-gray-900 dark:text-white">
+                                                {{ $tailieumo->ten_tai_lieu }}
+                                            </h3>
+                                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Tác giả:
+                                                {{ $tailieumo->tacGia->ho_ten ?? 'Không rõ' }}
+                                            </p>
+                                            <span class="text-sm text-gray-500 dark:text-gray-400">Năm phát hành:
+                                                {{ $tailieumo->nam_phat_hanh }}</span>
+                                        </div>
                                     </div>
                                     <div
                                         class="flex flex-col gap-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">

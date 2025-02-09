@@ -80,3 +80,6 @@ nếu không tìm thấy table nào thì vào Models/ model cần tìm thêm dò
 Khi pull dự án về bị báo lỗi not found là do :
     1: chưa npm install
     2: chưa composer install 
+
+
+php artisan storage:link : liên kết thư mục storage/app/public với thư mục public/storage, cho phép bạn truy cập hình ảnh qua đường dẫn /storage/.

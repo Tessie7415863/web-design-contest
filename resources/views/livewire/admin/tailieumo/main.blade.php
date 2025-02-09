@@ -22,6 +22,7 @@
             <thead class="bg-gray-100">
                 <tr>
                     <th class="border border-gray-300 px-4 py-2">ID</th>
+                    <th class="border border-gray-300 px-4 py-2">Ảnh bìa</th>
                     <th class="border border-gray-300 px-4 py-2">Tên Tài Liệu</th>
                     <th class="border border-gray-300 px-4 py-2">Tác Giả</th>
                     <th class="border border-gray-300 px-4 py-2">NXB</th>
@@ -39,6 +40,8 @@
                 @forelse ($tailieumos as $tailieumo)
                 <tr class="hover:bg-gray-100">
                     <td class="border border-gray-300 px-4 py-2 text-center">{{ $tailieumo->id }}</td>
+                    <td class="border border-gray-300 px-4 py-2 text-center"><img
+                            src="{{ asset('storage/' . $tailieumo->anh_bia) }}" alt="Ảnh bìa" width="50"></td>
                     <td class="border border-gray-300 px-4 py-2 text-center">{{ $tailieumo->ten_tai_lieu }}</td>
                     <td class="border border-gray-300 px-4 py-2 text-center">{{ $tailieumo->tacgia->ho_ten }}</td>
                     <td class="border border-gray-300 px-4 py-2 text-center">{{ $tailieumo->nha_xuat_ban_id }}</td>
@@ -99,6 +102,11 @@
                             @error('ten_tai_lieu') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                         </div>
                         <div class="mb-4">
+                            <label for="anh_bia" class="block font-semibold">Ảnh bìa tài liệu</label>
+                            <input type="file" accept="image/*" id="anh_bia" wire:model="anh_bia"
+                                class="w-full border border-gray-300 rounded-md px-3 py-2">
+                        </div>
+                        <div class="mb-4">
                             <label for="tac_gia_id" class="block font-semibold">Tác Giả</label>
                             <select id="tac_gia_id" wire:model.defer="tac_gia_id"
                                 class="w-full border border-gray-300 rounded-md px-3 py-2">
@@ -134,7 +142,18 @@
                                 class="w-full border border-gray-300 rounded-md px-3 py-2">
                             @error('so_trang') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                         </div>
-
+                        <div class="mb-4">
+                            @if ($anh_bia)
+                            @if (is_object($anh_bia))
+                            <img src="{{ $anh_bia->temporaryUrl() }}" width="100">
+                            @else
+                            <img src="{{ asset('storage/' . $anh_bia) }}" width="100">
+                            @endif
+                            @endif
+                            @error('anh_bia')
+                            <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
+                        </div>
                         <div class="mb-4">
                             <label for="isbn" class="block font-semibold">ISBN</label>
                             <input type="text" id="isbn" wire:model.defer="isbn"

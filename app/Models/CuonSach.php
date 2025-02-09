@@ -28,4 +28,8 @@ class CuonSach extends Model
     {
         return $this->belongsTo(ViTriSach::class, 'vi_tri_sach_id');
     }
+    public function sach()
+    {
+        return $this->belongsTo(Sach::class, 'sach_id');
+    }
 }

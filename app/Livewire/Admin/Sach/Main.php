@@ -10,13 +10,15 @@ use App\Models\Sach;
 use App\Models\TacGia;
 use App\Models\TheLoai;
 use Flasher\Prime\FlasherInterface;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
+use Livewire\Features\SupportFileUploads\WithFileUploads;
 use Livewire\WithPagination;
 
 class Main extends Component
 {
-    use WithPagination;
-    public $id, $ten_sach, $tac_gia_id, $nha_xuat_ban_id, $the_loai_id, $nam_xuat_ban, $so_trang, $isbn, $mon_hoc_id, $nganh_id, $khoa_id;
+    use WithPagination, WithFileUploads;
+    public $id, $anh_bia, $ten_sach, $tac_gia_id, $nha_xuat_ban_id, $the_loai_id, $nam_xuat_ban, $so_trang, $isbn, $mon_hoc_id, $nganh_id, $khoa_id;
 
     public $deleteSachId;
     public $searchName = '';
@@ -59,6 +61,7 @@ class Main extends Component
     public function resetForm()
     {
         $this->id = null;
+        $this->anh_bia = '';
         $this->ten_sach = '';
         $this->tac_gia_id = '';
         $this->nha_xuat_ban_id = '';
@@ -75,6 +78,7 @@ class Main extends Component
     public function createSach(FlasherInterface $flasher)
     {
         $this->validate([
+            'anh_bia' => 'nullable|image|max:2048',
             'ten_sach' => 'required',
             'tac_gia_id' => 'required',
             'nha_xuat_ban_id' => 'required',
@@ -98,8 +102,9 @@ class Main extends Component
                 return;
             }
         }
-
+        $path = $this->anh_bia ? $this->anh_bia->store('books', 'public') : null;
         Sach::create([
+            'anh_bia' => $path,
             'ten_sach' => $this->ten_sach,
             'tac_gia_id' => $this->tac_gia_id,
             'nha_xuat_ban_id' => $this->nha_xuat_ban_id,
@@ -122,6 +127,7 @@ class Main extends Component
 
         $sach = Sach::findOrFail($id);
         $this->id = $sach->id;
+        $this->anh_bia = $sach->anh_bia;
         $this->ten_sach = $sach->ten_sach;
         $this->tac_gia_id = $sach->tac_gia_id;
         $this->nha_xuat_ban_id = $sach->nha_xuat_ban_id;
@@ -139,36 +145,32 @@ class Main extends Component
     public function updateSach(FlasherInterface $flasher)
     {
         $this->validate([
+            'anh_bia' => 'nullable|image|max:2048',
             'ten_sach' => 'required',
             'tac_gia_id' => 'required',
             'nha_xuat_ban_id' => 'required',
             'the_loai_id' => 'required',
             'nam_xuat_ban' => 'nullable|regex:/^\d{4}$/',
-            'so_trang' => 'nullable',
-            'isbn' => 'nullable',
+            'so_trang' => 'nullable|integer',
+            'isbn' => 'nullable|string',
             'mon_hoc_id' => 'required',
             'nganh_id' => 'required',
             'khoa_id' => 'required',
         ]);
-        // Kiểm tra trùng lặp tên sách
-        $exists = Sach::where('ten_sach', $this->ten_sach)
-            ->where('id', '!=', $this->id) // Loại trừ chính sách hiện tại
-            ->exists();
-        if ($exists) {
-            // Kiểm tra tác giả của sách
-            $existsAuthor = Sach::where('ten_sach', $this->ten_sach)
-                ->where('tac_gia_id', $this->tac_gia_id)
-                ->where('id', '!=', $this->id) // Loại trừ sách hiện tại
-                ->exists();
-            if ($existsAuthor) {
-                $flasher->addError('Sách của tác giả này đã tồn tại.');
-                return; // Dừng việc cập nhật sách
+
+        $sach = Sach::findOrFail($this->id);
+
+        if ($this->anh_bia) {
+            if ($sach->anh_bia) {
+                Storage::disk('public')->delete($sach->anh_bia);
             }
+            $path = $this->anh_bia->store('books', 'public');
+        } else {
+            $path = $sach->anh_bia;
         }
 
-        // Tiến hành cập nhật sách
-        $sach = Sach::findOrFail($this->id);
         $sach->update([
+            'anh_bia' => $path,
             'ten_sach' => $this->ten_sach,
             'tac_gia_id' => $this->tac_gia_id,
             'nha_xuat_ban_id' => $this->nha_xuat_ban_id,
@@ -181,10 +183,7 @@ class Main extends Component
             'khoa_id' => $this->khoa_id,
         ]);
 
-        // Thông báo thành công
         $flasher->addSuccess('Cập nhật sách thành công!');
-
-
         $this->closeModal();
         $this->resetForm();
     }

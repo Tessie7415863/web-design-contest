@@ -35,6 +35,7 @@ use App\Livewire\Auth\ResetPassword;
 use App\Livewire\Auth\SinhvienLogin;
 use App\Livewire\Auth\SinhvienRegister;
 use App\Livewire\Client\Components\Borrow;
+use App\Livewire\Client\Components\ChiTietSach;
 use App\Livewire\Client\Components\DeXuatSachTaiLieu;
 use App\Livewire\Client\Components\LichSuMuon;
 use App\Livewire\Client\Components\Lienhe;
@@ -50,6 +51,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('web')->group(function () {
     Route::get('/', HomePage::class);
     Route::get('sach', Sach::class)->name('sach');
+    Route::get('sach/{id}', ChiTietSach::class)->name('ChiTietSach');
     Route::get('tai-lieu', Tailieu::class)->name('tailieu');
     Route::get('borrow/{id}', Borrow::class)->name('borrow');
     Route::get('/tai-khoan', TaiKhoan::class)->name('tai-khoan');

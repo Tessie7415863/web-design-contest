@@ -103,7 +103,6 @@
         <!-- Quản lý Sách -->
         <div x-data="{ open:window.location.pathname.startsWith('/admin/manage-sach') ||
         window.location.pathname.startsWith('/admin/manage-vitrisach') ||
-        window.location.pathname.startsWith('/admin/manage-lienketsachnganh') ||
         window.location.pathname.startsWith('/admin/manage-monhoc')  || 
         window.location.pathname.startsWith('/admin/manage-cuonsach')  
         }">
@@ -124,11 +123,6 @@
                 {{ request()->is('admin/manage-vitrisach') ? 'bg-gray-400 text-blue-500' : 'text-black hover:bg-gray-300' }}">
                     Vị trí sách
                 </a>
-                <a href="/admin/manage-lienketsachnganh"
-                    class="block px-3 py-2 rounded-md 
-                {{ request()->is('admin/manage-lienketsachnganh') ? 'bg-gray-400 text-blue-500' : 'text-black hover:bg-gray-300' }}">
-                    Liên kết sách ngành
-                </a>
                 <a href="/admin/manage-monhoc"
                     class="block px-3 py-2 rounded-md 
                 {{ request()->is('admin/manage-monhoc') ? 'bg-gray-400 text-blue-500' : 'text-black hover:bg-gray-300' }}">
@@ -139,11 +133,6 @@
                 {{ request()->is('admin/manage-cuonsach') ? 'bg-gray-400 text-blue-500' : 'text-black hover:bg-gray-300' }}">
                     Cuốn Sách
                 </a>
-                <!-- <a href="/admin/manage-booksubject"
-                    class="block px-3 py-2 rounded-md 
-                {{ request()->is('admin/manage-booksubject') ? 'bg-gray-400 text-blue-500' : 'text-black hover:bg-gray-300' }}">
-                    Book Subject
-                </a> -->
             </div>
         </div>
 
@@ -225,16 +214,6 @@
                 {{ request()->is('admin/manage-theloai') ? 'bg-gray-400 text-blue-500' : 'text-black hover:bg-gray-300' }}">
                     Thể loại
                 </a>
-                <!-- <a href="/admin/manage-digitalresourcemajor"
-                    class="block px-3 py-2 rounded-md 
-                {{ request()->is('admin/manage-digitalresourcemajor') ? 'bg-gray-400 text-blue-500' : 'text-black hover:bg-gray-300' }}">
-                    Digital Resource Major
-                </a>
-                <a href="/admin/manage-digitalresourcesubject"
-                    class="block px-3 py-2 rounded-md 
-                {{ request()->is('admin/manage-digitalresourcesubject') ? 'bg-gray-400 text-blue-500' : 'text-black hover:bg-gray-300' }}">
-                    Digital Resource Subject
-                </a> -->
             </div>
         </div>
     </nav>

@@ -103,6 +103,7 @@ return new class extends Migration {
         // 11. sachs (Books)
         Schema::create('sachs', function (Blueprint $table) {
             $table->id();
+            $table->string('anh_bia')->nullable();
             $table->string('ten_sach');
             $table->foreignId('tac_gia_id')->nullable()->constrained('tac_gias')->onDelete('set null')->onUpdate('cascade');
             $table->foreignId('nha_xuat_ban_id')->nullable()->constrained('nha_xuat_bans')->onDelete('set null')->onUpdate('cascade');
@@ -119,6 +120,7 @@ return new class extends Migration {
         // 12. tai_lieu_mos (Digital Resources)
         Schema::create('tai_lieu_mos', function (Blueprint $table) {
             $table->id();
+            $table->string('anh_bia')->nullable();
             $table->string('ten_tai_lieu');
             $table->foreignId('tac_gia_id')->nullable()->constrained('tac_gias')->onDelete('set null')->onUpdate('cascade');
             $table->foreignId('nha_xuat_ban_id')->nullable()->constrained('nha_xuat_bans')->onDelete('set null')->onUpdate('cascade');

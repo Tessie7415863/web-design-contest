@@ -10,6 +10,7 @@ class Sach extends Model
     use HasFactory;
     protected $table = 'sachs';
     protected $fillable = [
+        'anh_bia',
         'ten_sach',
         'tac_gia_id',
         'nha_xuat_ban_id',
@@ -21,6 +22,10 @@ class Sach extends Model
         'nganh_id',
         'khoa_id'
     ];
+    public function getAnhBiaUrlAttribute()
+    {
+        return $this->anh_bia ? asset('storage/' . $this->anh_bia) : asset('images/default-book.jpg');
+    }
     public function tacGia()
     {
         return $this->belongsTo(TacGia::class, 'tac_gia_id');
