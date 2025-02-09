@@ -5,6 +5,7 @@ use App\Livewire\Admin\Booksubject\ManageBooksubject;
 use App\Livewire\Admin\Bophan\ManageBophan;
 use App\Livewire\Admin\Cuonsach\ManageCuonsach;
 use App\Livewire\Admin\Datsach\ManageDatsach;
+use App\Livewire\Admin\DeXuat\ManageDeXuat;
 use App\Livewire\Admin\Digitalresourcemajor\ManageDigitalresourcemajor;
 use App\Livewire\Admin\Digitalresourcesubject\ManageDigitalresourcesubject;
 use App\Livewire\Admin\Failedjob\ManageFailedjob;
@@ -110,6 +111,7 @@ Route::middleware(['auth', 'can:access-admin'])->group(function () {
     Route::get('/admin/manage-sach', ManageSach::class)->name('admin.manage-sach');
     Route::get('/admin/manage-cuonsach', ManageCuonsach::class)->name('admin.manage-cuonsach');
     Route::get('/admin/manage-datsach', ManageDatsach::class)->name('admin.manage-datsach');
+    Route::get('/admin/manage-dexuat', ManageDeXuat::class)->name('admin.manage-dexuat');
     Route::get('/admin/manage-lienketsachnganh', ManageLienketsachnganh::class)->name('admin.manage-lienketsachnganh');
     Route::get('/admin/manage-tailieumo', ManageTailieumo::class)->name('admin.manage-tailieumo');
     Route::get('/admin/manage-booksubject', ManageBooksubject::class)->name('admin.manage-booksubject');

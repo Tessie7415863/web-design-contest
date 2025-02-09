@@ -34,7 +34,8 @@
                     <td class="border border-gray-300 px-4 py-2 text-center">{{ $phieutra->id }}</td>
                     <td class="border border-gray-300 px-4 py-2 text-center">{{ $phieutra->phieu_muon_id }}
                     </td>
-                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $phieutra->ngay_tra }}
+                    <td class="border border-gray-300 px-4 py-2 text-center">
+                        {{ \Carbon\Carbon::parse($phieutra->ngay_tra)->format('d/m/Y') }}
                     </td>
                     <td class="border border-gray-300 px-4 py-2 text-center">
                         @if($phieutra->tinh_trang === 'HoanThanh')
@@ -91,7 +92,7 @@
                         class="w-full border border-gray-300 rounded-md px-3 py-2">
                         <option value="">-- Chọn ID --</option>
                         @foreach($phieumuons as $phieumuon)
-                        <option value="{{ $phieumuon->id }}">{{ $phieumuon->sinh_vien_id }}</option>
+                        <option value="{{ $phieumuon->id }}">{{ $phieumuon->id }}</option>
                         @endforeach
                     </select>
                     @error('phieu_muon_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror

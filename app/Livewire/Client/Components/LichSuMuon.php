@@ -2,36 +2,34 @@
 
 namespace App\Livewire\Client\Components;
 
+use App\Models\CuonSach;
+use App\Models\DatSach;
 use App\Models\PhieuMuon;
+use App\Models\Sach;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class LichSuMuon extends Component
 {
-    public ?int $sinh_vien_id = null;
-    public ?string $ngay = null; // Ngày mượn sách
+    public $sinh_vien_id;
+    public $datSachs; // Danh sách đặt sách của sinh viên
 
-    public function mount($sinh_vien_id = null, $ngay = null)
+    public function mount()
     {
-        $this->sinh_vien_id = $sinh_vien_id;
-        $this->ngay = $ngay ?? Carbon::today()->toDateString(); // Mặc định là ngày hôm nay
-    }
+        $sinhVien = Auth::guard('sinhvien')->user();
+        $this->sinh_vien_id = $sinhVien->id;
 
+        // Lấy tất cả các bản ghi đặt sách của sinh viên với quan hệ: cuonSach và sach
+        $this->datSachs = DatSach::with('cuonSach.sach')
+            ->where('sinh_vien_id', $this->sinh_vien_id)
+            ->get();
+    }
 
     public function render()
     {
-        if (!$this->sinh_vien_id) {
-            return "<div class='text-red-500 font-bold'>Không tìm thấy dữ liệu sinh viên.</div>";
-        }
-
-        // Lấy danh sách phiếu mượn trong ngày được chọn
-        $phieumuons = PhieuMuon::where('sinh_vien_id', $this->sinh_vien_id)
-            ->whereDate('ngay_muon', $this->ngay)
-            ->with('sach')
-            ->get();
-        // Tính tổng số sách đã mượn trong ngày
-        $tong_sach = $phieumuons->sum('so_luong');
-
-        return view('livewire.client.components.lich-su-muon', compact('phieumuons', 'tong_sach'));
+        // Tính tổng số sách đã đặt/mượn
+        $tong_sach = $this->datSachs->count();
+        return view('livewire.client.components.lich-su-muon', compact('tong_sach'));
     }
 }

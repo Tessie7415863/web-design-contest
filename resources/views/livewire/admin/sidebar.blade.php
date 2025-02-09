@@ -104,7 +104,8 @@
         <div x-data="{ open:window.location.pathname.startsWith('/admin/manage-sach') ||
         window.location.pathname.startsWith('/admin/manage-vitrisach') ||
         window.location.pathname.startsWith('/admin/manage-monhoc')  || 
-        window.location.pathname.startsWith('/admin/manage-cuonsach')  
+        window.location.pathname.startsWith('/admin/manage-cuonsach')  ||
+        window.location.pathname.startsWith('/admin/manage-datsach')
         }">
             <button @click="open = !open"
                 class="flex justify-between items-center w-full px-3 py-2 text-left rounded-md text-black hover:bg-gray-300">
@@ -117,6 +118,11 @@
                     class="block px-3 py-2 rounded-md 
                 {{ request()->is('admin/manage-sach') ? 'bg-gray-400 text-blue-500' : 'text-black hover:bg-gray-300' }}">
                     Sách
+                </a>
+                <a href="/admin/manage-datsach"
+                    class="block px-3 py-2 rounded-md 
+                {{ request()->is('admin/manage-datsach') ? 'bg-gray-400 text-blue-500' : 'text-black hover:bg-gray-300' }}">
+                    Đặt sách
                 </a>
                 <a href="/admin/manage-vitrisach"
                     class="block px-3 py-2 rounded-md 
@@ -190,7 +196,8 @@
         <!-- Các quản lý khác -->
         <div x-data="{ open:window.location.pathname.startsWith('/admin/manage-nhaxuatban') ||
         window.location.pathname.startsWith('/admin/manage-tacgia') ||
-        window.location.pathname.startsWith('/admin/manage-theloai')
+        window.location.pathname.startsWith('/admin/manage-theloai')||
+        window.location.pathname.startsWith('/admin/manage-dexuat')
         }">
             <button @click="open = !open"
                 class="flex justify-between items-center w-full px-3 py-2 text-left rounded-md text-black hover:bg-gray-300">
@@ -213,6 +220,11 @@
                     class="block px-3 py-2 rounded-md 
                 {{ request()->is('admin/manage-theloai') ? 'bg-gray-400 text-blue-500' : 'text-black hover:bg-gray-300' }}">
                     Thể loại
+                </a>
+                <a href="/admin/manage-dexuat"
+                    class="block px-3 py-2 rounded-md 
+                {{ request()->is('admin/manage-dexuat') ? 'bg-gray-400 text-blue-500' : 'text-black hover:bg-gray-300' }}">
+                    Quản lý đề xuất sách, tài liệu
                 </a>
             </div>
         </div>

@@ -17,7 +17,8 @@ class PhieuMuon extends Model
         'ngay_muon',
         'ngay_hen_tra',
         'ngay_tra',
-        'tinh_trang'
+        'tinh_trang',
+        'email_log_url'
     ];
     protected $with = ['sach', 'sinhvien'];
 

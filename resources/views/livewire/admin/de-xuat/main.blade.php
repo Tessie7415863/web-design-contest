@@ -1,15 +1,9 @@
 <!-- Main Section -->
 <main class="flex-1 overflow-y-auto p-6">
-    <h1 class="text-center font-bold text-2xl mb-6">Quản Lý Cuốn Sách</h1>
+    <h1 class="text-center font-bold text-2xl mb-6">Quản lý đề xuất thêm sách, tài liệu</h1>
 
-    <!-- Button Tạo Cuốn Sách Mới -->
-    <div class="mb-4 text-left">
-        <button wire:click="openModal" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
-            Tạo cuốn sách mới
-        </button>
-    </div>
 
-    <!-- Bảng Quản Lý Vị Trí -->
+    <!-- Bảng Quản Lý Đề xuất thêm sách, tài liệu -->
     <div class="overflow-x-auto">
         <div class="flex justify-between">
             <div class="mb-4 flex justify-start">
@@ -22,38 +16,43 @@
             <thead class="bg-gray-100">
                 <tr>
                     <th class="border border-gray-300 px-4 py-2">ID</th>
-                    <th class="border border-gray-300 px-4 py-2">Sách</th>
-                    <th class="border border-gray-300 px-4 py-2">Vị Trí</th>
-                    <th class="border border-gray-300 px-4 py-2">Tình Trạng</th>
+                    <th class="border border-gray-300 px-4 py-2">Sinh Viên</th>
+                    <th class="border border-gray-300 px-4 py-2">Tiêu đề</th>
+                    <th class="border border-gray-300 px-4 py-2">Loại</th>
+                    <th class="border border-gray-300 px-4 py-2">Mô tả</th>
+                    <th class="border border-gray-300 px-4 py-2">Trạng thái</th>
                     <th class="border border-gray-300 px-4 py-2">Hành động</th>
                 </tr>
             </thead>
             <tbody>
-                @forelse ($cuonsachs as $cuonsach)
+                @forelse ($dexuats as $dexuat)
                 <tr class="hover:bg-gray-100">
-                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $cuonsach->id }}</td>
-                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $cuonsach->sach->ten_sach }}</td>
-                    <td class="border border-gray-300 px-4 py-2 text-center">
-                        {{ $cuonsach->viTriSach->khu_vuc }}, {{ $cuonsach->viTriSach->ke }},
-                        {{ $cuonsach->viTriSach->tuong }}
+                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $dexuat->id }}</td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $dexuat->sinhvien->ho_ten }}
                     </td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $dexuat->tieu_de }}</td>
                     <td class="border border-gray-300 px-4 py-2 text-center">
-                        {{ match ($cuonsach->tinh_trang)
+                        {{ match ($dexuat->loai)
                         {
-                        'Con' => 'Còn',
-                        'Bao_tri' => 'Bảo trì',
-                        'Muon' => 'Mượn',
-                        default => 'Mất'
+                        'sach' => 'Sách',
+                        'tai_lieu' => 'Tài liệu',
                         } 
                         }}
                     </td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $dexuat->mo_ta }}</td>
+                    <td class="border border-gray-300 px-4 py-2 text-center"> {{ match ($dexuat->trang_thai)
+                        {
+                        'ChuaXuLy' => 'Chưa xử lý',
+                        'DaXuLy' => 'Đã xử lý',
+                        } 
+                        }}</td>
 
                     <td class="border border-gray-300 px-4 py-2 flex justify-center space-x-2">
-                        <button wire:click="editCuonSach({{ $cuonsach->id }})"
+                        <button wire:click="edit({{ $dexuat->id }})"
                             class="bg-yellow-500 text-white px-3 py-1 rounded-md hover:bg-yellow-600">
                             Sửa
                         </button>
-                        <button wire:click="openConfirmModal({{ $cuonsach->id }})"
+                        <button wire:click="openConfirmModal({{ $dexuat->id }})"
                             class="bg-red-600 text-white px-3 py-1 rounded-md hover:bg-red-700">
                             Xoá
                         </button>
@@ -61,21 +60,19 @@
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="10" class="border border-gray-300 px-4 py-2 text-center">Không có cuốn sách nào.
+                    <td colspan="6" class="border border-gray-300 px-4 py-2 text-center">Không có dữ liệu.
                     </td>
                 </tr>
                 @endforelse
             </tbody>
         </table>
     </div>
-
-    <!-- modal -->
     <div x-data="{ open: @entangle('isModalOpen') }" x-show="open"
         class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 ">
         <div class="bg-white rounded-lg shadow-lg p-6 w-1/3">
             <div class="flex justify-between">
                 <h2 class="text-xl font-bold mb-4">
-                    {{ $isEditMode ? 'Cập nhật vị trí' : 'Tạo sách vị trí' }}
+                    Cập nhật trạng thái đề xuất
                 </h2>
                 <button type="button" wire:click="closeModal"
                     class="w-10 h-10 bg-gray-500 text-white text-xl rounded-full flex items-center justify-center hover:bg-gray-600 focus:outline-none transition-transform transform hover:scale-110">
@@ -85,47 +82,17 @@
             </div>
 
             <!-- Form -->
-            <form wire:submit.prevent="{{ $isEditMode ? 'updateCuonSach' : 'createCuonSach' }}"
-                class=" h-auto overflow-auto">
+            <form wire:submit.prevent="update" class=" h-auto overflow-auto">
                 <div class="mb-4">
-                    <label for="sach_id" class="block font-semibold">ID Sách</label>
-                    <select id="sach_id" wire:model.defer="sach_id"
+                    <label for="trang_thai" class="block font-semibold">ID Sinh Viên</label>
+                    <select id="trang_thai" wire:model.defer="trang_thai"
                         class="w-full border border-gray-300 rounded-md px-3 py-2">
-                        <option value="">-- Chọn ID --</option>
-                        @foreach($sachs as $sach)
-                        <option value="{{ $sach->id }}">{{ $sach->ten_sach }}</option>
-                        @endforeach
+                        <option value="">-- Chọn trạng thái --</option>
+                        <option value="ChuaXuLy">Chưa xử lý</option>
+                        <option value="DaXuLy">Đã xử lý</option>
                     </select>
-                    @error('sach_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                    @error('trang_thai') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                 </div>
-
-                <div class="mb-4">
-                    <label for="vi_tri_sach_id" class="block font-semibold">ID Vị Trí</label>
-                    <select id="vi_tri_sach_id" wire:model.defer="vi_tri_sach_id"
-                        class="w-full border border-gray-300 rounded-md px-3 py-2">
-                        <option value="">-- Chọn ID --</option>
-                        @foreach($vitrisachs as $vitrisach)
-                        <option value="{{ $vitrisach->id }}">{{ $vitrisach->id }}</option>
-                        @endforeach
-                    </select>
-                    @error('vi_tri_sach_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-                </div>
-
-                <div class="mb-4">
-                    <label for="tinh_trang" class="block font-semibold">Tình Trạng</label>
-                    <select id="tinh_trang" wire:model.defer="tinh_trang"
-                        class="w-full border border-gray-300 rounded-md px-3 py-2">
-                        <option value="">-- Chọn tình trạng --</option>
-                        <option value="Con">Còn</option>
-                        <option value="Bao_tri">Bảo trì</option>
-                        <option value="Mat">Mất</option>
-                        <option value="Muon">Mượn</option>
-                    </select>
-                    @error('tinh_trang')
-                    <span class="text-red-500 text-sm">{{ $message }}</span>
-                    @enderror
-                </div>
-
 
                 <div class="flex justify-end space-x-2">
                     <button type="button" wire:click="closeModal"
@@ -136,13 +103,12 @@
             </form>
         </div>
     </div>
-
     <!-- Modal Xác Nhận Xóa -->
     <div x-data="{ open: @entangle('isConfirmModalOpen') }" x-show="open"
         class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
         <div class="bg-white rounded-lg shadow-lg p-6 w-1/3">
             <h2 class="text-xl font-bold mb-4 text-center">Xác nhận xóa</h2>
-            <p class="text-center mb-6">Bạn có chắc chắn muốn xóa cuốn sách này không?
+            <p class="text-center mb-6">Bạn có chắc chắn muốn xóa đề xuất này không?
             </p>
             <p class="text-center mb-6">Thao tác này không thể hoàn
                 tác.
@@ -150,7 +116,7 @@
             <div class="flex justify-center space-x-4">
                 <button type="button" wire:click="closeConfirmModal"
                     class="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600">Huỷ</button>
-                <button type="button" wire:click="deleteCuonSach"
+                <button type="button" wire:click="delete"
                     class="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700">Xóa</button>
             </div>
         </div>
@@ -158,25 +124,25 @@
     <div class="flex justify-center mt-6">
         <div class="inline-flex items-center space-x-2">
             <!-- Previous Page Button -->
-            @if($cuonsachs->onFirstPage())
+            @if($dexuats->onFirstPage())
             <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Previous</span>
             @else
-            <a href="{{ $cuonsachs->previousPageUrl() }}"
+            <a href="{{ $dexuats->previousPageUrl() }}"
                 class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">Previous</a>
             @endif
 
             <!-- Page Numbers -->
-            @foreach ($cuonsachs->getUrlRange(1, $cuonsachs->lastPage()) as $page => $url)
+            @foreach ($dexuats->getUrlRange(1, $dexuats->lastPage()) as $page => $url)
 
             <a wire:click.prevent="gotoPage({{ $page }})" href="#"
-                class="{{ $page == $cuonsachs->currentPage() ? 'bg-blue-600 text-white' : 'text-blue-600 border border-gray-300 hover:bg-gray-100' }} px-4 py-2 rounded-md">
+                class="{{ $page == $dexuats->currentPage() ? 'bg-blue-600 text-white' : 'text-blue-600 border border-gray-300 hover:bg-gray-100' }} px-4 py-2 rounded-md">
                 {{ $page }}
             </a>
             @endforeach
 
             <!-- Next Page Button -->
-            @if($cuonsachs->hasMorePages())
-            <a href="{{ $cuonsachs->nextPageUrl() }}"
+            @if($dexuats->hasMorePages())
+            <a href="{{ $dexuats->nextPageUrl() }}"
                 class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">Next</a>
             @else
             <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Next</span>

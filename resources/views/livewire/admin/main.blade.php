@@ -10,5 +10,6 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         @livewire('table.new-books')
         @livewire('table.bi-phat')
+        @livewire('table.new-dat-sach')
     </div>
 </main>

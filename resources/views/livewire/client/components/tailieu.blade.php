@@ -261,8 +261,13 @@
                                 class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 group mb-4 mx-16">
                                 <div class="p-4 flex flex-row justify-between">
                                     <div class="flex gap-1">
+                                        @if($tailieumo->anh_bia)
                                         <img src="{{ asset('storage/' . $tailieumo->anh_bia) }}" alt="Ảnh bìa"
                                             width="150">
+                                        @else
+                                        <img src="https://placehold.co/150x150?text={{$tailieumo->ten_tai_lieu}}"
+                                            alt="{{ $tailieumo->ten_tai_lieu }}" width="150">
+                                        @endif
                                         <div>
                                             <h3 class="font-semibold mb-2 line-clamp-2 text-gray-900 dark:text-white">
                                                 {{ $tailieumo->ten_tai_lieu }}

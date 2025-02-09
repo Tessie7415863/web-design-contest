@@ -20,9 +20,16 @@ class DatSach extends Model
     {
         return $this->belongsTo(SinhVien::class);
     }
-
+    public function sinhvien()
+    {
+        return $this->belongsTo(SinhVien::class, 'sinh_vien_id');
+    }
     public function cuon_sach_id()
     {
         return $this->belongsTo(CuonSach::class);
+    }
+    public function cuonSach()
+    {
+        return $this->belongsTo(CuonSach::class, 'cuon_sach_id');
     }
 }

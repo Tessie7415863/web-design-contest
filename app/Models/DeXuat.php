@@ -15,4 +15,8 @@ class DeXuat extends Model
         'mo_ta',
         'trang_thai',
     ];
+    public function sinhvien()
+    {
+        return $this->belongsTo(SinhVien::class, 'sinh_vien_id');
+    }
 }

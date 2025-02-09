@@ -41,10 +41,15 @@
                     <td class="border border-gray-300 px-4 py-2 text-center">
                         {{ $phieumuon->nhanvien->ho_ten ?? 'Không có nhân viên.' }}
                     </td>
-                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $phieumuon->ngay_muon }}</td>
-                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $phieumuon->ngay_hen_tra }}</td>
                     <td class="border border-gray-300 px-4 py-2 text-center">
-                        {{ $phieumuon->ngay_tra ?? 'Chưa trả' }}
+                        {{$phieumuon->ngay_muon? \Carbon\Carbon::parse($phieumuon->ngay_muon)->format('d/m/Y'):'Trống' }}
+                    </td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">
+                        {{ \Carbon\Carbon::parse($phieumuon->ngay_hen_tra)->format('d/m/Y') }}
+                    </td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">
+                        {{ $phieumuon->ngay_tra ? \Carbon\Carbon::parse($phieumuon->ngay_tra)->format('d/m/Y') : 'Chưa lập' }}
+
                     </td>
                     <td class="border border-gray-300 px-4 py-2 text-center">
                         @switch($phieumuon->tinh_trang)

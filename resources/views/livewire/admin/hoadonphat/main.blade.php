@@ -21,32 +21,50 @@
         <table class="table-auto w-full border-collapse border border-gray-300">
             <thead class="bg-gray-100">
                 <tr>
+                    <th class="border border-gray-300 px-4 py-2">ID</th>
                     <th class="border border-gray-300 px-4 py-2">ID Phạt</th>
                     <th class="border border-gray-300 px-4 py-2">Ngày Lập</th>
                     <th class="border border-gray-300 px-4 py-2">Ngày Thanh Toán</th>
                     <th class="border border-gray-300 px-4 py-2">Trạng Thái</th>
+                    <th class="border border-gray-300 px-4 py-2">Hành động</th>
                 </tr>
             </thead>
             <tbody>
                 @forelse ($hoadonphats as $hoadonphat)
-                    <tr class="hover:bg-gray-100">
-                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $hoadonphat->phat_id}}</td>
-                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $hoadonphat->ngay_lap}}</td>
-                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $hoadonphat->ngay_thanh_toan}}</td>
-                        <td class="border border-gray-300 px-4 py-2 text-center">
-                            @if($hoadonphat->trang_thai === 'DaThanhToan')
-                                Đã Thanh Toán
-                            @elseif($hoadonphat->trang_thai === 'ChuaThanhToan')
-                                Chưa Thanh Toán
-                            @else
-                                {{ $hoadonphat->trang_thai }}
-                            @endif
-                        </td>
-                    </tr>
+                <tr class="hover:bg-gray-100">
+                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $hoadonphat->id}}</td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $hoadonphat->phat_id}}</td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">
+                        {{ $hoadonphat->ngay_lap ? \Carbon\Carbon::parse($hoadonphat->ngay_lap)->format('d/m/Y') : 'Chưa lập' }}
+                    </td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">
+                        {{ $hoadonphat->ngay_thanh_toan ? \Carbon\Carbon::parse($hoadonphat->ngay_thanh_toan)->format('d/m/Y') : 'Chưa thanh toán' }}
+                    </td>
+
+                    <td class="border border-gray-300 px-4 py-2 text-center">
+                        @if($hoadonphat->trang_thai === 'DaThanhToan')
+                        Đã Thanh Toán
+                        @elseif($hoadonphat->trang_thai === 'ChuaThanhToan')
+                        Chưa Thanh Toán
+                        @else
+                        {{ $hoadonphat->trang_thai }}
+                        @endif
+                    </td>
+                    <td class="border border-gray-300 px-4 py-2 flex justify-center space-x-2">
+                        <button wire:click="editHoaDonPhat({{ $hoadonphat->id }})"
+                            class="bg-yellow-500 text-white px-3 py-1 rounded-md hover:bg-yellow-600">
+                            Sửa
+                        </button>
+                        <button wire:click="openConfirmModal({{ $hoadonphat->id }})"
+                            class="bg-red-600 text-white px-3 py-1 rounded-md hover:bg-red-700">
+                            Xoá
+                        </button>
+                    </td>
+                </tr>
                 @empty
-                    <tr>
-                        <td colspan="10" class="border border-gray-300 px-4 py-2 text-center">Không có hóa đơn phạt.</td>
-                    </tr>
+                <tr>
+                    <td colspan="10" class="border border-gray-300 px-4 py-2 text-center">Không có hóa đơn phạt.</td>
+                </tr>
                 @endforelse
             </tbody>
         </table>
@@ -76,7 +94,7 @@
                         class="w-full border border-gray-300 rounded-md px-3 py-2">
                         <option value="">-- Chọn ID --</option>
                         @foreach($phats as $phat)
-                            <option value="{{ $phat->id }}">{{ $phat->id }}</option>
+                        <option value="{{ $phat->id }}">{{ $phat->id }}</option>
                         @endforeach
                     </select>
                     @error('phat_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
@@ -98,8 +116,12 @@
 
                 <div class="mb-4">
                     <label for="trang_thai" class="block font-semibold">Trạng Thái</label>
-                    <input type="text" id="trang_thai" wire:model.defer="trang_thai"
+                    <select id="trang_thai" wire:model.defer="trang_thai"
                         class="w-full border border-gray-300 rounded-md px-3 py-2">
+                        <option value="">-- Chọn tình trạng --</option>
+                        <option value="DaThanhToan">Đã Thanh Toán</option>
+                        <option value="ChuaThanhToan">Chưa Thanh Toán</option>
+                    </select>
                     @error('trang_thai') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                 </div>
 
@@ -135,27 +157,27 @@
         <div class="inline-flex items-center space-x-2">
             <!-- Previous Page Button -->
             @if($hoadonphats->onFirstPage())
-                <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Previous</span>
+            <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Previous</span>
             @else
-                <a href="{{ $hoadonphats->previousPageUrl() }}"
-                    class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">Previous</a>
+            <a href="{{ $hoadonphats->previousPageUrl() }}"
+                class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">Previous</a>
             @endif
 
             <!-- Page Numbers -->
             @foreach ($hoadonphats->getUrlRange(1, $hoadonphats->lastPage()) as $page => $url)
 
-                <a wire:click.prevent="gotoPage({{ $page }})" href="#"
-                    class="{{ $page == $hoadonphats->currentPage() ? 'bg-blue-600 text-white' : 'text-blue-600 border border-gray-300 hover:bg-gray-100' }} px-4 py-2 rounded-md">
-                    {{ $page }}
-                </a>
+            <a wire:click.prevent="gotoPage({{ $page }})" href="#"
+                class="{{ $page == $hoadonphats->currentPage() ? 'bg-blue-600 text-white' : 'text-blue-600 border border-gray-300 hover:bg-gray-100' }} px-4 py-2 rounded-md">
+                {{ $page }}
+            </a>
             @endforeach
 
             <!-- Next Page Button -->
             @if($hoadonphats->hasMorePages())
-                <a href="{{ $hoadonphats->nextPageUrl() }}"
-                    class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">Next</a>
+            <a href="{{ $hoadonphats->nextPageUrl() }}"
+                class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">Next</a>
             @else
-                <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Next</span>
+            <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Next</span>
             @endif
         </div>
     </div>

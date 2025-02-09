@@ -296,7 +296,12 @@
                                 class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 group mb-4 mx-16">
                                 <div class="p-4 flex flex-row justify-between">
                                     <div class="flex gap-1">
+                                        @if($sach->anh_bia)
                                         <img src="{{ asset('storage/' . $sach->anh_bia) }}" alt="Ảnh bìa" width="150">
+                                        @else
+                                        <img src="https://placehold.co/150x150?text={{$sach->ten_sach}}"
+                                            alt="{{ $sach->ten_sach }}" width="150">
+                                        @endif
                                         <div>
                                             <h3 class="font-semibold mb-2 line-clamp-2 text-gray-900 dark:text-white">
                                                 {{ $sach->ten_sach }}

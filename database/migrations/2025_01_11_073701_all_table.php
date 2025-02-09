@@ -161,6 +161,7 @@ return new class extends Migration {
             $table->date('ngay_hen_tra')->nullable();
             $table->date('ngay_tra')->nullable();
             $table->enum('tinh_trang', ['DangMuon', 'DaTra', 'QuaHan'])->default('DangMuon');
+            $table->string('email_log_url')->nullable();
             $table->timestamps();
         });
 

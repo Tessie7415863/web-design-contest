@@ -22,7 +22,7 @@
             <thead class="bg-gray-100">
                 <tr>
                     <th class="border border-gray-300 px-4 py-2">ID</th>
-                    <th class="border border-gray-300 px-4 py-2">ID Sinh Viên</th>
+                    <th class="border border-gray-300 px-4 py-2">Sinh Viên</th>
                     <th class="border border-gray-300 px-4 py-2">ID Cuốn Sách</th>
                     <th class="border border-gray-300 px-4 py-2">Ngày Đặt</th>
                     <th class="border border-gray-300 px-4 py-2">Tình Trạng</th>
@@ -31,28 +31,37 @@
             </thead>
             <tbody>
                 @forelse ($datsachs as $datsach)
-                    <tr class="hover:bg-gray-100">
-                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $datsach->id }}</td>
-                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $datsach->sinh_vien_id }}</td>
-                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $datsach->cuon_sach_id }}</td>
-                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $datsach->ngay_dat }}</td>
-                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $datsach->tinh_trang }}</td>
-                        <td class="border border-gray-300 px-4 py-2 flex justify-center space-x-2">
-                            <button wire:click="editDatSach({{ $datsach->id }})"
-                                class="bg-yellow-500 text-white px-3 py-1 rounded-md hover:bg-yellow-600">
-                                Sửa
-                            </button>
-                            <button wire:click="openConfirmModal({{ $datsach->id }})"
-                                class="bg-red-600 text-white px-3 py-1 rounded-md hover:bg-red-700">
-                                Xoá
-                            </button>
-                        </td>
-                    </tr>
+                <tr class="hover:bg-gray-100">
+                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $datsach->id }}</td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $datsach->sinhvien->ho_ten }}
+                    </td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $datsach->cuon_sach_id }}</td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $datsach->ngay_dat }}</td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">
+                        {{ match ($datsach->tinh_trang)
+                        {
+                        'DangDat' => 'Đang Đặt',
+                        'DaNhan' => 'Đã nhận',
+                        default => 'Huỷ'
+                        } 
+                        }}
+                    </td>
+                    <td class="border border-gray-300 px-4 py-2 flex justify-center space-x-2">
+                        <button wire:click="editDatSach({{ $datsach->id }})"
+                            class="bg-yellow-500 text-white px-3 py-1 rounded-md hover:bg-yellow-600">
+                            Sửa
+                        </button>
+                        <button wire:click="openConfirmModal({{ $datsach->id }})"
+                            class="bg-red-600 text-white px-3 py-1 rounded-md hover:bg-red-700">
+                            Xoá
+                        </button>
+                    </td>
+                </tr>
                 @empty
-                    <tr>
-                        <td colspan="6" class="border border-gray-300 px-4 py-2 text-center">Không có dữ liệu đặt sách.
-                        </td>
-                    </tr>
+                <tr>
+                    <td colspan="6" class="border border-gray-300 px-4 py-2 text-center">Không có dữ liệu đặt sách.
+                    </td>
+                </tr>
                 @endforelse
             </tbody>
         </table>
@@ -82,7 +91,7 @@
                         class="w-full border border-gray-300 rounded-md px-3 py-2">
                         <option value="">-- Chọn ID --</option>
                         @foreach($sinhviens as $sinhvien)
-                            <option value="{{ $sinhvien->id }}">{{ $sinhvien->ho_ten }}</option>
+                        <option value="{{ $sinhvien->id }}">{{ $sinhvien->ho_ten }}</option>
                         @endforeach
                     </select>
                     @error('sinh_vien_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
@@ -94,7 +103,7 @@
                         class="w-full border border-gray-300 rounded-md px-3 py-2">
                         <option value="">-- Chọn ID --</option>
                         @foreach($cuonsachs as $cuonsach)
-                            <option value="{{ $cuonsach->id }}">{{ $cuonsach->sach_id }}</option>
+                        <option value="{{ $cuonsach->id }}">{{ $cuonsach->id }}</option>
                         @endforeach
                     </select>
                     @error('cuon_sach_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
@@ -102,15 +111,20 @@
 
                 <div class="mb-4">
                     <label for="ngay_dat" class="block font-semibold">Ngày Đặt</label>
-                    <input type="text" id="ngay_dat" wire:model.defer="ngay_dat"
+                    <input type="date" id="ngay_dat" wire:model.defer="ngay_dat"
                         class="w-full border border-gray-300 rounded-md px-3 py-2">
                     @error('ngay_dat') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                 </div>
 
                 <div class="mb-4">
                     <label for="tinh_trang" class="block font-semibold">Tình Trạng</label>
-                    <input type="text" id="tinh_trang" wire:model.defer="tinh_trang"
+                    <select id="tinh_trang" wire:model.defer="tinh_trang"
                         class="w-full border border-gray-300 rounded-md px-3 py-2">
+                        <option value="">-- Chọn tình trạng --</option>
+                        <option value="DangDat">Đang đặt</option>
+                        <option value="DaNhan">Đã nhận</option>
+                        <option value="Huy">Huỷ</option>
+                    </select>
                     @error('tinh_trang') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                 </div>
 
@@ -145,27 +159,27 @@
         <div class="inline-flex items-center space-x-2">
             <!-- Previous Page Button -->
             @if($datsachs->onFirstPage())
-                <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Previous</span>
+            <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Previous</span>
             @else
-                <a href="{{ $datsachs->previousPageUrl() }}"
-                    class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">Previous</a>
+            <a href="{{ $datsachs->previousPageUrl() }}"
+                class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">Previous</a>
             @endif
 
             <!-- Page Numbers -->
             @foreach ($datsachs->getUrlRange(1, $datsachs->lastPage()) as $page => $url)
 
-                <a wire:click.prevent="gotoPage({{ $page }})" href="#"
-                    class="{{ $page == $datsachs->currentPage() ? 'bg-blue-600 text-white' : 'text-blue-600 border border-gray-300 hover:bg-gray-100' }} px-4 py-2 rounded-md">
-                    {{ $page }}
-                </a>
+            <a wire:click.prevent="gotoPage({{ $page }})" href="#"
+                class="{{ $page == $datsachs->currentPage() ? 'bg-blue-600 text-white' : 'text-blue-600 border border-gray-300 hover:bg-gray-100' }} px-4 py-2 rounded-md">
+                {{ $page }}
+            </a>
             @endforeach
 
             <!-- Next Page Button -->
             @if($datsachs->hasMorePages())
-                <a href="{{ $datsachs->nextPageUrl() }}"
-                    class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">Next</a>
+            <a href="{{ $datsachs->nextPageUrl() }}"
+                class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">Next</a>
             @else
-                <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Next</span>
+            <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Next</span>
             @endif
         </div>
     </div>
