@@ -29,7 +29,6 @@ class LichSuMuon extends Component
             ->whereDate('ngay_muon', $this->ngay)
             ->with('sach')
             ->get();
-
         // Tính tổng số sách đã mượn trong ngày
         $tong_sach = $phieumuons->sum('so_luong');
 

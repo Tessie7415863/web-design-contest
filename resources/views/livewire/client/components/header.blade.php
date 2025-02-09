@@ -59,34 +59,37 @@
             </div>
             @elseif(Auth::guard('web')->check())
             <!-- Hiển thị menu dành cho Admin -->
-            <!-- Đặt x-data cho dropdown -->
-            <div x-data="{ open: false }" class="relative">
-                <button @click="open = !open"
-                    class="flex text-sm bg-gray-800 rounded-full focus:outline-none focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600">
-                    <span class="sr-only">Open user menu</span>
-                    <img src="https://ui-avatars.com/api/{{ Auth::guard('sinhvien')->user()->ho_ten }}"
-                        class="w-8 h-8 rounded-full border border-gray-300 dark:border-gray-600 shadow-md" alt="avatar">
-                </button>
-
-                <!-- Dropdown menu, hiển thị khi open === true -->
-                <div x-show="open" @click.away="open = false"
-                    class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-50"
-                    x-transition:enter="transition ease-out duration-200"
-                    x-transition:enter-start="opacity-0 transform scale-95"
-                    x-transition:enter-end="opacity-100 transform scale-100"
-                    x-transition:leave="transition ease-in duration-75"
-                    x-transition:leave-start="opacity-100 transform scale-100"
-                    x-transition:leave-end="opacity-0 transform scale-95">
-                    <div class="py-2">
-                        <a href="/lich-su-muon" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Lịch sử
-                            mượn sách / tài liệu</a>
-                        <a href="/tai-khoan" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Quản lý tài
-                            khoản</a>
-                        <a href="/logout" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Đăng xuất</a>
-                    </div>
+            <button type="button"
+                class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+                id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown"
+                data-dropdown-placement="bottom">
+                <span class="sr-only">Open user menu</span>
+                <img src="https://ui-avatars.com/api/{{ Auth::guard('web')->user()->name }}"
+                    class="w-8 h-8 sm:w-10 sm:h-10 rounded-full border border-gray-300 dark:border-gray-600 shadow-md"
+                    alt="avatar">
+            </button>
+            <!-- Dropdown menu -->
+            <div class="z-50 hidden my-6 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
+                style="margin-top: 5px !important;" id="user-dropdown">
+                <div class="px-4 py-3">
+                    <span class="block text-sm text-gray-900 dark:text-white">
+                        {{ Auth::guard('web')->user()->name }}</span>
+                    <span class="block text-sm text-gray-500 truncate dark:text-gray-400">
+                        {{ Auth::guard('web')->user()->email }}</span>
                 </div>
+                <ul class="py-2" aria-labelledby="user-menu-button">
+                    <li>
+                        <a href="/admin" wire:navigate
+                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                            Quản lý hệ thống</a>
+                    </li>
+                    <li>
+                        <a href="/logout" wire:navigate
+                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Đăng
+                            xuất</a>
+                    </li>
+                </ul>
             </div>
-
             @else
             <!-- Hiển thị khi chưa đăng nhập -->
             <div class="pt-3 md:pt-0">
