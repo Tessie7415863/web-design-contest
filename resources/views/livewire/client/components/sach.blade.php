@@ -31,8 +31,8 @@
                         <ul>
                             @foreach ($tacgias as $tacgia)
                             <li class="flex items-center justify-between mb-2" wire:key={{$tacgia->id}}>
-                                <label class="dark:text-white mr-2"
-                                    for="tacgia-{{ $tacgia->id }}">{{ $tacgia->ho_ten }}</label>
+                                <label class="dark:text-white mr-2" for="tacgia-{{ $tacgia->id }}">{{ $tacgia->ho_ten
+                                    }}</label>
                                 <input type="checkbox" id="tacgia-{{ $tacgia->id }}" wire:model.live="selected_tacgias"
                                     value="{{ $tacgia->id }}" class="w-4 h-4">
                             </li>
@@ -65,8 +65,8 @@
                         <ul>
                             @foreach ($nhaxuatbans as $nhaxuatban)
                             <li class="flex items-center justify-between mb-2">
-                                <label class="dark:text-white mr-2"
-                                    for="nhaxuatban-{{ $nhaxuatban->id }}">{{ $nhaxuatban->ten_nha_xuat_ban }}</label>
+                                <label class="dark:text-white mr-2" for="nhaxuatban-{{ $nhaxuatban->id }}">{{
+                                    $nhaxuatban->ten_nha_xuat_ban }}</label>
                                 <input type="checkbox" id="nhaxuatban-{{ $nhaxuatban->id }}"
                                     wire:model.live="selected_nhaxuatbans" value="{{ $nhaxuatban->id }}"
                                     class="w-4 h-4">
@@ -133,8 +133,8 @@
                         <ul>
                             @foreach ($khoas as $khoa)
                             <li class="flex items-center justify-between mb-2">
-                                <label class="dark:text-white mr-2"
-                                    for="khoa-{{ $khoa->id }}">{{ $khoa->ten_khoa }}</label>
+                                <label class="dark:text-white mr-2" for="khoa-{{ $khoa->id }}">{{ $khoa->ten_khoa
+                                    }}</label>
                                 <input type="checkbox" id="khoa-{{ $khoa->id }}" wire:model.live="selected_khoas"
                                     value="{{ $khoa->id }}" class="w-4 h-4">
                             </li>
@@ -167,8 +167,8 @@
                         <ul>
                             @foreach ($nganhs as $nganh)
                             <li class="flex items-center justify-between mb-2">
-                                <label class="dark:text-white mr-2"
-                                    for="nganh-{{ $nganh->id }}">{{ $nganh->ten_nganh }}</label>
+                                <label class="dark:text-white mr-2" for="nganh-{{ $nganh->id }}">{{ $nganh->ten_nganh
+                                    }}</label>
                                 <input type="checkbox" id="nganh-{{ $nganh->id }}" wire:model.live="selected_nganhs"
                                     value="{{ $nganh->id }}" class="w-4 h-4">
                             </li>
@@ -201,8 +201,8 @@
                         <ul>
                             @foreach ($theloais as $theloai)
                             <li class="flex items-center justify-between mb-2">
-                                <label class="dark:text-white mr-2"
-                                    for="theloai-{{ $theloai->id }}">{{ $theloai->ten_the_loai }}</label>
+                                <label class="dark:text-white mr-2" for="theloai-{{ $theloai->id }}">{{
+                                    $theloai->ten_the_loai }}</label>
                                 <input type="checkbox" id="theloai-{{ $theloai->id }}"
                                     wire:model.live="selected_theloais" value="{{ $theloai->id }}" class="w-4 h-4">
                             </li>
@@ -360,7 +360,8 @@
             <span class="px-4 py-2 text-white bg-blue-600 dark:bg-blue-500 rounded-md">{{ $page }}</span>
             @else
             <a href="{{ $url }}"
-                class="px-4 py-2 text-blue-600 border border-gray-300 rounded-md hover:bg-gray-100 dark:text-blue-400 dark:border-gray-600 dark:hover:bg-gray-700">{{ $page }}</a>
+                class="px-4 py-2 text-blue-600 border border-gray-300 rounded-md hover:bg-gray-100 dark:text-blue-400 dark:border-gray-600 dark:hover:bg-gray-700">{{
+                $page }}</a>
             @endif
             @endforeach
 

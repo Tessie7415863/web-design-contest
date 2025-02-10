@@ -12,6 +12,13 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
     @livewireStyles
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
+
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+
+    <!-- AOS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
 </head>
 
 <body class="bg-gray-100 min-h-screen dark:bg-gray-900">
@@ -24,25 +31,31 @@
     </section> -->
     {{ $slot }}
     <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        setTimeout(function() {
-            document.querySelector(".dots-container").style.display = "none";
-        }, 1000);
-    });
+        document.addEventListener("DOMContentLoaded", function () {
+            setTimeout(function () {
+                document.querySelector(".dots-container").style.display = "none";
+            }, 1000);
+        });
     </script>
     <script>
-    document.addEventListener("turbo:before-visit", function() {
-        let loader = document.querySelector(".dots-container");
-        if (loader) {
-            loader.style.display = "block"; // Hiện lại loading
-            loader.style.opacity = "1"; // Hiển thị từ từ
-        }
-    });
+        document.addEventListener("turbo:before-visit", function () {
+            let loader = document.querySelector(".dots-container");
+            if (loader) {
+                loader.style.display = "block"; // Hiện lại loading
+                loader.style.opacity = "1"; // Hiển thị từ từ
+            }
+        });
     </script>
 
     @livewireScripts
     @vite('resources/js/app.js')
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+
+    <!-- AOS JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 </body>
 
 </html>

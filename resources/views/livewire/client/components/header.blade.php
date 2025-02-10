@@ -14,8 +14,8 @@
             </button>
             <a href="/" class="flex ms-2 md:me-24">
                 <img src="https://itc.edu.vn/Data/Sites/1/media/img/logo.png" class="h-8 me-3" alt="FlowBite Logo" />
-                <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Thư
-                    viện ITC</span>
+                <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white"
+                    style="font-family: 'Pacifico', cursive;">Thư Viện ITC</span>
             </a>
         </div>
         <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
